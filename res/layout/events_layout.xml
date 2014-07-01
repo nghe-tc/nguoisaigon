@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:gravity="center" >
+
+    <FrameLayout
+        android:layout_width="600sp"
+        android:layout_height="383sp"
+        android:layout_gravity="center" >
+
+        <ImageView
+            android:id="@+id/eventsBackground"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/welcomebg"
+            android:src="@drawable/eventsbackground" />
+
+        <ImageView
+            android:id="@+id/btnEventsClose"
+            android:layout_width="32sp"
+            android:layout_height="32sp"
+            android:layout_marginLeft="563sp"
+            android:layout_marginTop="33sp"
+            android:contentDescription="@string/welcomebg"
+            android:onClick="btnCloseClick"
+            android:src="@drawable/closebutton" />
+
+        <ImageView
+            android:id="@+id/btnEventsPageNext"
+            android:layout_width="32sp"
+            android:layout_height="32sp"
+            android:layout_marginLeft="460sp"
+            android:layout_marginTop="72sp"
+            android:contentDescription="@string/welcomebg"
+            android:onClick="btnPageNextClick"
+            android:scaleType="fitXY"
+            android:src="@drawable/nextbutton" />
+
+        <TextView
+            android:id="@+id/tvEventsPage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="406sp"
+            android:layout_marginTop="77sp"
+            android:gravity="center"
+            android:text="@string/page_default"
+            android:textColor="@android:color/black"
+            android:textSize="7pt" />
+
+        <ImageView
+            android:id="@+id/btnEventsPagePrevious"
+            android:layout_width="32sp"
+            android:layout_height="32sp"
+            android:layout_marginLeft="368sp"
+            android:layout_marginTop="72sp"
+            android:contentDescription="@string/welcomebg"
+            android:onClick="btnPagePreviousClick"
+            android:scaleType="fitXY"
+            android:src="@drawable/prevbutton" />
+
+        <TextView
+            android:id="@+id/tvEventsCurrentDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="230sp"
+            android:layout_marginTop="77sp"
+            android:text="@string/date_full_default"
+            android:textColor="@color/events_currentdate_color"
+            android:textSize="7.5pt" />
+
+        <android.support.v4.view.ViewPager
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/eventsPager"
+            android:layout_width="365sp"
+            android:layout_height="127sp"
+            android:layout_marginLeft="125sp"
+            android:layout_marginTop="100sp" />
+
+        <ImageView
+            android:id="@+id/btnEventsFaceBook"
+            android:layout_width="37sp"
+            android:layout_height="37sp"
+            android:layout_marginLeft="170sp"
+            android:layout_marginTop="230sp"
+            android:contentDescription="@string/welcomebg"
+            android:onClick="btnFacebookClick"
+            android:src="@drawable/facebookbutton" />
+
+        <ImageView
+            android:id="@+id/btnEventsEmail"
+            android:layout_width="37sp"
+            android:layout_height="37sp"
+            android:layout_marginLeft="210sp"
+            android:layout_marginTop="230sp"
+            android:contentDescription="@string/welcomebg"
+            android:onClick="btnEmailClick"
+            android:src="@drawable/emailbutton" />
+
+        <ImageView
+            android:id="@+id/imageEventsScrollPage"
+            android:layout_width="115sp"
+            android:layout_height="25sp"
+            android:layout_marginLeft="280sp"
+            android:layout_marginTop="240sp"
+            android:contentDescription="@string/welcomebg"
+            android:scaleType="fitXY"
+            android:src="@drawable/eventscrollingarrow" />
+
+        <TextView
+            android:id="@+id/noEvent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="150sp"
+            android:text="@string/no_event"
+            android:textColor="@android:color/black"
+            android:textSize="6pt"
+            android:visibility="invisible" />
+
+        <ProgressBar
+            android:id="@+id/eventsIndicator"
+            style="?android:attr/progressBarStyleSmall"
+            android:layout_width="15sp"
+            android:layout_height="15sp"
+            android:layout_marginLeft="395sp"
+            android:layout_marginTop="240sp" />
+
+        <TextView
+            android:id="@+id/tvEventsLoading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="415sp"
+            android:layout_marginTop="240sp"
+            android:text="@string/loading"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@android:color/black" />
+    </FrameLayout>
+
+</LinearLayout>

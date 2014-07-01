@@ -1,0 +1,41 @@
+<FrameLayout
+    android:id="@+id/container"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+    
+    <ImageView
+        android:id="@+id/welcomebg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/welcomebg"
+        android:contentDescription="@string/welcomebg" >
+    </ImageView>
+    
+    <ImageView
+        android:id="@+id/welcomeicon"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="45dp"
+        android:layout_width = "390dp"
+        android:layout_height = "150dp"
+        android:contentDescription="@string/welcomebg"/>
+
+    <TextView
+        android:id="@+id/welcom_loadinglabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/welcom_loading"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/welcome_loading_color" 
+        android:layout_gravity="center"
+        android:visibility="invisible" />
+    <ProgressBar
+        android:id="@+id/welcome_indicator"
+        style="?android:attr/progressBarStyleSmall"
+        android:layout_width="29dp"
+        android:layout_height="29dp" 
+        android:layout_marginLeft="195dp"
+        android:layout_gravity="center_vertical"
+        android:visibility="invisible" />
+    
+</FrameLayout>

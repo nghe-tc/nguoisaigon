@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	
+    <!-- Facebook Application key string -->
+    <string name="applicationId">240698066116165</string>
+    <string name="app_name">NguoiSaiGon</string>
+    <string name="welcomebg">Welcome screen</string>
+    
+    <!-- Define key string -->
+    
+    <!-- Application setting json -->
+    <string name="setting_applink">appLink</string>
+    <string name="setting_parseappid">parseAppId</string>
+    <string name="setting_settingid">settingId</string>
+    
+    <!-- Welcome Screen -->
+    <string name="welcom_loading">Loading</string>
+    <string name="welcom_recheck">Kiểm tra lại</string>
+    
+    <!-- Application News json -->
+    <string name="news_createdate">createDate</string>
+    <string name="news_newscontent">newsContent</string>
+    <string name="news_newsid">newsId</string>
+    <string name="news_ownerinfo">ownerInfo</string>
+    <string name="news_title">title</string>
+    
+    <!-- Application News json -->
+    <string name="events_eventcontent">eventContent</string>
+    <string name="events_eventdate">eventDate</string>
+    <string name="events_eventid">eventId</string>
+    <string name="events_ownerinfo">ownerInfo</string>
+    <string name="events_title">title</string>
+    
+    <!-- Application Contact view -->
+    <string name="contact_cafe">cafe</string>
+    <string name="contact_nguoisaigon">Người Sài Gòn</string>
+    <string name="contact_address1">71/4 Mạc Thị Bưởi Quận 1,</string>
+    <string name="contact_address2">Tp. Hồ Chí Minh</string>
+    <string name="contact_email">Ubeehoang@gmail.com</string>
+    <string name="contact_phone1">0932 113 103</string>
+    <string name="contact_phone2">0932 113 183</string>
+    <string name="contact_facebook">Facebook</string>
+    
+    <string name="loading">Loading...</string>
+    
+     <!-- Application News layout -->
+    <string name="page_default">0/0</string>
+    <string name="date_default">03/2014</string>
+    <string name="date_full_default">12/04/2014</string>
+    <string name="month_label">Tháng</string>
+    <string name="create_date">Ngày đăng</string>
+    <string name="create_date_default">18/06/2014</string>
+    <string name="title_default">người sài gòn</string>
+    <string name="content_default">cà phê người sài gòn có khuyến mãi đặc biệt vào ngày thứ 7</string>
+    <string name="no_news">Không có tin tức trong ngày hôm nay</string>
+    
+    <!-- Application Events layout -->
+    <string name="no_event">Không có sự kiện trong ngày hôm nay</string>
+    
+    <!-- Application Music layout -->
+    <string name="no_song">Không có bài hát nào trong playlist</string>
+    
+    <!-- Application Store Detail layout -->
+    <string name="product_name_default">"Product's name"</string>
+    <string name="product_description_default">"Product's description"</string>
+    <string name="product_size">Size:</string>
+    <string name="product_quantity">Đơn giá:</string>
+    <string name="product_quantity_default">0</string>
+    <string name="product_unit_price_default">0 đ</string>
+    
+
+</resources>

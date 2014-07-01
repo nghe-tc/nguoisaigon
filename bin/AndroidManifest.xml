@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.nguoisaigon"
+    android:versionCode="1"
+    android:versionName="1.0" >
+    <meta-data
+        android:name="com.facebook.sdk.ApplicationId"
+        android:value="@string/applicationId" />
+
+    <uses-sdk
+        android:minSdkVersion="16"
+        android:targetSdkVersion="19" />
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.nguoisaigon.activity.MainActivity"
+            android:screenOrientation="landscape"
+            android:label="@string/app_name" 
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        
+        <activity
+            android:name="com.nguoisaigon.activity.HomeScreenActivity"
+            android:screenOrientation="landscape"
+            android:label="@string/app_name" 
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
+        </activity>
+        
+        <activity
+            android:name="com.nguoisaigon.activity.NewsActivity"
+            android:screenOrientation="landscape"
+            android:label="@string/app_name" 
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
+        </activity>
+        
+        <activity
+            android:name="com.nguoisaigon.activity.MusicActivity"
+            android:screenOrientation="landscape"
+            android:label="@string/app_name" 
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
+        </activity>
+        
+        <activity
+            android:name="com.nguoisaigon.activity.EventsActivity"
+            android:screenOrientation="landscape"
+            android:label="@string/app_name" 
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
+        </activity>
+        
+        <activity
+            android:name="com.nguoisaigon.activity.StoreMainActivity"
+            android:screenOrientation="landscape"
+            android:label="@string/app_name" 
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
+        </activity>
+        
+        <activity
+            android:name="com.nguoisaigon.activity.StoreDetailActivity"
+            android:screenOrientation="landscape"
+            android:label="@string/app_name" 
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
+        </activity>
+        
+        <activity
+            android:name="com.nguoisaigon.activity.PreviewCartActivity"
+            android:screenOrientation="landscape"
+            android:label="@string/app_name" 
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
+        </activity>
+        
+        <activity
+            android:name="com.nguoisaigon.activity.Checkout1Activity"
+            android:screenOrientation="landscape"
+            android:label="@string/app_name" 
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
+        </activity>
+        
+        <activity
+            android:name="com.nguoisaigon.activity.Checkout2Activity"
+            android:screenOrientation="landscape"
+            android:label="@string/app_name" 
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
+        </activity>
+        
+        <activity
+            android:name="com.nguoisaigon.activity.Checkout3Activity"
+            android:screenOrientation="landscape"
+            android:label="@string/app_name" 
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
+        </activity>
+        
+        <activity
+            android:name="com.nguoisaigon.activity.Checkout4Activity"
+            android:screenOrientation="landscape"
+            android:label="@string/app_name" 
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
+        </activity>
+        
+        <activity
+            android:name="com.nguoisaigon.activity.FacebookPlugin"
+            android:screenOrientation="landscape"
+            android:label="@string/app_name" 
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
+        </activity>
+        
+    </application>
+
+</manifest>

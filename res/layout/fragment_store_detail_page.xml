@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="274dp" >
+
+        <ImageView
+            android:id="@+id/storeDetailProductNewIcon"
+            android:layout_width="80sp"
+            android:layout_height="80sp"
+            android:layout_marginLeft="-18sp"
+            android:layout_marginTop="55sp"
+            android:contentDescription="@string/welcomebg"
+            android:src="@drawable/newstamp" />
+
+        <ImageView
+            android:id="@+id/storeDetailProduct"
+            android:layout_width="178sp"
+            android:layout_height="175sp"
+            android:layout_marginLeft="38sp"
+            android:layout_marginTop="18sp"
+            android:contentDescription="@string/welcomebg"
+            android:scaleType="fitXY"
+            android:src="@drawable/productdetailframe" />
+
+        <ImageView
+            android:id="@+id/storeDetailProductHotTag"
+            android:layout_width="38sp"
+            android:layout_height="38sp"
+            android:layout_marginLeft="176sp"
+            android:layout_marginTop="149sp"
+            android:contentDescription="@string/welcomebg"
+            android:src="@drawable/hottag" />
+
+        <TextView
+            android:id="@+id/tvStoreDetailProductName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="220sp"
+            android:layout_marginTop="10sp"
+            android:text="@string/product_name_default"
+            android:textColor="@android:color/black"
+            android:textSize="8pt"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvStoreDetailProductDescription"
+            android:layout_width="360sp"
+            android:layout_height="113sp"
+            android:layout_marginLeft="225sp"
+            android:layout_marginTop="50sp"
+            android:scrollHorizontally="true"
+            android:text="@string/product_description_default"
+            android:textColor="@android:color/black"
+            android:textSize="6.5pt" />
+
+        <TextView
+            android:id="@+id/tvStoreDetailProductSizeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="220sp"
+            android:layout_marginTop="170sp"
+            android:text="@string/product_size"
+            android:textColor="@android:color/black"
+            android:textSize="8pt"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/storeDetailProductSizeXXS"
+            android:layout_width="45sp"
+            android:layout_height="30sp"
+            android:layout_marginLeft="270sp"
+            android:layout_marginTop="162sp"
+            android:contentDescription="@string/welcomebg"
+            android:onClick="storeDetailProductSizeClick"
+            android:scaleType="fitEnd"
+            android:src="@drawable/productsizexxs_normal" />
+
+        <ImageView
+            android:id="@+id/storeDetailProductSizeXS"
+            android:layout_width="45sp"
+            android:layout_height="30sp"
+            android:layout_marginLeft="330sp"
+            android:layout_marginTop="162sp"
+            android:contentDescription="@string/welcomebg"
+            android:onClick="storeDetailProductSizeClick"
+            android:scaleType="fitEnd"
+            android:src="@drawable/productsizexs_normal" />
+
+        <ImageView
+            android:id="@+id/storeDetailProductSizeS"
+            android:layout_width="45sp"
+            android:layout_height="30sp"
+            android:layout_marginLeft="380sp"
+            android:layout_marginTop="162sp"
+            android:contentDescription="@string/welcomebg"
+            android:onClick="storeDetailProductSizeClick"
+            android:scaleType="fitEnd"
+            android:src="@drawable/productsizes_normal" />
+
+        <ImageView
+            android:id="@+id/storeDetailProductSizeM"
+            android:layout_width="45sp"
+            android:layout_height="30sp"
+            android:layout_marginLeft="430sp"
+            android:layout_marginTop="162sp"
+            android:contentDescription="@string/welcomebg"
+            android:onClick="storeDetailProductSizeClick"
+            android:scaleType="fitEnd"
+            android:src="@drawable/productsizem_normal" />
+
+        <ImageView
+            android:id="@+id/storeDetailProductSizeL"
+            android:layout_width="45sp"
+            android:layout_height="30sp"
+            android:layout_marginLeft="480sp"
+            android:layout_marginTop="162sp"
+            android:contentDescription="@string/welcomebg"
+            android:onClick="storeDetailProductSizeClick"
+            android:scaleType="fitEnd"
+            android:src="@drawable/productsizel_normal" />
+
+        <ImageView
+            android:id="@+id/storeDetailProductSizeXL"
+            android:layout_width="45sp"
+            android:layout_height="30sp"
+            android:layout_marginLeft="530sp"
+            android:layout_marginTop="162sp"
+            android:contentDescription="@string/welcomebg"
+            android:onClick="storeDetailProductSizeClick"
+            android:scaleType="fitEnd"
+            android:src="@drawable/productsizexl_normal" />
+
+        <TextView
+            android:id="@+id/tvStoreDetailProductUnitPriceText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="220sp"
+            android:layout_marginTop="190sp"
+            android:text="@string/product_quantity"
+            android:textColor="@color/red_dark"
+            android:textSize="8pt"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvStoreDetailProductUnitPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="295sp"
+            android:layout_marginTop="190sp"
+            android:text="@string/product_unit_price_default"
+            android:textColor="@color/red_dark"
+            android:textSize="8pt"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/storeDetailProductSaleIcon"
+            android:layout_width="100sp"
+            android:layout_height="55sp"
+            android:layout_marginLeft="350sp"
+            android:layout_marginTop="250sp"
+            android:contentDescription="@string/welcomebg"
+            android:src="@drawable/saleicon" 
+            android:scaleType="fitXY"/>
+    </FrameLayout>
+
+</ScrollView>

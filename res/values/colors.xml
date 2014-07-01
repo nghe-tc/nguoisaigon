@@ -1,0 +1,10 @@
+<resources>
+
+    <color name="black_overlay">#66000000</color>
+    <color name="welcome_loading_color">#ff880000</color>
+    <color name="events_currentdate_color">#ff804000</color>
+    <color name="contact_blue_color">#ff1560FF</color>
+    <color name="black_color">#ff000000</color>
+    <color name="red_dark">#800000</color>
+
+</resources>

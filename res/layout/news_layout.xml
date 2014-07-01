@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:gravity="center" >
+
+    <FrameLayout
+        android:layout_width="600sp"
+        android:layout_height="383sp"
+        android:layout_gravity="center" >
+
+        <ImageView
+            android:id="@+id/newsbackground"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/welcomebg"
+            android:src="@drawable/newsbackground" />
+
+        <ImageView
+            android:id="@+id/btnNewsClose"
+            android:layout_width="32sp"
+            android:layout_height="32sp"
+            android:layout_marginLeft="563sp"
+            android:layout_marginTop="33sp"
+            android:contentDescription="@string/welcomebg"
+            android:onClick="btnCloseClick"
+            android:src="@drawable/closebutton" />
+
+        <ImageView
+            android:id="@+id/btnNewsFaceBook"
+            android:layout_width="37sp"
+            android:layout_height="37sp"
+            android:layout_marginLeft="491sp"
+            android:layout_marginTop="55sp"
+            android:contentDescription="@string/welcomebg"
+            android:onClick="btnFacebookClick"
+            android:src="@drawable/facebookbutton" />
+
+        <ImageView
+            android:id="@+id/btnNewsEmail"
+            android:layout_width="37sp"
+            android:layout_height="37sp"
+            android:layout_marginLeft="491sp"
+            android:layout_marginTop="88sp"
+            android:contentDescription="@string/welcomebg"
+            android:onClick="btnEmailClick"
+            android:src="@drawable/emailbutton" />
+
+        <ImageView
+            android:id="@+id/btnNewsPageNext"
+            android:layout_width="32sp"
+            android:layout_height="32sp"
+            android:layout_marginLeft="450sp"
+            android:layout_marginTop="62sp"
+            android:contentDescription="@string/welcomebg"
+            android:onClick="btnPageNextClick"
+            android:scaleType="fitXY"
+            android:src="@drawable/nextbutton" />
+
+        <TextView
+            android:id="@+id/tvNewsPage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="407sp"
+            android:layout_marginTop="67sp"
+            android:gravity="center"
+            android:text="@string/page_default"
+            android:textColor="@android:color/black"
+            android:textSize="7pt" />
+
+        <ImageView
+            android:id="@+id/btnNewsPagePrevious"
+            android:layout_width="32sp"
+            android:layout_height="32sp"
+            android:layout_marginLeft="358sp"
+            android:layout_marginTop="62sp"
+            android:contentDescription="@string/welcomebg"
+            android:onClick="btnPagePreviousClick"
+            android:scaleType="fitXY"
+            android:src="@drawable/prevbutton" />
+
+        <ImageView
+            android:id="@+id/btnNewsDateNext"
+            android:layout_width="32sp"
+            android:layout_height="32sp"
+            android:layout_marginLeft="310sp"
+            android:layout_marginTop="62sp"
+            android:contentDescription="@string/welcomebg"
+            android:onClick="btnDateNextClick"
+            android:scaleType="fitXY"
+            android:src="@drawable/nextbutton" />
+
+        <TextView
+            android:id="@+id/tvNewsMonth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="194sp"
+            android:layout_marginTop="67sp"
+            android:text="@string/month_label"
+            android:textColor="@android:color/black"
+            android:textSize="7pt" />
+
+        <TextView
+            android:id="@+id/tvNewsDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="238sp"
+            android:layout_marginTop="67sp"
+            android:text="@string/date_default"
+            android:textColor="@android:color/black"
+            android:textSize="7pt" />
+
+        <ImageView
+            android:id="@+id/btnNewsDatePrevious"
+            android:layout_width="32sp"
+            android:layout_height="32sp"
+            android:layout_marginLeft="163sp"
+            android:layout_marginTop="62sp"
+            android:contentDescription="@string/welcomebg"
+            android:onClick="btnDatePreviousClick"
+            android:scaleType="fitXY"
+            android:src="@drawable/prevbutton" />
+
+        <android.support.v4.view.ViewPager
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/newsPager"
+            android:layout_width="460sp"
+            android:layout_height="224sp"
+            android:layout_marginLeft="50sp"
+            android:layout_marginTop="100sp" />
+
+        <TextView
+            android:id="@+id/noNews"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/no_news"
+            android:textColor="@android:color/black"
+            android:textSize="6pt"
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/tvNewsLoading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="460sp"
+            android:layout_marginTop="305sp"
+            android:text="@string/loading"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@android:color/black" />
+
+        <ProgressBar
+            android:id="@+id/newsIndicator"
+            style="?android:attr/progressBarStyleSmall"
+            android:layout_width="15sp"
+            android:layout_height="15sp"
+            android:layout_marginLeft="440sp"
+            android:layout_marginTop="305sp" />
+    </FrameLayout>
+
+</LinearLayout>

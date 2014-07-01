@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:drawable="@drawable/musicnote_1" android:duration="50" />
+    <item android:drawable="@drawable/musicnote_2" android:duration="50" />
+    <item android:drawable="@drawable/musicnote_3" android:duration="50" />
+    <item android:drawable="@drawable/musicnote_4" android:duration="50" />
+    <item android:drawable="@drawable/musicnote_5" android:duration="50" />
+    <item android:drawable="@drawable/musicnote_6" android:duration="50" />
+    <item android:drawable="@drawable/musicnote_7" android:duration="50" />
+    <item android:drawable="@drawable/musicnote_8" android:duration="50" />
+    <item android:drawable="@drawable/musicnote_9" android:duration="50" />
+    <item android:drawable="@drawable/musicnote_10" android:duration="50" />
+    <item android:drawable="@drawable/musicnote_11" android:duration="50" />
+    <item android:drawable="@drawable/musicnote_12" android:duration="50" />
+    <item android:drawable="@drawable/musicnote_13" android:duration="50" />
+    <item android:drawable="@drawable/musicnote_14" android:duration="50" />
+    <item android:drawable="@drawable/musicnote_15" android:duration="50" />
+    <item android:drawable="@drawable/musicnote_16" android:duration="50" />
+    <item android:drawable="@drawable/musicnote_17" android:duration="50" />
+    <item android:drawable="@drawable/musicnote_18" android:duration="50" />
+    <item android:drawable="@drawable/musicnote_19" android:duration="50" />
+
+</animation-list>

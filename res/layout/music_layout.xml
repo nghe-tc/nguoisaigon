@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:gravity="center" >
+
+    <FrameLayout
+        android:layout_width="600sp"
+        android:layout_height="383sp"
+        android:layout_gravity="center" >
+
+        <ImageView
+            android:id="@+id/musicbackground"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/welcomebg"
+            android:src="@drawable/musicbackground" />
+
+        <ImageView
+            android:id="@+id/btnMusicClose"
+            android:layout_width="32sp"
+            android:layout_height="32sp"
+            android:layout_marginLeft="563sp"
+            android:layout_marginTop="33sp"
+            android:contentDescription="@string/welcomebg"
+            android:onClick="btnCloseClick"
+            android:src="@drawable/closebutton" />
+
+        <ImageView
+            android:id="@+id/btnMusicFaceBook"
+            android:layout_width="37sp"
+            android:layout_height="37sp"
+            android:layout_marginLeft="465sp"
+            android:layout_marginTop="70sp"
+            android:contentDescription="@string/welcomebg"
+            android:onClick="btnFacebookClick"
+            android:src="@drawable/facebookbutton" />
+
+        <ImageView
+            android:id="@+id/btnMusicEmail"
+            android:layout_width="37sp"
+            android:layout_height="37sp"
+            android:layout_marginLeft="465sp"
+            android:layout_marginTop="108sp"
+            android:contentDescription="@string/welcomebg"
+            android:onClick="btnEmailClick"
+            android:src="@drawable/emailbutton" />
+
+        <TextView
+            android:id="@+id/noSong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/no_song"
+            android:textColor="@android:color/black"
+            android:textSize="6pt"
+            android:visibility="invisible" />
+
+        <ProgressBar
+            android:id="@+id/musicIndicator"
+            style="?android:attr/progressBarStyleSmall"
+            android:layout_width="15sp"
+            android:layout_height="15sp"
+            android:layout_marginLeft="365sp"
+            android:layout_marginTop="275sp" />
+
+        <TextView
+            android:id="@+id/tvMusicLoading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="385sp"
+            android:layout_marginTop="275sp"
+            android:text="@string/loading"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@android:color/black" />
+
+        <ImageView
+            android:id="@+id/btnMusicNext"
+            android:layout_width="27sp"
+            android:layout_height="24sp"
+            android:layout_marginLeft="260sp"
+            android:layout_marginTop="300sp"
+            android:contentDescription="@string/welcomebg"
+            android:onClick="btnNextClick"
+            android:scaleType="fitXY"
+            android:src="@drawable/forwardbutton" />
+
+        <ImageView
+            android:id="@+id/btnMusicStop"
+            android:layout_width="34sp"
+            android:layout_height="24sp"
+            android:layout_marginLeft="210sp"
+            android:layout_marginTop="300sp"
+            android:contentDescription="@string/welcomebg"
+            android:onClick="btnStopClick"
+            android:scaleType="fitXY"
+            android:src="@drawable/playbutton_play" />
+
+        <ImageView
+            android:id="@+id/btnMusicPlay"
+            android:layout_width="34sp"
+            android:layout_height="24sp"
+            android:layout_marginLeft="210sp"
+            android:layout_marginTop="300sp"
+            android:contentDescription="@string/welcomebg"
+            android:onClick="btnPlayClick"
+            android:scaleType="fitXY"
+            android:src="@drawable/playbutton_stop" />
+
+        <ImageView
+            android:id="@+id/btnMusicBack"
+            android:layout_width="27sp"
+            android:layout_height="24sp"
+            android:layout_marginLeft="160sp"
+            android:layout_marginTop="300sp"
+            android:contentDescription="@string/welcomebg"
+            android:onClick="btnBackClick"
+            android:scaleType="fitXY"
+            android:src="@drawable/bbackwardbutton" />
+    </FrameLayout>
+
+</LinearLayout>

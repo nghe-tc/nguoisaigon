@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:drawable="@drawable/welcomelogo_1" android:duration="50" />
+    <item android:drawable="@drawable/welcomelogo_2" android:duration="50" />
+    <item android:drawable="@drawable/welcomelogo_3" android:duration="50" />
+    <item android:drawable="@drawable/welcomelogo_4" android:duration="50" />
+    <item android:drawable="@drawable/welcomelogo_5" android:duration="50" />
+    <item android:drawable="@drawable/welcomelogo_6" android:duration="50" />
+    <item android:drawable="@drawable/welcomelogo_7" android:duration="50" />
+    <item android:drawable="@drawable/welcomelogo_8" android:duration="50" />
+    <item android:drawable="@drawable/welcomelogo_9" android:duration="50" />
+    <item android:drawable="@drawable/welcomelogo_10" android:duration="50" />
+    <item android:drawable="@drawable/welcomelogo_11" android:duration="50" />
+    <item android:drawable="@drawable/welcomelogo_12" android:duration="50" />
+    <item android:drawable="@drawable/welcomelogo_13" android:duration="50" />
+    <item android:drawable="@drawable/welcomelogo_14" android:duration="50" />
+    <item android:drawable="@drawable/welcomelogo_15" android:duration="50" />
+    <item android:drawable="@drawable/welcomelogo_16" android:duration="50" />
+    <item android:drawable="@drawable/welcomelogo_17" android:duration="50" />
+    <item android:drawable="@drawable/welcomelogo_18" android:duration="50" />
+    <item android:drawable="@drawable/welcomelogo_19" android:duration="50" />
+    <item android:drawable="@drawable/welcomelogo_20" android:duration="50" />
+    <item android:drawable="@drawable/welcomelogo_21" android:duration="50" />
+    <item android:drawable="@drawable/welcomelogo_22" android:duration="50" />
+    <item android:drawable="@drawable/welcomelogo_23" android:duration="50" />
+    <item android:drawable="@drawable/welcomelogo_24" android:duration="50" />
+    <item android:drawable="@drawable/welcomelogo_25" android:duration="50" />
+    <item android:drawable="@drawable/welcomelogo_26" android:duration="50" />
+    <item android:drawable="@drawable/welcomelogo_27" android:duration="50" />
+    <item android:drawable="@drawable/welcomelogo_28" android:duration="50" />
+    <item android:drawable="@drawable/welcomelogo_29" android:duration="50" />
+    <item android:drawable="@drawable/welcomelogo_30" android:duration="50" />
+    <item android:drawable="@drawable/welcomelogo_31" android:duration="50" />
+    <item android:drawable="@drawable/welcomelogo_32" android:duration="50" />
+
+</animation-list>
