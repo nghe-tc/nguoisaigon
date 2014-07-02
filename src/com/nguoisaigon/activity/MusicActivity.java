@@ -183,6 +183,8 @@ public class MusicActivity extends Activity {
 		lvSongList.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				stop.setVisibility(View.GONE);
+				play.setVisibility(View.VISIBLE);
 				currentSong = position;
 				playMusic(player, currentSong);
 
