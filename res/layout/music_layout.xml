@@ -47,15 +47,26 @@
             android:onClick="btnEmailClick"
             android:src="@drawable/emailbutton" />
 
-        <TextView
-            android:id="@+id/noSong"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <!-- <TextView -->
+        <!-- android:id="@+id/noSong" -->
+        <!-- android:layout_width="wrap_content" -->
+        <!-- android:layout_height="wrap_content" -->
+        <!-- android:layout_gravity="center" -->
+        <!-- android:text="@string/no_song" -->
+        <!-- android:textColor="@android:color/black" -->
+        <!-- android:textSize="6pt" -->
+        <!-- android:visibility="invisible" /> -->
+
+        <ListView
+            android:id="@+id/lvSongList"
+            android:layout_width="314dp"
+            android:layout_height="188dp"
             android:layout_gravity="center"
-            android:text="@string/no_song"
-            android:textColor="@android:color/black"
-            android:textSize="6pt"
-            android:visibility="invisible" />
+            android:layout_marginRight="10dp"
+            android:divider="@android:color/darker_gray"
+            android:dividerHeight="1dp"
+            android:scrollbars="none" >
+        </ListView>
 
         <ProgressBar
             android:id="@+id/musicIndicator"
@@ -95,7 +106,8 @@
             android:contentDescription="@string/welcomebg"
             android:onClick="btnStopClick"
             android:scaleType="fitXY"
-            android:src="@drawable/playbutton_play" />
+            android:src="@drawable/playbutton_play"
+            android:visibility="visible" />
 
         <ImageView
             android:id="@+id/btnMusicPlay"
@@ -106,7 +118,8 @@
             android:contentDescription="@string/welcomebg"
             android:onClick="btnPlayClick"
             android:scaleType="fitXY"
-            android:src="@drawable/playbutton_stop" />
+            android:src="@drawable/playbutton_stop"
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/btnMusicBack"

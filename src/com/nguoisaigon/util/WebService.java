@@ -1,18 +1,11 @@
 package com.nguoisaigon.util;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -27,14 +20,11 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import com.google.gson.Gson;
-import com.nguoisaigon.entity.MusicDataInfo;
-
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.os.Environment;
 import android.util.Log;
 
 public class WebService extends AsyncTask<String, Void, JSONArray> {
@@ -286,11 +276,26 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 		return null;
 	}
 
+	public static final String PREFIX_DOWNLOAD = "/.nguoisaigon/";
+	private String path = Environment.getExternalStorageDirectory() + PREFIX_DOWNLOAD;
+	
+	/**
+	 * Download music.
+	 *
+	 * @return the JSON array
+	 */
 	private JSONArray downloadMusic() {
-		// initilize the default HTTP client object
-		JSONArray responseString = new JSONArray();
+		File file = new File(path);
+		if (!file.mkdirs()) {
+			Log.i("WebService", "Make directories failure because it already existed.");
+		}
+		File musicFile = new File(file, musicId);
+		if (musicFile.exists()) {
+			return null;
+		}
+
 		final DefaultHttpClient client = new DefaultHttpClient();
-		
+
 		// forming a HttoGet request
 		final HttpGet getRequest = new HttpGet(url);
 		Log.i("WebService", "songData 123 " + "-" + url);
@@ -302,55 +307,30 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 			final int statusCode = response.getStatusLine().getStatusCode();
 
 			if (statusCode != HttpStatus.SC_OK) {
-				Log.w("ImageDownloader", "Error " + statusCode
-						+ " while retrieving bitmap from " + url);
+				Log.w("downloadMusic", "Error " + statusCode + " while retrieving music from " + url);
 				return null;
-
 			}
 
 			final HttpEntity entity = response.getEntity();
-			Log.i("WebService", "songData 123 " + "-" + entity);
+
+			FileOutputStream fos = null;
+			InputStream is = null;
 			if (entity != null) {
-				InputStream inputStream = null;
-				try {
-					// getting contents from the stream
-					inputStream = entity.getContent();
-					BufferedInputStream buffInStream = new BufferedInputStream(
-							inputStream);
-					ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-					BufferedOutputStream buffOutStream = new BufferedOutputStream(outStream);
+				fos = new FileOutputStream(musicFile);
 
-					byte[] buffer = new byte[1024000];
+				is = entity.getContent();
 
-					while (true) {
-						int r = buffInStream.read(buffer);
-						if (r < 0)
-						{
-							break;
-						}
-						buffOutStream.write(buffer, 0, r);
-					}
-
-					// Create data
-					MusicDataInfo info = new MusicDataInfo();
-					Log.i("WebService", "songData 123 " + "-" + outStream.toString());
-					info.setPlayListId(musicId);
-					info.setMusicData(outStream.toByteArray());
-					responseString.put(new Gson().toJson(info));
-
-					return responseString;
-				} finally {
-					if (inputStream != null) {
-						inputStream.close();
-					}
-					entity.consumeContent();
+				byte[] buffer = new byte[1024];
+				int bufferLength = 0;
+				while ((bufferLength = is.read(buffer)) != -1) {
+					fos.write(buffer, 0, bufferLength);
 				}
 			}
+			Log.w("downloadMusic", "Download music successful: " + musicId);
 		} catch (Exception e) {
 			// You Could provide a more explicit error message for IOException
 			getRequest.abort();
-			Log.e("ImageDownloader", "Something went wrong while"
-					+ " retrieving bitmap from " + url + e.toString());
+			Log.e("downloadMusic", "Something went wrong while" + " retrieving music from " + url + e.toString());
 		}
 
 		return null;
