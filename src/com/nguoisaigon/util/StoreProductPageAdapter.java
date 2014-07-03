@@ -1,10 +1,10 @@
 package com.nguoisaigon.util;
 
 import java.util.ArrayList;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,19 +12,18 @@ import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.nguoisaigon.R;
 import com.nguoisaigon.entity.ProductInfo;
 import com.nguoisaigon.entity.StoreProductPageInfo;
 
 @SuppressLint("SimpleDateFormat")
-public class StoreProductPageAdapter extends BaseAdapter{
+public class StoreProductPageAdapter extends BaseAdapter {
 
 	private Activity activity;
 	ArrayList<StoreProductPageInfo> listProduct;
 	private static LayoutInflater inflater = null;
 
-	public StoreProductPageAdapter(Activity activity,ArrayList<StoreProductPageInfo> listProduct) {
+	public StoreProductPageAdapter(Activity activity, ArrayList<StoreProductPageInfo> listProduct) {
 		this.activity = activity;
 		this.listProduct = listProduct;
 	}
@@ -50,8 +49,7 @@ public class StoreProductPageAdapter extends BaseAdapter{
 		ViewHolder holder;
 		if (convertView == null) {
 
-			inflater = (LayoutInflater) activity
-					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			view = inflater.inflate(R.layout.fragment_store_page, null);
 
 			holder = new ViewHolder();
@@ -61,8 +59,9 @@ public class StoreProductPageAdapter extends BaseAdapter{
 			holder.product4 = (FrameLayout) view.findViewById(R.id.product4);
 
 			view.setTag(holder);
-		} else
+		} else {
 			holder = (ViewHolder) view.getTag();
+		}
 
 		if (this.listProduct.size() > 0) {
 
@@ -71,51 +70,47 @@ public class StoreProductPageAdapter extends BaseAdapter{
 			holder.product3.setVisibility(FrameLayout.GONE);
 			holder.product4.setVisibility(FrameLayout.GONE);
 
+			ImageView pic = null;
 			ImageView newIcon = null;
 			ImageView salesIcon = null;
 			TextView productId = null;
 			// show product
 			Integer index = 0;
-			ArrayList<ProductInfo> products = this.listProduct.get(position)
-					.getListProducInfo();
+			ArrayList<ProductInfo> products = this.listProduct.get(position).getListProducInfo();
 			for (ProductInfo product : products) {
 				index++;
 				switch (index) {
 				case 1:
 					holder.product1.setVisibility(FrameLayout.VISIBLE);
-					newIcon = (ImageView) view
-							.findViewById(R.id.storeProduct1NewIcon);
-					salesIcon = (ImageView) view
-							.findViewById(R.id.storeProduct1SaleIcon);
+					newIcon = (ImageView) view.findViewById(R.id.storeProduct1NewIcon);
+					salesIcon = (ImageView) view.findViewById(R.id.storeProduct1SaleIcon);
 					productId = (TextView) view.findViewById(R.id.tvProduct1Id);
 					productId.setText(product.getProductId());
+					pic = (ImageView) view.findViewById(R.id.storeProduct1);
 					break;
 				case 2:
 					holder.product2.setVisibility(FrameLayout.VISIBLE);
-					newIcon = (ImageView) view
-							.findViewById(R.id.storeProduct2NewIcon);
-					salesIcon = (ImageView) view
-							.findViewById(R.id.storeProduct2SaleIcon);
+					newIcon = (ImageView) view.findViewById(R.id.storeProduct2NewIcon);
+					salesIcon = (ImageView) view.findViewById(R.id.storeProduct2SaleIcon);
 					productId = (TextView) view.findViewById(R.id.tvProduct2Id);
 					productId.setText(product.getProductId());
+					pic = (ImageView) view.findViewById(R.id.storeProduct2);
 					break;
 				case 3:
 					holder.product3.setVisibility(FrameLayout.VISIBLE);
-					newIcon = (ImageView) view
-							.findViewById(R.id.storeProduct3NewIcon);
-					salesIcon = (ImageView) view
-							.findViewById(R.id.storeProduct3SaleIcon);
+					newIcon = (ImageView) view.findViewById(R.id.storeProduct3NewIcon);
+					salesIcon = (ImageView) view.findViewById(R.id.storeProduct3SaleIcon);
 					productId = (TextView) view.findViewById(R.id.tvProduct3Id);
 					productId.setText(product.getProductId());
+					pic = (ImageView) view.findViewById(R.id.storeProduct3);
 					break;
 				case 4:
 					holder.product4.setVisibility(FrameLayout.VISIBLE);
-					newIcon = (ImageView) view
-							.findViewById(R.id.storeProduct4NewIcon);
-					salesIcon = (ImageView) view
-							.findViewById(R.id.storeProduct4SaleIcon);
+					newIcon = (ImageView) view.findViewById(R.id.storeProduct4NewIcon);
+					salesIcon = (ImageView) view.findViewById(R.id.storeProduct4SaleIcon);
 					productId = (TextView) view.findViewById(R.id.tvProduct4Id);
 					productId.setText(product.getProductId());
+					pic = (ImageView) view.findViewById(R.id.storeProduct4);
 					break;
 				default:
 					break;
@@ -127,6 +122,9 @@ public class StoreProductPageAdapter extends BaseAdapter{
 				if (salesIcon != null && product.getIsSale() != 1) {
 					salesIcon.setVisibility(ImageView.GONE);
 				}
+
+				new ImageLoadTask(pic, product.getImageList().get(0).getImageUrl(), product.getProductId())
+						.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 			}
 		}
 		return view;

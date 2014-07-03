@@ -2,6 +2,7 @@ package com.nguoisaigon.util;
 
 import android.annotation.SuppressLint;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -11,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.google.gson.Gson;
 import com.nguoisaigon.R;
 import com.nguoisaigon.entity.ProductInfo;
@@ -44,6 +44,11 @@ public class StoreProductDetailPageFragment extends Fragment {
 
 		ProductInfo product = new ProductInfo();
 		product = new Gson().fromJson(jsonProduct, ProductInfo.class);
+		
+		ImageView pic = (ImageView) rootView.findViewById(R.id.storeDetailProduct);
+		new ImageLoadTask(pic, product.getImageList().get(0).getImageUrl(), product.getProductId())
+		.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+		
 		TextView name = (TextView) rootView
 				.findViewById(R.id.tvStoreDetailProductName);
 		TextView description = (TextView) rootView

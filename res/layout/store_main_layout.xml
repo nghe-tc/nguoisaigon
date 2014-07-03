@@ -156,6 +156,7 @@
             android:layout_marginLeft="350sp"
             android:layout_marginTop="23sp"
             android:contentDescription="@string/welcomebg"
+            android:focusableInTouchMode="true"
             android:onClick="menuStoreFoodClick"
             android:scaleType="fitStart"
             android:src="@drawable/storemenu_food_selector" />
@@ -167,6 +168,7 @@
             android:layout_marginLeft="410sp"
             android:layout_marginTop="23sp"
             android:contentDescription="@string/welcomebg"
+            android:focusableInTouchMode="true"
             android:onClick="menuStoreLifeStyleClick"
             android:scaleType="fitStart"
             android:src="@drawable/storemenu_lifestyle_selector" />
@@ -178,6 +180,7 @@
             android:layout_marginLeft="265sp"
             android:layout_marginTop="23sp"
             android:contentDescription="@string/welcomebg"
+            android:focusableInTouchMode="true"
             android:onClick="menuStoreCosmeticWomanClick"
             android:scaleType="fitStart"
             android:src="@drawable/storemenu_cosmetic_woman_selector" />
@@ -189,6 +192,7 @@
             android:layout_marginLeft="216sp"
             android:layout_marginTop="23sp"
             android:contentDescription="@string/welcomebg"
+            android:focusableInTouchMode="true"
             android:onClick="menuStoreCosmeticManClick"
             android:scaleType="fitStart"
             android:src="@drawable/storemenu_cosmetic_man_selector" />
@@ -210,6 +214,7 @@
             android:layout_marginLeft="141sp"
             android:layout_marginTop="23sp"
             android:contentDescription="@string/welcomebg"
+            android:focusableInTouchMode="true"
             android:onClick="menuStoreFashionKidClick"
             android:scaleType="fitStart"
             android:src="@drawable/storemenu_fashion_kid_selector" />
@@ -221,6 +226,7 @@
             android:layout_marginLeft="100sp"
             android:layout_marginTop="23sp"
             android:contentDescription="@string/welcomebg"
+            android:focusableInTouchMode="true"
             android:onClick="menuStoreFashionWomanClick"
             android:scaleType="fitStart"
             android:src="@drawable/storemenu_fashion_woman_selector" />
@@ -232,6 +238,7 @@
             android:layout_marginLeft="42sp"
             android:layout_marginTop="23sp"
             android:contentDescription="@string/welcomebg"
+            android:focusableInTouchMode="true"
             android:onClick="menuStoreFashionManClick"
             android:scaleType="fitStart"
             android:src="@drawable/storemenu_fashion_man_selector" />
