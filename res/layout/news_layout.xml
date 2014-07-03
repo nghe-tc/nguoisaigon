@@ -144,7 +144,7 @@
             android:id="@+id/tvNewsLoading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="460sp"
+            android:layout_marginLeft="410sp"
             android:layout_marginTop="305sp"
             android:text="@string/loading"
             android:textAppearance="?android:attr/textAppearanceSmall"
@@ -155,7 +155,7 @@
             style="?android:attr/progressBarStyleSmall"
             android:layout_width="15sp"
             android:layout_height="15sp"
-            android:layout_marginLeft="440sp"
+            android:layout_marginLeft="390sp"
             android:layout_marginTop="305sp" />
     </FrameLayout>
 

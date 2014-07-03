@@ -63,6 +63,8 @@ public class NewsActivity extends FragmentActivity implements
 		TextView tvDate = (TextView) findViewById(R.id.tvNewsDate);
 		TextView tvLoading = (TextView) findViewById(R.id.tvNewsLoading);
 		TextView tvNoNews = (TextView) findViewById(R.id.noNews);
+		this.mPager = (ViewPager) findViewById(R.id.newsPager);
+		
 		tvPage.setTypeface(tf);
 		tvMonth.setTypeface(tf);
 		tvDate.setTypeface(tf);
@@ -145,7 +147,6 @@ public class NewsActivity extends FragmentActivity implements
 
 		List<Fragment> fragments = getFragments();
 		// Instantiate a ViewPager and a PagerAdapter.
-		mPager = (ViewPager) findViewById(R.id.newsPager);
 		mPagerAdapter = new CustomPagerAdapter(getSupportFragmentManager(),
 				fragments);
 		mPager.setAdapter(mPagerAdapter);
@@ -256,8 +257,7 @@ public class NewsActivity extends FragmentActivity implements
 	}
 	
 	void setNewsPageChageLisener() {
-		ViewPager pager = (ViewPager) findViewById(R.id.newsPager);
-		pager.setOnPageChangeListener(new OnPageChangeListener() {
+		this.mPager.setOnPageChangeListener(new OnPageChangeListener() {
 
 			@Override
 			public void onPageSelected(int arg0) {

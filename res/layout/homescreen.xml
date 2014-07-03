@@ -100,24 +100,6 @@
             android:onClick="btnevents_click"
             android:scaleType="fitCenter"
             android:src="@drawable/calendar_selector" />
-        <ImageView
-            android:id="@+id/homeStoreHelp"
-            android:layout_width="100sp"
-            android:layout_height="50sp"
-            android:layout_marginLeft="200sp"
-            android:layout_marginTop="180sp"
-            android:contentDescription="@string/welcomebg"
-            android:src="@drawable/storeinfo"
-            android:visibility="invisible" />
-        <ImageView
-            android:id="@+id/homeMusicHelp"
-            android:layout_width="100sp"
-            android:layout_height="50sp"
-            android:layout_marginLeft="300sp"
-            android:layout_marginTop="50sp"
-            android:contentDescription="@string/welcomebg"
-            android:src="@drawable/musicinfo"
-            android:visibility="invisible" />
 
         <ImageView
             android:id="@+id/homeTVAnimation"
@@ -154,141 +136,162 @@
             android:layout_marginTop="278sp"
             android:contentDescription="@string/welcomebg"
             android:focusable="false" />
-        
+
+        <ImageView
+            android:id="@+id/homeStoreHelp"
+            android:layout_width="50sp"
+            android:layout_height="37sp"
+            android:layout_marginLeft="220sp"
+            android:layout_marginTop="180sp"
+            android:contentDescription="@string/welcomebg"
+            android:src="@drawable/storeinfo"
+            android:visibility="invisible" />
+
+        <ImageView
+            android:id="@+id/homeMusicHelp"
+            android:layout_width="50sp"
+            android:layout_height="37sp"
+            android:layout_marginLeft="310sp"
+            android:layout_marginTop="55sp"
+            android:contentDescription="@string/welcomebg"
+            android:src="@drawable/musicinfo"
+            android:visibility="invisible" />
+
         <ImageView
             android:id="@+id/homeCalendarHelp"
-            android:layout_width="100sp"
-            android:layout_height="50sp"
-            android:layout_marginLeft="440sp"
+            android:layout_width="50sp"
+            android:layout_height="37sp"
+            android:layout_marginLeft="455sp"
             android:layout_marginTop="70sp"
             android:contentDescription="@string/welcomebg"
-            android:src="@drawable/eventinfo" 
-            android:visibility="invisible"/>
+            android:src="@drawable/eventinfo"
+            android:visibility="invisible" />
+
         <ImageView
             android:id="@+id/homeNewsHelp"
-            android:layout_width="100sp"
-            android:layout_height="50sp"
-            android:layout_marginLeft="490sp"
-            android:layout_marginTop="110sp"
+            android:layout_width="50sp"
+            android:layout_height="37dp"
+            android:layout_marginLeft="515sp"
+            android:layout_marginTop="120sp"
             android:contentDescription="@string/welcomebg"
-            android:src="@drawable/newsinfo" 
-            android:visibility="invisible"/>
-        
-        <FrameLayout
-            android:id="@+id/homeContactView" 
-            android:layout_width="match_parent"
-        	android:layout_height="match_parent"
-        	android:layout_gravity="center"
-        	android:background="@color/black_overlay"
-        	android:visibility="invisible"
-        	android:clickable="true">
-        	<ImageView 
-        	    android:src="@drawable/contactbg"
-        	    android:layout_width="400sp"
-        	    android:layout_height="320sp"
-        	    android:contentDescription="@string/welcomebg"
-        	    android:layout_gravity="center"/>
-        	
-        	<ImageView
-        	    android:id="@+id/btnHomeContactCancel"
-        	    android:layout_width="40sp"
-        		android:layout_height="40sp"
-        		android:contentDescription="@string/welcomebg"
-        		android:layout_marginLeft="530sp"
-        	    android:layout_marginTop="50sp"
-        		android:src="@drawable/closebutton"
-        	    android:clickable="true"
-        	    android:onClick="hideContactOnClick"/>
+            android:src="@drawable/newsinfo"
+            android:visibility="invisible" />
 
-        	<TextView
-        	    android:id="@+id/homeContactCafe"
-        	    android:layout_width="wrap_content"
-        	    android:layout_height="wrap_content"
-        	    android:text="@string/contact_cafe" 
-        	    android:layout_marginLeft="155sp"
-        	    android:layout_marginTop="154sp"
-        	    android:textSize="24sp"
-        	    android:textColor="@color/black_color"/>
-        	
-        	<TextView
-        	    android:id="@+id/homeContactNguoiSaiGon"
-        	    android:layout_width="wrap_content"
-        	    android:layout_height="wrap_content"
-        	    android:text="@string/contact_nguoisaigon" 
-        	    android:layout_marginLeft="220sp"
-        	    android:layout_marginTop="154sp"
-        	    android:textSize="24sp"
-        	    android:textStyle="bold"
-        	    android:textColor="@color/black_color"/>
-        	
-        	<TextView
-        	    android:id="@+id/homeContactAddress1"
-        	    android:layout_width="wrap_content"
-        	    android:layout_height="wrap_content"
-        	    android:text="@string/contact_address1" 
-        	    android:layout_marginLeft="180sp"
-        	    android:layout_marginTop="184sp"
-        	    android:textSize="24sp"
-        	    android:textColor="@color/black_color"/>
-        	
-        	<TextView
-        	    android:id="@+id/homeContactAddress2"
-        	    android:layout_width="wrap_content"
-        	    android:layout_height="wrap_content"
-        	    android:text="@string/contact_address2" 
-        	    android:layout_marginLeft="180sp"
-        	    android:layout_marginTop="214sp"
-        	    android:textSize="24sp"
-        	    android:textColor="@color/black_color"/>
-        	
-        	<TextView
-        	    android:id="@+id/homeContactEmail"
-        	    android:layout_width="wrap_content"
-        	    android:layout_height="wrap_content"
-        	    android:text="@string/contact_email" 
-        	    android:layout_marginLeft="180sp"
-        	    android:layout_marginTop="244sp"
-        	    android:textSize="18sp"
-        	    android:textColor="@color/contact_blue_color"
-        	    android:clickable="true"
-        	    android:onClick="emailOnClick"/>
-        	
-        	<TextView
-        	    android:id="@+id/homeContactphone1"
-        	    android:layout_width="wrap_content"
-        	    android:layout_height="wrap_content"
-        	    android:text="@string/contact_phone1" 
-        	    android:layout_marginLeft="180sp"
-        	    android:layout_marginTop="284sp"
-        	    android:textSize="20sp"
-        	    android:textColor="@color/contact_blue_color"
-        	    android:clickable="true"
-        	    android:onClick="phone1OnClick"/>
-        	
-        	<TextView
-        	    android:id="@+id/homeContactphone2"
-        	    android:layout_width="wrap_content"
-        	    android:layout_height="wrap_content"
-        	    android:text="@string/contact_phone2" 
-        	    android:layout_marginLeft="180sp"
-        	    android:layout_marginTop="310sp"
-        	    android:textSize="20sp"
-        	    android:textColor="@color/contact_blue_color"
-        	    android:clickable="true"
-        	    android:onClick="phone2OnClick"/>
-        	
-        	<TextView
-        	    android:id="@+id/homeContactFacebook"
-        	    android:layout_width="wrap_content"
-        	    android:layout_height="wrap_content"
-        	    android:text="@string/contact_facebook" 
-        	    android:layout_marginLeft="370sp"
-        	    android:layout_marginTop="315sp"
-        	    android:textSize="18sp"
-        	    android:textColor="@color/contact_blue_color"
-        	    android:clickable="true"
-        	    android:onClick="facebookOnClick"/>
-            
+        <FrameLayout
+            android:id="@+id/homeContactView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:background="@color/black_overlay"
+            android:clickable="true"
+            android:visibility="invisible" >
+
+            <ImageView
+                android:layout_width="400sp"
+                android:layout_height="320sp"
+                android:layout_gravity="center"
+                android:contentDescription="@string/welcomebg"
+                android:src="@drawable/contactbg" />
+
+            <ImageView
+                android:id="@+id/btnHomeContactCancel"
+                android:layout_width="40sp"
+                android:layout_height="40sp"
+                android:layout_marginLeft="530sp"
+                android:layout_marginTop="50sp"
+                android:clickable="true"
+                android:contentDescription="@string/welcomebg"
+                android:onClick="hideContactOnClick"
+                android:src="@drawable/closebutton" />
+
+            <TextView
+                android:id="@+id/homeContactCafe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="155sp"
+                android:layout_marginTop="154sp"
+                android:text="@string/contact_cafe"
+                android:textColor="@color/black_color"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/homeContactNguoiSaiGon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="220sp"
+                android:layout_marginTop="154sp"
+                android:text="@string/contact_nguoisaigon"
+                android:textColor="@color/black_color"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/homeContactAddress1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="180sp"
+                android:layout_marginTop="184sp"
+                android:text="@string/contact_address1"
+                android:textColor="@color/black_color"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/homeContactAddress2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="180sp"
+                android:layout_marginTop="214sp"
+                android:text="@string/contact_address2"
+                android:textColor="@color/black_color"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/homeContactEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="180sp"
+                android:layout_marginTop="244sp"
+                android:clickable="true"
+                android:onClick="emailOnClick"
+                android:text="@string/contact_email"
+                android:textColor="@color/contact_blue_color"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/homeContactphone1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="180sp"
+                android:layout_marginTop="284sp"
+                android:clickable="true"
+                android:onClick="phone1OnClick"
+                android:text="@string/contact_phone1"
+                android:textColor="@color/contact_blue_color"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/homeContactphone2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="180sp"
+                android:layout_marginTop="310sp"
+                android:clickable="true"
+                android:onClick="phone2OnClick"
+                android:text="@string/contact_phone2"
+                android:textColor="@color/contact_blue_color"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/homeContactFacebook"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="370sp"
+                android:layout_marginTop="315sp"
+                android:clickable="true"
+                android:onClick="facebookOnClick"
+                android:text="@string/contact_facebook"
+                android:textColor="@color/contact_blue_color"
+                android:textSize="18sp" />
         </FrameLayout>
     </FrameLayout>
 

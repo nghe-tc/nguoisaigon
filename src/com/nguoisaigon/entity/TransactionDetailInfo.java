@@ -1,6 +1,6 @@
 package com.nguoisaigon.entity;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class TransactionDetailInfo {
 
@@ -13,6 +13,17 @@ public class TransactionDetailInfo {
 	private Integer stockQuantity;
 	private Double unitPrice;
 
+	public void clear() {
+		this.addedDate = null;
+		this.categoryId = null;
+		this.productId = null;
+		this.productName = null;
+		this.quantity = null;
+		this.sizeType = null;
+		this.stockQuantity = null;
+		this.unitPrice = null;
+	}
+	
 	/**
 	 * @return the addedDate
 	 */

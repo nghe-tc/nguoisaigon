@@ -9,412 +9,202 @@
         android:layout_height="wrap_content" >
 
         <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:id="@+id/product1"
+            android:layout_width="145sp"
+            android:layout_height="140sp"
+            android:onClick="storeProduct1Click" >
 
-            <FrameLayout
-                android:id="@+id/product1"
-                android:layout_width="145sp"
-                android:layout_height="140sp"
-                android:onClick="storeProduct1Click" >
+            <ImageView
+                android:id="@+id/storeProduct1"
+                android:layout_width="125sp"
+                android:layout_height="125sp"
+                android:layout_marginLeft="20sp"
+                android:layout_marginTop="12sp"
+                android:scaleType="fitXY"
+                android:src="@drawable/productlistframe" />
 
-                <ImageView
-                    android:id="@+id/storeProduct1"
-                    android:layout_width="125sp"
-                    android:layout_height="125sp"
-                    android:layout_marginLeft="20sp"
-                    android:layout_marginTop="12sp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/productlistframe" />
+            <ImageView
+                android:id="@+id/storeProduct1NewIcon"
+                android:layout_width="40sp"
+                android:layout_height="40sp"
+                android:layout_marginLeft="0sp"
+                android:layout_marginTop="5sp"
+                android:contentDescription="@string/welcomebg"
+                android:src="@drawable/newstamp" />
 
-                <ImageView
-                    android:id="@+id/storeProduct1NewIcon"
-                    android:layout_width="40sp"
-                    android:layout_height="40sp"
-                    android:layout_marginLeft="0sp"
-                    android:layout_marginTop="5sp"
-                    android:contentDescription="@string/welcomebg"
-                    android:src="@drawable/newstamp" />
+            <ImageView
+                android:id="@+id/storeProduct1SaleIcon"
+                android:layout_width="50sp"
+                android:layout_height="25sp"
+                android:layout_marginLeft="55sp"
+                android:layout_marginTop="0sp"
+                android:contentDescription="@string/welcomebg"
+                android:src="@drawable/saleicon" />
 
-                <ImageView
-                    android:id="@+id/storeProduct1SaleIcon"
-                    android:layout_width="50sp"
-                    android:layout_height="25sp"
-                    android:layout_marginLeft="55sp"
-                    android:layout_marginTop="0sp"
-                    android:contentDescription="@string/welcomebg"
-                    android:src="@drawable/saleicon" />
+            <ImageView
+                android:id="@+id/storeProduct1HotTag"
+                android:layout_width="38sp"
+                android:layout_height="38sp"
+                android:layout_marginLeft="105sp"
+                android:layout_marginTop="95sp"
+                android:contentDescription="@string/welcomebg"
+                android:src="@drawable/hottag" />
 
-                <ImageView
-                    android:id="@+id/storeProduct1HotTag"
-                    android:layout_width="38sp"
-                    android:layout_height="38sp"
-                    android:layout_marginLeft="105sp"
-                    android:layout_marginTop="95sp"
-                    android:contentDescription="@string/welcomebg"
-                    android:src="@drawable/hottag" />
-
-                <TextView
-                    android:id="@+id/tvProduct1Id"
-                    android:layout_width="20sp"
-                    android:layout_height="20sp"
-                    android:visibility="gone" />
-            </FrameLayout>
-
-            <FrameLayout
-                android:id="@+id/product2"
-                android:layout_width="145sp"
-                android:layout_height="140sp"
-                android:layout_marginLeft="145sp"
-                android:onClick="storeProduct2Click" >
-
-                <ImageView
-                    android:id="@+id/storeProduct2"
-                    android:layout_width="125sp"
-                    android:layout_height="125sp"
-                    android:layout_marginLeft="20sp"
-                    android:layout_marginTop="12sp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/productlistframe" />
-
-                <ImageView
-                    android:id="@+id/storeProduct2NewIcon"
-                    android:layout_width="40sp"
-                    android:layout_height="40sp"
-                    android:layout_marginLeft="0sp"
-                    android:layout_marginTop="5sp"
-                    android:contentDescription="@string/welcomebg"
-                    android:src="@drawable/newstamp" />
-
-                <ImageView
-                    android:id="@+id/storeProduct2SaleIcon"
-                    android:layout_width="50sp"
-                    android:layout_height="25sp"
-                    android:layout_marginLeft="55sp"
-                    android:layout_marginTop="0sp"
-                    android:contentDescription="@string/welcomebg"
-                    android:src="@drawable/saleicon" />
-
-                <ImageView
-                    android:id="@+id/storeProduct2HotTag"
-                    android:layout_width="38sp"
-                    android:layout_height="38sp"
-                    android:layout_marginLeft="105sp"
-                    android:layout_marginTop="95sp"
-                    android:contentDescription="@string/welcomebg"
-                    android:src="@drawable/hottag" />
-
-                <TextView
-                    android:id="@+id/tvProduct2Id"
-                    android:layout_width="20sp"
-                    android:layout_height="20sp"
-                    android:visibility="gone" />
-            </FrameLayout>
-
-            <FrameLayout
-                android:id="@+id/product3"
-                android:layout_width="145sp"
-                android:layout_height="140sp"
-                android:layout_marginLeft="290sp"
-                android:onClick="storeProduct3Click" >
-
-                <ImageView
-                    android:id="@+id/storeProduct3"
-                    android:layout_width="125sp"
-                    android:layout_height="125sp"
-                    android:layout_marginLeft="20sp"
-                    android:layout_marginTop="12sp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/productlistframe" />
-
-                <ImageView
-                    android:id="@+id/storeProduct3NewIcon"
-                    android:layout_width="40sp"
-                    android:layout_height="40sp"
-                    android:layout_marginLeft="0sp"
-                    android:layout_marginTop="5sp"
-                    android:contentDescription="@string/welcomebg"
-                    android:src="@drawable/newstamp" />
-
-                <ImageView
-                    android:id="@+id/storeProduct3SaleIcon"
-                    android:layout_width="50sp"
-                    android:layout_height="25sp"
-                    android:layout_marginLeft="55sp"
-                    android:layout_marginTop="0sp"
-                    android:contentDescription="@string/welcomebg"
-                    android:src="@drawable/saleicon" />
-
-                <ImageView
-                    android:id="@+id/storeProduct3HotTag"
-                    android:layout_width="38sp"
-                    android:layout_height="38sp"
-                    android:layout_marginLeft="105sp"
-                    android:layout_marginTop="95sp"
-                    android:contentDescription="@string/welcomebg"
-                    android:src="@drawable/hottag" />
-
-                <TextView
-                    android:id="@+id/tvProduct3Id"
-                    android:layout_width="20sp"
-                    android:layout_height="20sp"
-                    android:visibility="gone" />
-            </FrameLayout>
-
-            <FrameLayout
-                android:id="@+id/product4"
-                android:layout_width="145sp"
-                android:layout_height="140sp"
-                android:layout_marginLeft="435sp"
-                android:onClick="storeProduct4Click" >
-
-                <ImageView
-                    android:id="@+id/storeProduct4"
-                    android:layout_width="125sp"
-                    android:layout_height="125sp"
-                    android:layout_marginLeft="20sp"
-                    android:layout_marginTop="12sp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/productlistframe" />
-
-                <ImageView
-                    android:id="@+id/storeProduct4NewIcon"
-                    android:layout_width="40sp"
-                    android:layout_height="40sp"
-                    android:layout_marginLeft="0sp"
-                    android:layout_marginTop="5sp"
-                    android:contentDescription="@string/welcomebg"
-                    android:src="@drawable/newstamp" />
-
-                <ImageView
-                    android:id="@+id/storeProduct4SaleIcon"
-                    android:layout_width="50sp"
-                    android:layout_height="25sp"
-                    android:layout_marginLeft="55sp"
-                    android:layout_marginTop="0sp"
-                    android:contentDescription="@string/welcomebg"
-                    android:src="@drawable/saleicon" />
-
-                <ImageView
-                    android:id="@+id/storeProduct4HotTag"
-                    android:layout_width="38sp"
-                    android:layout_height="38sp"
-                    android:layout_marginLeft="105sp"
-                    android:layout_marginTop="95sp"
-                    android:contentDescription="@string/welcomebg"
-                    android:src="@drawable/hottag" />
-
-                <TextView
-                    android:id="@+id/tvProduct4Id"
-                    android:layout_width="20sp"
-                    android:layout_height="20sp"
-                    android:visibility="gone" />
-            </FrameLayout>
+            <TextView
+                android:id="@+id/tvProduct1Id"
+                android:layout_width="20sp"
+                android:layout_height="20sp"
+                android:visibility="gone" />
         </FrameLayout>
 
         <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="140sp" >
+            android:id="@+id/product2"
+            android:layout_width="145sp"
+            android:layout_height="140sp"
+            android:layout_marginLeft="145sp"
+            android:onClick="storeProduct2Click" >
 
-            <FrameLayout
-                android:id="@+id/product5"
-                android:layout_width="145sp"
-                android:layout_height="140sp"
-                android:onClick="storeProduct5Click" >
+            <ImageView
+                android:id="@+id/storeProduct2"
+                android:layout_width="125sp"
+                android:layout_height="125sp"
+                android:layout_marginLeft="20sp"
+                android:layout_marginTop="12sp"
+                android:scaleType="fitXY"
+                android:src="@drawable/productlistframe" />
 
-                <ImageView
-                    android:id="@+id/storeProduct5"
-                    android:layout_width="125sp"
-                    android:layout_height="125sp"
-                    android:layout_marginLeft="20sp"
-                    android:layout_marginTop="12sp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/productlistframe" />
+            <ImageView
+                android:id="@+id/storeProduct2NewIcon"
+                android:layout_width="40sp"
+                android:layout_height="40sp"
+                android:layout_marginLeft="0sp"
+                android:layout_marginTop="5sp"
+                android:contentDescription="@string/welcomebg"
+                android:src="@drawable/newstamp" />
 
-                <ImageView
-                    android:id="@+id/storeProduct5NewIcon"
-                    android:layout_width="40sp"
-                    android:layout_height="40sp"
-                    android:layout_marginLeft="0sp"
-                    android:layout_marginTop="5sp"
-                    android:contentDescription="@string/welcomebg"
-                    android:src="@drawable/newstamp" />
+            <ImageView
+                android:id="@+id/storeProduct2SaleIcon"
+                android:layout_width="50sp"
+                android:layout_height="25sp"
+                android:layout_marginLeft="55sp"
+                android:layout_marginTop="0sp"
+                android:contentDescription="@string/welcomebg"
+                android:src="@drawable/saleicon" />
 
-                <ImageView
-                    android:id="@+id/storeProduct5SaleIcon"
-                    android:layout_width="50sp"
-                    android:layout_height="25sp"
-                    android:layout_marginLeft="55sp"
-                    android:layout_marginTop="0sp"
-                    android:contentDescription="@string/welcomebg"
-                    android:src="@drawable/saleicon" />
+            <ImageView
+                android:id="@+id/storeProduct2HotTag"
+                android:layout_width="38sp"
+                android:layout_height="38sp"
+                android:layout_marginLeft="105sp"
+                android:layout_marginTop="95sp"
+                android:contentDescription="@string/welcomebg"
+                android:src="@drawable/hottag" />
 
-                <ImageView
-                    android:id="@+id/storeProduct5HotTag"
-                    android:layout_width="38sp"
-                    android:layout_height="38sp"
-                    android:layout_marginLeft="105sp"
-                    android:layout_marginTop="95sp"
-                    android:contentDescription="@string/welcomebg"
-                    android:src="@drawable/hottag" />
+            <TextView
+                android:id="@+id/tvProduct2Id"
+                android:layout_width="20sp"
+                android:layout_height="20sp"
+                android:visibility="gone" />
+        </FrameLayout>
 
-                <TextView
-                    android:id="@+id/tvProduct5Id"
-                    android:layout_width="20sp"
-                    android:layout_height="20sp"
-                    android:visibility="gone" />
-            </FrameLayout>
+        <FrameLayout
+            android:id="@+id/product3"
+            android:layout_width="145sp"
+            android:layout_height="140sp"
+            android:layout_marginLeft="290sp"
+            android:onClick="storeProduct3Click" >
 
-            <FrameLayout
-                android:id="@+id/product6"
-                android:layout_width="145sp"
-                android:layout_height="140sp"
-                android:layout_marginLeft="145sp"
-                android:onClick="storeProduct6Click" >
+            <ImageView
+                android:id="@+id/storeProduct3"
+                android:layout_width="125sp"
+                android:layout_height="125sp"
+                android:layout_marginLeft="20sp"
+                android:layout_marginTop="12sp"
+                android:scaleType="fitXY"
+                android:src="@drawable/productlistframe" />
 
-                <ImageView
-                    android:id="@+id/storeProduct6"
-                    android:layout_width="125sp"
-                    android:layout_height="125sp"
-                    android:layout_marginLeft="20sp"
-                    android:layout_marginTop="12sp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/productlistframe" />
+            <ImageView
+                android:id="@+id/storeProduct3NewIcon"
+                android:layout_width="40sp"
+                android:layout_height="40sp"
+                android:layout_marginLeft="0sp"
+                android:layout_marginTop="5sp"
+                android:contentDescription="@string/welcomebg"
+                android:src="@drawable/newstamp" />
 
-                <ImageView
-                    android:id="@+id/storeProduct6NewIcon"
-                    android:layout_width="40sp"
-                    android:layout_height="40sp"
-                    android:layout_marginLeft="0sp"
-                    android:layout_marginTop="5sp"
-                    android:contentDescription="@string/welcomebg"
-                    android:src="@drawable/newstamp" />
+            <ImageView
+                android:id="@+id/storeProduct3SaleIcon"
+                android:layout_width="50sp"
+                android:layout_height="25sp"
+                android:layout_marginLeft="55sp"
+                android:layout_marginTop="0sp"
+                android:contentDescription="@string/welcomebg"
+                android:src="@drawable/saleicon" />
 
-                <ImageView
-                    android:id="@+id/storeProduct6SaleIcon"
-                    android:layout_width="50sp"
-                    android:layout_height="25sp"
-                    android:layout_marginLeft="55sp"
-                    android:layout_marginTop="0sp"
-                    android:contentDescription="@string/welcomebg"
-                    android:src="@drawable/saleicon" />
+            <ImageView
+                android:id="@+id/storeProduct3HotTag"
+                android:layout_width="38sp"
+                android:layout_height="38sp"
+                android:layout_marginLeft="105sp"
+                android:layout_marginTop="95sp"
+                android:contentDescription="@string/welcomebg"
+                android:src="@drawable/hottag" />
 
-                <ImageView
-                    android:id="@+id/storeProduct6HotTag"
-                    android:layout_width="38sp"
-                    android:layout_height="38sp"
-                    android:layout_marginLeft="105sp"
-                    android:layout_marginTop="95sp"
-                    android:contentDescription="@string/welcomebg"
-                    android:src="@drawable/hottag" />
+            <TextView
+                android:id="@+id/tvProduct3Id"
+                android:layout_width="20sp"
+                android:layout_height="20sp"
+                android:visibility="gone" />
+        </FrameLayout>
 
-                <TextView
-                    android:id="@+id/tvProduct6Id"
-                    android:layout_width="20sp"
-                    android:layout_height="20sp"
-                    android:visibility="gone" />
-            </FrameLayout>
+        <FrameLayout
+            android:id="@+id/product4"
+            android:layout_width="145sp"
+            android:layout_height="140sp"
+            android:layout_marginLeft="435sp"
+            android:onClick="storeProduct4Click" >
 
-            <FrameLayout
-                android:id="@+id/product7"
-                android:layout_width="145sp"
-                android:layout_height="140sp"
-                android:layout_marginLeft="290sp"
-                android:onClick="storeProduct7Click" >
+            <ImageView
+                android:id="@+id/storeProduct4"
+                android:layout_width="125sp"
+                android:layout_height="125sp"
+                android:layout_marginLeft="20sp"
+                android:layout_marginTop="12sp"
+                android:scaleType="fitXY"
+                android:src="@drawable/productlistframe" />
 
-                <ImageView
-                    android:id="@+id/storeProduct7"
-                    android:layout_width="125sp"
-                    android:layout_height="125sp"
-                    android:layout_marginLeft="20sp"
-                    android:layout_marginTop="12sp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/productlistframe" />
+            <ImageView
+                android:id="@+id/storeProduct4NewIcon"
+                android:layout_width="40sp"
+                android:layout_height="40sp"
+                android:layout_marginLeft="0sp"
+                android:layout_marginTop="5sp"
+                android:contentDescription="@string/welcomebg"
+                android:src="@drawable/newstamp" />
 
-                <ImageView
-                    android:id="@+id/storeProduct7NewIcon"
-                    android:layout_width="40sp"
-                    android:layout_height="40sp"
-                    android:layout_marginLeft="0sp"
-                    android:layout_marginTop="5sp"
-                    android:contentDescription="@string/welcomebg"
-                    android:src="@drawable/newstamp" />
+            <ImageView
+                android:id="@+id/storeProduct4SaleIcon"
+                android:layout_width="50sp"
+                android:layout_height="25sp"
+                android:layout_marginLeft="55sp"
+                android:layout_marginTop="0sp"
+                android:contentDescription="@string/welcomebg"
+                android:src="@drawable/saleicon" />
 
-                <ImageView
-                    android:id="@+id/storeProduct7SaleIcon"
-                    android:layout_width="50sp"
-                    android:layout_height="25sp"
-                    android:layout_marginLeft="55sp"
-                    android:layout_marginTop="0sp"
-                    android:contentDescription="@string/welcomebg"
-                    android:src="@drawable/saleicon" />
+            <ImageView
+                android:id="@+id/storeProduct4HotTag"
+                android:layout_width="38sp"
+                android:layout_height="38sp"
+                android:layout_marginLeft="105sp"
+                android:layout_marginTop="95sp"
+                android:contentDescription="@string/welcomebg"
+                android:src="@drawable/hottag" />
 
-                <ImageView
-                    android:id="@+id/storeProduct7HotTag"
-                    android:layout_width="38sp"
-                    android:layout_height="38sp"
-                    android:layout_marginLeft="105sp"
-                    android:layout_marginTop="95sp"
-                    android:contentDescription="@string/welcomebg"
-                    android:src="@drawable/hottag" />
-
-                <TextView
-                    android:id="@+id/tvProduct7Id"
-                    android:layout_width="20sp"
-                    android:layout_height="20sp"
-                    android:visibility="gone" />
-            </FrameLayout>
-
-            <FrameLayout
-                android:id="@+id/product8"
-                android:layout_width="145sp"
-                android:layout_height="140sp"
-                android:layout_marginLeft="435sp"
-                android:onClick="storeProduct8Click" >
-
-                <ImageView
-                    android:id="@+id/storeProduct8"
-                    android:layout_width="125sp"
-                    android:layout_height="125sp"
-                    android:layout_marginLeft="20sp"
-                    android:layout_marginTop="12sp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/productlistframe" />
-
-                <ImageView
-                    android:id="@+id/storeProduct8NewIcon"
-                    android:layout_width="40sp"
-                    android:layout_height="40sp"
-                    android:layout_marginLeft="0sp"
-                    android:layout_marginTop="5sp"
-                    android:contentDescription="@string/welcomebg"
-                    android:src="@drawable/newstamp" />
-
-                <ImageView
-                    android:id="@+id/storeProduct8SaleIcon"
-                    android:layout_width="50sp"
-                    android:layout_height="25sp"
-                    android:layout_marginLeft="55sp"
-                    android:layout_marginTop="0sp"
-                    android:contentDescription="@string/welcomebg"
-                    android:src="@drawable/saleicon" />
-
-                <ImageView
-                    android:id="@+id/storeProduct8HotTag"
-                    android:layout_width="38sp"
-                    android:layout_height="38sp"
-                    android:layout_marginLeft="105sp"
-                    android:layout_marginTop="95sp"
-                    android:contentDescription="@string/welcomebg"
-                    android:src="@drawable/hottag" />
-
-                <TextView
-                    android:id="@+id/tvProduct8Id"
-                    android:layout_width="20sp"
-                    android:layout_height="20sp"
-                    android:visibility="gone" />
-            </FrameLayout>
+            <TextView
+                android:id="@+id/tvProduct4Id"
+                android:layout_width="20sp"
+                android:layout_height="20sp"
+                android:visibility="gone" />
         </FrameLayout>
     </FrameLayout>
 

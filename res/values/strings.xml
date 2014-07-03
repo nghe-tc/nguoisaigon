@@ -41,15 +41,15 @@
     <string name="contact_phone2">0932 113 183</string>
     <string name="contact_facebook">Facebook</string>
     
-    <string name="loading">Loading...</string>
+    <string name="loading">Đang tải dữ liệu...</string>
     
      <!-- Application News layout -->
-    <string name="page_default">0/0</string>
-    <string name="date_default">03/2014</string>
+    <string name="page_default">_/_</string>
+    <string name="date_default">__/____</string>
     <string name="date_full_default">12/04/2014</string>
     <string name="month_label">Tháng</string>
     <string name="create_date">Ngày đăng</string>
-    <string name="create_date_default">18/06/2014</string>
+    <string name="create_date_default">__/__/____</string>
     <string name="title_default">người sài gòn</string>
     <string name="content_default">cà phê người sài gòn có khuyến mãi đặc biệt vào ngày thứ 7</string>
     <string name="no_news">Không có tin tức trong ngày hôm nay</string>
@@ -64,9 +64,15 @@
     <string name="product_name_default">"Product's name"</string>
     <string name="product_description_default">"Product's description"</string>
     <string name="product_size">Size:</string>
-    <string name="product_quantity">Đơn giá:</string>
+    <string name="product_quantity">Số lượng:</string>
     <string name="product_quantity_default">0</string>
     <string name="product_unit_price_default">0 đ</string>
+    <string name="product_price">Đơn giá:</string>
     
+    <!-- Application Cart layout -->
+    <string name="cart_product_title">Sản phẩm</string>
+    <string name="cart_quantity_title">Số lượng</string>
+    <string name="cart_price_title">Đơn giá</string>
+    <string name="cart_total_title">Thành tiền</string>
 
 </resources>

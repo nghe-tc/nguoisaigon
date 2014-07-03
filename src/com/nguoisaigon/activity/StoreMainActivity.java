@@ -1,12 +1,15 @@
 package com.nguoisaigon.activity;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
 import org.json.JSONArray;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -14,18 +17,24 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.nguoisaigon.R;
+import com.nguoisaigon.db.TransactionDetailDB;
 import com.nguoisaigon.entity.ProductInfo;
 import com.nguoisaigon.entity.StoreProductPageInfo;
+import com.nguoisaigon.entity.TransactionDetailInfo;
 import com.nguoisaigon.util.CustomPagerAdapter;
 import com.nguoisaigon.util.StoreProductDetailPageFragment;
-import com.nguoisaigon.util.StoreProductPageFragment;
+import com.nguoisaigon.util.StoreProductPageAdapter;
 import com.nguoisaigon.util.WebService;
 import com.nguoisaigon.util.WebService.WebServiceDelegate;
 import com.nguoisaigon.util.WebService.productCategory;
@@ -46,10 +55,23 @@ public class StoreMainActivity extends FragmentActivity implements
 	 */
 	private PagerAdapter mPagerAdapter;
 
+	private ListView storeMainListViewProduct;
+	private StoreProductPageAdapter storeMainProductAdapter;
+
 	private ArrayList<ProductInfo> listProduct;
 	private HashMap<String, Integer> hsProduct;
+	private TransactionDetailInfo transactionDetailInfo;
 	private FrameLayout storeProduct;
 	private FrameLayout storeProductDetail;
+
+	private ImageView lifeStyle;
+	private ImageView food;
+	private ImageView cosMan;
+	private ImageView cosWoman;
+	private ImageView fasMan;
+	private ImageView fasWoman;
+	private ImageView fasKid;
+	private TextView tvStoreCart;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -61,15 +83,23 @@ public class StoreMainActivity extends FragmentActivity implements
 		storeProductDetail.setVisibility(FrameLayout.GONE);
 		this.hsProduct = new HashMap<String, Integer>();
 		this.listProduct = new ArrayList<ProductInfo>();
+		this.transactionDetailInfo = new TransactionDetailInfo();
+		this.storeMainListViewProduct = (ListView) findViewById(R.id.storeMainListProduct);
 		this.loadData(productCategory.cat_fashion_man,
 				productSearchType.search_for_client);
+
 		this.setStoreDetailPageChageLisener();
+		this.setCatTouchLisener();
+		this.updateStoreCart();
 	}
 
 	public void loadData(productCategory category, productSearchType searchType) {
 		Log.i("StoreMainActivity - loadData", "Start");
 		this.listProduct.clear();
 		this.hsProduct.clear();
+		this.transactionDetailInfo.clear();
+		this.transactionDetailInfo.setCategoryId(category.getIntValue());
+		this.storeMainProductAdapter = null;
 		// Download data
 		WebService ws = new WebService(this);
 		ws.setGettingProducts(category, searchType);
@@ -102,19 +132,18 @@ public class StoreMainActivity extends FragmentActivity implements
 
 	private void updateData() {
 		Log.i("StoreMainActivity - updateData", "Start");
-		List<Fragment> fragments = getProductFragments();
-		// Instantiate a ViewPager and a PagerAdapter.
-		mPager = (ViewPager) findViewById(R.id.storeMainPager);
-		mPagerAdapter = new CustomPagerAdapter(getSupportFragmentManager(),
+		ArrayList<StoreProductPageInfo> fragments = getProductFragments();
+		this.storeMainProductAdapter = new StoreProductPageAdapter(this,
 				fragments);
-		mPager.setAdapter(mPagerAdapter);
+		this.storeMainListViewProduct.setAdapter(storeMainProductAdapter);
+		this.storeMainListViewProduct.setDivider(null);
 		Log.i("StoreMainActivity - updateData",
-				"Num of page: " + mPagerAdapter.getCount());
+				"Num of page: " + fragments.size());
 	}
 
-	private List<Fragment> getProductFragments() {
+	private ArrayList<StoreProductPageInfo> getProductFragments() {
 		Log.i("StoreMainActivity - getProductFragments", "Start");
-		List<Fragment> fList = new ArrayList<Fragment>();
+		ArrayList<StoreProductPageInfo> fList = new ArrayList<StoreProductPageInfo>();
 		StoreProductPageInfo pageInfo = new StoreProductPageInfo();
 		Integer index = 0;
 		if (listProduct.size() > 8) {
@@ -122,10 +151,10 @@ public class StoreMainActivity extends FragmentActivity implements
 				index++;
 				pageInfo.addProduct(product);
 				if (index == 8) {
-					fList.add(StoreProductPageFragment.newInstance(pageInfo));
+					fList.add(pageInfo);
 					pageInfo = new StoreProductPageInfo();
 				} else if (index == this.listProduct.size()) {
-					fList.add(StoreProductPageFragment.newInstance(pageInfo));
+					fList.add(pageInfo);
 				}
 			}
 		} else {
@@ -133,7 +162,7 @@ public class StoreMainActivity extends FragmentActivity implements
 				index++;
 				pageInfo.addProduct(product);
 				if (index == this.listProduct.size()) {
-					fList.add(StoreProductPageFragment.newInstance(pageInfo));
+					fList.add(pageInfo);
 				}
 			}
 		}
@@ -144,36 +173,64 @@ public class StoreMainActivity extends FragmentActivity implements
 	}
 
 	public void menuStoreFashionManClick(View view) {
+		this.unClickAllCat();
+		// ImageView image = (ImageView) view;
+		// image.getLayoutParams().height = 100;
+		// image.setImageResource(R.drawable.storemenu_fashion_man_clicked);
 		loadData(productCategory.cat_fashion_man,
 				productSearchType.search_for_client);
 	}
 
 	public void menuStoreFashionWomanClick(View view) {
+		this.unClickAllCat();
+		// ImageView image = (ImageView) view;
+		// image.getLayoutParams().height = 100;
+		// image.setImageResource(R.drawable.storemenu_fashion_woman_clicked);
 		loadData(productCategory.cat_fashion_woman,
 				productSearchType.search_for_client);
 	}
 
 	public void menuStoreFashionKidClick(View view) {
+		this.unClickAllCat();
+		// ImageView image = (ImageView) view;
+		// image.getLayoutParams().height = 100;
+		// image.setImageResource(R.drawable.storemenu_fashion_kid_clicked);
 		loadData(productCategory.cat_fashion_kid,
 				productSearchType.search_for_client);
 	}
 
 	public void menuStoreCosmeticManClick(View view) {
+		this.unClickAllCat();
+		// ImageView image = (ImageView) view;
+		// image.getLayoutParams().height = 100;
+		// image.setImageResource(R.drawable.storemenu_cosmetic_man_clicked);
 		loadData(productCategory.cat_cos_man,
 				productSearchType.search_for_client);
 	}
 
 	public void menuStoreCosmeticWomanClick(View view) {
+		this.unClickAllCat();
+		// ImageView image = (ImageView) view;
+		// image.getLayoutParams().height = 100;
+		// image.setImageResource(R.drawable.storemenu_cosmetic_woman_clicked);
 		loadData(productCategory.cat_cos_woman,
 				productSearchType.search_for_client);
 	}
 
 	public void menuStoreLifeStyleClick(View view) {
+		this.unClickAllCat();
+		// ImageView image = (ImageView) view;
+		// image.getLayoutParams().height = 78;
+		// image.setImageResource(R.drawable.storemenu_lifestyle_clicked);
 		loadData(productCategory.cat_lifeStyle,
 				productSearchType.search_for_client);
 	}
 
 	public void menuStoreFoodClick(View view) {
+		this.unClickAllCat();
+		// ImageView image = (ImageView) view;
+		// image.getLayoutParams().height = 80;
+		// image.setImageResource(R.drawable.storemenu_food_clicked);
 		loadData(productCategory.cat_food, productSearchType.search_for_client);
 	}
 
@@ -182,7 +239,8 @@ public class StoreMainActivity extends FragmentActivity implements
 	}
 
 	public void btnStoreCartClick(View view) {
-
+		Intent intent = new Intent(this, PreviewCartActivity.class);
+		startActivity(intent);
 	}
 
 	public void btnStoreDetailBackClick(View view) {
@@ -199,46 +257,38 @@ public class StoreMainActivity extends FragmentActivity implements
 	}
 
 	public void btnAddToCartClick(View view) {
-
+		Log.i("StoreMainActivity - btnAddToCartClick", "Start");
+		this.transactionDetailInfo.setAddedDate(Calendar.getInstance()
+				.getTime());
+		TransactionDetailDB db = new TransactionDetailDB(this);
+		db.insert(this.transactionDetailInfo);
+		Toast.makeText(this, "Đã thêm vào giỏ hàng", Toast.LENGTH_LONG).show();
+		this.updateStoreCart();
+		this.storeProduct.setVisibility(FrameLayout.VISIBLE);
+		this.storeProductDetail.setVisibility(FrameLayout.GONE);
 	}
 
 	public void storeProduct1Click(View view) {
+		Log.i("StoreMainActivity - storeProduct1Click", "start");
 		TextView productId = (TextView) view.findViewById(R.id.tvProduct1Id);
 		storeProductClick(productId);
 	}
 
 	public void storeProduct2Click(View view) {
+		Log.i("StoreMainActivity - storeProduct2Click", "start");
 		TextView productId = (TextView) view.findViewById(R.id.tvProduct2Id);
 		storeProductClick(productId);
 	}
 
 	public void storeProduct3Click(View view) {
+		Log.i("StoreMainActivity - storeProduct3Click", "start");
 		TextView productId = (TextView) view.findViewById(R.id.tvProduct3Id);
 		storeProductClick(productId);
 	}
 
 	public void storeProduct4Click(View view) {
+		Log.i("StoreMainActivity - storeProduct4Click", "start");
 		TextView productId = (TextView) view.findViewById(R.id.tvProduct4Id);
-		storeProductClick(productId);
-	}
-
-	public void storeProduct5Click(View view) {
-		TextView productId = (TextView) view.findViewById(R.id.tvProduct5Id);
-		storeProductClick(productId);
-	}
-
-	public void storeProduct6Click(View view) {
-		TextView productId = (TextView) view.findViewById(R.id.tvProduct6Id);
-		storeProductClick(productId);
-	}
-
-	public void storeProduct7Click(View view) {
-		TextView productId = (TextView) view.findViewById(R.id.tvProduct7Id);
-		storeProductClick(productId);
-	}
-
-	public void storeProduct8Click(View view) {
-		TextView productId = (TextView) view.findViewById(R.id.tvProduct8Id);
 		storeProductClick(productId);
 	}
 
@@ -248,6 +298,15 @@ public class StoreMainActivity extends FragmentActivity implements
 		Integer index = this.hsProduct.get(view.getText());
 		Log.i("StoreMainActivity - storeProductClick", "index: " + index);
 		this.updateDataDetail(index);
+		ProductInfo product = this.listProduct.get(index);
+		this.transactionDetailInfo.setProductId(product.getProductId());
+		this.transactionDetailInfo.setProductName(product.getName());
+		this.transactionDetailInfo.setQuantity(1);
+		if (product.getSizeQtyList().size() > 0) {
+			this.transactionDetailInfo.setSizeType(product.getSizeQtyList()
+					.get(3).getSizeType());
+		}
+		this.transactionDetailInfo.setUnitPrice(product.getUnitPrice());
 	}
 
 	private void updateDataDetail(Integer index) {
@@ -273,27 +332,32 @@ public class StoreMainActivity extends FragmentActivity implements
 		return fList;
 	}
 
-	public void disableAllSize() {
-		ImageView sizeXXS = (ImageView) findViewById(R.id.storeDetailProductSizeXXS);
-		ImageView sizeXS = (ImageView) findViewById(R.id.storeDetailProductSizeXS);
-		ImageView sizeS = (ImageView) findViewById(R.id.storeDetailProductSizeS);
-		ImageView sizeM = (ImageView) findViewById(R.id.storeDetailProductSizeM);
-		ImageView sizeL = (ImageView) findViewById(R.id.storeDetailProductSizeL);
-		ImageView sizeXL = (ImageView) findViewById(R.id.storeDetailProductSizeXL);
-
-		sizeXXS.setImageAlpha(70);
-		sizeXS.setImageAlpha(70);
-		sizeS.setImageAlpha(70);
-		sizeM.setImageAlpha(70);
-		sizeL.setImageAlpha(70);
-		sizeXL.setImageAlpha(70);
-	}
+//	public void disableAllSize() {
+//		ImageView sizeXXS = (ImageView) findViewById(R.id.storeDetailProductSizeXXS);
+//		ImageView sizeXS = (ImageView) findViewById(R.id.storeDetailProductSizeXS);
+//		ImageView sizeS = (ImageView) findViewById(R.id.storeDetailProductSizeS);
+//		ImageView sizeM = (ImageView) findViewById(R.id.storeDetailProductSizeM);
+//		ImageView sizeL = (ImageView) findViewById(R.id.storeDetailProductSizeL);
+//		ImageView sizeXL = (ImageView) findViewById(R.id.storeDetailProductSizeXL);
+//
+//		sizeXXS.setImageAlpha(70);
+//		sizeXS.setImageAlpha(70);
+//		sizeS.setImageAlpha(70);
+//		sizeM.setImageAlpha(70);
+//		sizeL.setImageAlpha(70);
+//		sizeXL.setImageAlpha(70);
+//	}
 
 	public void storeDetailProductSizeClick(View view) {
 		Log.i("StoreMainActivity - storeDetailProductSizeClick", "Start");
-		this.disableAllSize();
 		ImageView sizeImage = (ImageView) view;
+		Integer sizeType = Integer.parseInt(sizeImage.getContentDescription()
+				.toString());
+		Log.i("StoreMainActivity - storeDetailProductSizeClick", "size type: "
+				+ sizeType.toString());
+		this.transactionDetailInfo.setSizeType(sizeType);
 		sizeImage.setImageAlpha(255);
+//		this.disableAllSize();
 	}
 
 	public void btnStoreDetailPreviousClick(View view) {
@@ -341,11 +405,19 @@ public class StoreMainActivity extends FragmentActivity implements
 			btnPagePrevious.setImageAlpha(70);
 		}
 
+		ProductInfo product = this.listProduct.get(mPager.getCurrentItem());
+		this.transactionDetailInfo.setProductId(product.getProductId());
+		this.transactionDetailInfo.setProductName(product.getName());
+		this.transactionDetailInfo.setQuantity(1);
+		if (product.getSizeQtyList().size() > 0) {
+			this.transactionDetailInfo.setSizeType(product.getSizeQtyList()
+					.get(3).getSizeType());
+		}
+		this.transactionDetailInfo.setUnitPrice(product.getUnitPrice());
 	}
 
 	void setStoreDetailPageChageLisener() {
-		ViewPager pager = (ViewPager) findViewById(R.id.storeDetailPager);
-		pager.setOnPageChangeListener(new OnPageChangeListener() {
+		this.mPager.setOnPageChangeListener(new OnPageChangeListener() {
 
 			@Override
 			public void onPageSelected(int arg0) {
@@ -386,7 +458,104 @@ public class StoreMainActivity extends FragmentActivity implements
 					btnPageNext.setImageAlpha(70);
 					btnPagePrevious.setImageAlpha(70);
 				}
+
+				ProductInfo product = listProduct.get(mPager.getCurrentItem());
+				transactionDetailInfo.setProductId(product.getProductId());
+				transactionDetailInfo.setProductName(product.getName());
+				transactionDetailInfo.setQuantity(1);
+				transactionDetailInfo.setSizeType(product.getSizeQtyList()
+						.get(3).getSizeType());
+				transactionDetailInfo.setUnitPrice(product.getUnitPrice());
+			}
+
+		});
+	}
+
+	private void setCatTouchLisener() {
+		lifeStyle = (ImageView) findViewById(R.id.menuStoreLifeStyle);
+		food = (ImageView) findViewById(R.id.menuStoreFood);
+		cosMan = (ImageView) findViewById(R.id.menuStoreCosmeticMan);
+		cosWoman = (ImageView) findViewById(R.id.menuStoreCosmeticWoman);
+		fasMan = (ImageView) findViewById(R.id.menuStoreFashionMan);
+		fasWoman = (ImageView) findViewById(R.id.menuStoreFashionWoman);
+		fasKid = (ImageView) findViewById(R.id.menuStoreFashionKid);
+
+		lifeStyle.setOnTouchListener(new OnTouchListener() {
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				lifeStyle.setImageResource(R.drawable.storemenu_lifestyle_over);
+				return false;
 			}
 		});
+
+		food.setOnTouchListener(new OnTouchListener() {
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				food.setImageResource(R.drawable.storemenu_food_over);
+				return false;
+			}
+		});
+
+		cosMan.setOnTouchListener(new OnTouchListener() {
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				cosMan.setImageResource(R.drawable.storemenu_cosmetic_man_over);
+				return false;
+			}
+		});
+
+		cosWoman.setOnTouchListener(new OnTouchListener() {
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				cosWoman.setImageResource(R.drawable.storemenu_cosmetic_woman_over);
+				return false;
+			}
+		});
+
+		fasMan.setOnTouchListener(new OnTouchListener() {
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				fasMan.setImageResource(R.drawable.storemenu_fashion_man_over);
+				return false;
+			}
+		});
+
+		fasWoman.setOnTouchListener(new OnTouchListener() {
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				fasWoman.setImageResource(R.drawable.storemenu_fashion_woman_over);
+				return false;
+			}
+		});
+
+		fasKid.setOnTouchListener(new OnTouchListener() {
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				fasKid.setImageResource(R.drawable.storemenu_fashion_kid_over);
+				return false;
+			}
+		});
+	}
+
+	private void unClickAllCat() {
+		lifeStyle.setImageResource(R.drawable.storemenu_lifestyle_normal);
+		food.setImageResource(R.drawable.storemenu_food_normal);
+		cosMan.setImageResource(R.drawable.storemenu_cosmetic_man_normal);
+		cosWoman.setImageResource(R.drawable.storemenu_cosmetic_woman_normal);
+		fasMan.setImageResource(R.drawable.storemenu_fashion_man_normal);
+		fasWoman.setImageResource(R.drawable.storemenu_fashion_woman_normal);
+		fasKid.setImageResource(R.drawable.storemenu_fashion_kid_normal);
+	}
+
+	private void updateStoreCart() {
+		tvStoreCart = (TextView) findViewById(R.id.tvStoreCart);
+		TransactionDetailDB db = new TransactionDetailDB(this);
+		ArrayList<TransactionDetailInfo> listTransactionDetail = new ArrayList<TransactionDetailInfo>();
+		try {
+			listTransactionDetail = db.getTransactions();
+		} catch (ParseException e) {
+			Log.e("StoreMainActivity - updateStoreCart", e.getMessage());
+		}
+		tvStoreCart.setText(listTransactionDetail.size() + "");
 	}
 }

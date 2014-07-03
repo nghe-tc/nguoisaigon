@@ -110,11 +110,11 @@
             android:layout_height="262sp"
             android:layout_marginTop="90sp" >
 
-            <android.support.v4.view.ViewPager
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/storeMainPager"
+            <ListView
+                android:id="@+id/storeMainListProduct"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:listSelector="@android:color/transparent" />
         </FrameLayout>
 
         <ImageView
@@ -127,6 +127,17 @@
             android:onClick="btnStoreCartClick"
             android:scaleType="fitXY"
             android:src="@drawable/storecart_selector" />
+
+        <TextView
+            android:id="@+id/tvStoreCart"
+            android:layout_width="20sp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="520sp"
+            android:layout_marginTop="34sp"
+            android:gravity="center_horizontal"
+            android:text="0"
+            android:textColor="@color/red_dark"
+            android:textSize="8pt" />
 
         <ImageView
             android:id="@+id/btnStoreClose"

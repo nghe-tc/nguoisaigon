@@ -11,6 +11,7 @@ import com.nguoisaigon.entity.EventsInfo;
 import com.nguoisaigon.entity.MusicInfo;
 import com.nguoisaigon.entity.NewsInfo;
 import com.nguoisaigon.entity.SettingInfo;
+import com.nguoisaigon.entity.TransactionDetailInfo;
 
 public class Emailplugin {
 	

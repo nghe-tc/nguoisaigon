@@ -1,5 +1,7 @@
 package com.nguoisaigon.util;
 
+import java.text.SimpleDateFormat;
+import android.annotation.SuppressLint;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -7,11 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.google.gson.Gson;
 import com.nguoisaigon.R;
 import com.nguoisaigon.entity.EventsInfo;
 
+@SuppressLint("SimpleDateFormat")
 public class EventsPageFragment extends Fragment {
 
 	public static final String EVENTS_INFO = "EVENTS_INFO";
@@ -35,14 +37,18 @@ public class EventsPageFragment extends Fragment {
 		ViewGroup rootView = (ViewGroup) inflater.inflate(
 				R.layout.fragment_events_page, container, false);
 		
+		TextView tvEventDate = (TextView) rootView.findViewById(R.id.tvEventsDate);
 		TextView tvTitle = (TextView) rootView.findViewById(R.id.tvEventsTitle);
 		TextView tvContent = (TextView) rootView.findViewById(R.id.tvEventsContent);
 		
 		Typeface tf = Typeface.createFromAsset(getActivity().getAssets(),
 				"fonts/wg_legacy_edition.ttf");
 		tvTitle.setTypeface(tf);
-		//tvContent.setTypeface(tf);
-		
+		tvEventDate.setTypeface(tf);
+
+		SimpleDateFormat formater = new SimpleDateFormat("yyyy/MM/dd");
+		String eventDate = formater.format(event.getEventDate());
+		tvEventDate.setText(eventDate);
 		tvTitle.setText(event.getTitle());
 		tvContent.setText(event.getEventContent());
 
