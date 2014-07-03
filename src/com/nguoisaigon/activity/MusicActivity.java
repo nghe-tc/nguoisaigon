@@ -115,14 +115,19 @@ public class MusicActivity extends Activity {
 	 */
 	public void btnNextClick(View view) {
 		int size = songList.size();
-		if (size > 0 && (size - 1) == currentSong) {
+		if (size > 0 && (size - 1) <= currentSong) {
 			return;
 		}
 		currentSong++;
 		playMusic(player, currentSong);
-		stop.setVisibility(View.GONE);
-		play.setVisibility(View.VISIBLE);
+		play.setVisibility(View.GONE);
+		stop.setVisibility(View.VISIBLE);
 	}
+
+	/**
+	 * The first player start.
+	 */
+	private boolean isFirstStart = false;
 
 	/**
 	 * Play song
@@ -130,10 +135,20 @@ public class MusicActivity extends Activity {
 	 * @param view
 	 */
 	public void btnPlayClick(View view) {
+		int size = songList.size();
+		if (size == 0) {
+			return;
+		}
 		view.setVisibility(View.GONE);
 		stop.setVisibility(View.VISIBLE);
-		if (player.isPlaying()) {
-			player.pause();
+		try {
+			if (!isFirstStart) {
+				playMusic(player, currentSong);
+			} else {
+				player.start();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -145,10 +160,8 @@ public class MusicActivity extends Activity {
 	public void btnStopClick(View view) {
 		view.setVisibility(View.GONE);
 		play.setVisibility(View.VISIBLE);
-		try {
-			player.start();
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (player.isPlaying()) {
+			player.pause();
 		}
 	}
 
@@ -163,8 +176,8 @@ public class MusicActivity extends Activity {
 		}
 		currentSong--;
 		playMusic(player, currentSong);
-		stop.setVisibility(View.GONE);
-		play.setVisibility(View.VISIBLE);
+		play.setVisibility(View.GONE);
+		stop.setVisibility(View.VISIBLE);
 	}
 
 	/**
@@ -176,15 +189,14 @@ public class MusicActivity extends Activity {
 		TextView tvLoading = (TextView) findViewById(R.id.tvMusicLoading);
 		tvLoading.setVisibility(TextView.GONE);
 
-
 		// Assign adapter to ListView
 		lvSongList.setAdapter(new MusicListAdapter(this));
 
 		lvSongList.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				stop.setVisibility(View.GONE);
-				play.setVisibility(View.VISIBLE);
+				stop.setVisibility(View.VISIBLE);
+				play.setVisibility(View.GONE);
 				currentSong = position;
 				playMusic(player, currentSong);
 
@@ -268,6 +280,7 @@ public class MusicActivity extends Activity {
 	 *            the id
 	 */
 	private void playMusic(MediaPlayer mp, int id) {
+		isFirstStart = true;
 		MusicInfo musicInfo = songList.get(id);
 		try {
 			mp.stop();

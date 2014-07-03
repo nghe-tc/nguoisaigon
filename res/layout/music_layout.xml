@@ -107,7 +107,7 @@
             android:onClick="btnStopClick"
             android:scaleType="fitXY"
             android:src="@drawable/playbutton_play"
-            android:visibility="visible" />
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/btnMusicPlay"
@@ -119,7 +119,7 @@
             android:onClick="btnPlayClick"
             android:scaleType="fitXY"
             android:src="@drawable/playbutton_stop"
-            android:visibility="gone" />
+            android:visibility="visible" />
 
         <ImageView
             android:id="@+id/btnMusicBack"
