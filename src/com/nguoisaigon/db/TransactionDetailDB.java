@@ -1,14 +1,15 @@
 package com.nguoisaigon.db;
 
-import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 
 import com.nguoisaigon.entity.TransactionDetailInfo;
 
@@ -25,7 +26,7 @@ public class TransactionDetailDB extends DBHelper {
 	}
 
 	public static final String TABLE_NAME = "transactiondetail";
-	public static final String COLUMN_ID = "id";
+	public static final String COLUMN_ID = "serial";
 	public static final String COLUMN_PRODUCT_ID = "productid";
 	public static final String COLUMN_PRODUCT_NAME = "productname";
 	public static final String COLUMN_CATEGORY_ID = "categoryid";
@@ -49,7 +50,7 @@ public class TransactionDetailDB extends DBHelper {
 		values.put(COLUMN_QUANTITY, info.getQuantity());
 		values.put(COLUMN_SIZE_TYPE, info.getSizeType());
 		values.put(COLUMN_STOCK_QUANTITY, info.getQuantity());
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
 		String addedDate = formatter.format(info.getAddedDate());
 		values.put(COLUMN_ADDED_DATE, addedDate);
 		values.put(COLUMN_UNIT_PRICE, info.getUnitPrice());
@@ -70,13 +71,13 @@ public class TransactionDetailDB extends DBHelper {
 		values.put(COLUMN_QUANTITY, info.getQuantity());
 		values.put(COLUMN_SIZE_TYPE, info.getSizeType());
 		values.put(COLUMN_STOCK_QUANTITY, info.getQuantity());
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
 		String addedDate = formatter.format(info.getAddedDate());
 		values.put(COLUMN_ADDED_DATE, addedDate);
 		values.put(COLUMN_UNIT_PRICE, info.getUnitPrice());
 
 		String selection = COLUMN_ID + " = ?";
-		String[] selectionArgs = { String.valueOf(1) };
+		String[] selectionArgs = { String.valueOf(info.getId()) };
 
 		return sqlite.update(TABLE_NAME, values, selection, selectionArgs);
 	}
@@ -114,7 +115,7 @@ public class TransactionDetailDB extends DBHelper {
 	public ArrayList<TransactionDetailInfo> getTransactions()
 			throws ParseException {
 		ArrayList<TransactionDetailInfo> listTrans = new ArrayList<TransactionDetailInfo>();
-		String[] projection = { COLUMN_PRODUCT_ID, COLUMN_PRODUCT_NAME,
+		String[] projection = { COLUMN_ID, COLUMN_PRODUCT_ID, COLUMN_PRODUCT_NAME,
 				COLUMN_CATEGORY_ID, COLUMN_QUANTITY, COLUMN_SIZE_TYPE,
 				COLUMN_STOCK_QUANTITY, COLUMN_ADDED_DATE, COLUMN_UNIT_PRICE };
 
@@ -122,17 +123,19 @@ public class TransactionDetailDB extends DBHelper {
 				null);
 		while (c.moveToNext()) {
 			TransactionDetailInfo info = new TransactionDetailInfo();
-			info.setProductId(c.getString(0));
-			info.setProductName(c.getString(1));
-			info.setCategoryId(c.getInt(2));
-			info.setQuantity(c.getInt(3));
-			info.setSizeType(c.getInt(4));
-			info.setStockQuantity(c.getInt(5));
-			String strAddDate = c.getString(6);
-			SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			info.setId(c.getInt(0));
+			info.setProductId(c.getString(1));
+			info.setProductName(c.getString(2));
+			info.setCategoryId(c.getInt(3));
+			info.setQuantity(c.getInt(4));
+			info.setSizeType(c.getInt(5));
+			info.setStockQuantity(c.getInt(6));
+			String strAddDate = c.getString(7);
+			Log.i("TransactionDetailDB - getTransactions", strAddDate);
+			SimpleDateFormat fm = new SimpleDateFormat("yyyy/MM/dd");
 			Date addDate = (Date) fm.parse(strAddDate);
 			info.setAddedDate(addDate);
-			info.setUnitPrice(c.getDouble(7));
+			info.setUnitPrice(c.getDouble(8));
 			listTrans.add(info);
 		}
 		return listTrans;

@@ -1,14 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-    
-        <EditText
-        android:id="@+id/editText2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10" 
-        android:text="checkout 1"/>
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:gravity="center" >
 
-    
-</FrameLayout>
+    <FrameLayout
+        android:layout_width="600sp"
+        android:layout_height="383sp"
+        android:layout_gravity="center" >
+
+        <ImageView
+            android:id="@+id/checkout1background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/welcomebg"
+            android:src="@drawable/checkoutbackground" />
+
+        <ImageView
+            android:id="@+id/btnCartBack"
+            android:layout_width="35sp"
+            android:layout_height="30sp"
+            android:layout_marginLeft="20sp"
+            android:layout_marginTop="30sp"
+            android:contentDescription="@string/welcomebg"
+            android:onClick="btnBackClick"
+            android:src="@drawable/backbutton" />
+
+        <ImageView
+            android:id="@+id/image1"
+            android:layout_width="30sp"
+            android:layout_height="40sp"
+            android:layout_marginLeft="52sp"
+            android:layout_marginTop="70sp"
+            android:contentDescription="@string/welcomebg"
+            android:src="@drawable/stepindicatearrow" />
+
+        <TextView
+            android:id="@+id/tvCheckoutStep1Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5sp"
+            android:layout_marginTop="80sp"
+            android:gravity="center"
+            android:text="@string/checkout_step1_title"
+            android:textColor="@color/checkout_step"
+            android:textSize="8pt"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvCheckoutStep2Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5sp"
+            android:layout_marginTop="120sp"
+            android:gravity="center"
+            android:text="@string/checkout_step2_title"
+            android:textColor="@android:color/black"
+            android:textSize="8pt" />
+
+        <TextView
+            android:id="@+id/tvCheckoutStep3Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5sp"
+            android:layout_marginTop="160sp"
+            android:gravity="center"
+            android:text="@string/checkout_step3_title"
+            android:textColor="@android:color/black"
+            android:textSize="8pt" />
+
+        <TextView
+            android:id="@+id/tvCheckoutStep4Title"
+            android:layout_width="50sp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12sp"
+            android:layout_marginTop="200sp"
+            android:gravity="center"
+            android:text="@string/checkout_step4_title"
+            android:textColor="@android:color/black"
+            android:textSize="8pt" />
+        
+        <TextView
+            android:id="@+id/tvCheckoutStep1MainTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="80sp"
+            android:layout_marginTop="38sp"
+            android:gravity="center"
+            android:text="@string/checkout_step1_main_title"
+            android:textColor="@android:color/black"
+            android:textSize="10pt" />
+    </FrameLayout>
+
+</LinearLayout>

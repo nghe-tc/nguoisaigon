@@ -6,5 +6,5 @@
     <color name="contact_blue_color">#ff1560FF</color>
     <color name="black_color">#ff000000</color>
     <color name="red_dark">#800000</color>
-
+    <color name="checkout_step">#FFFF66</color>
 </resources>

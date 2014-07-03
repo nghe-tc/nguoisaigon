@@ -11,5 +11,6 @@ public class Checkout1Activity extends Activity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.checkout1_layout);
+        String mainTitle = "Bước 1 Thông tin liên hệ & giao hàng";
 	}
 }

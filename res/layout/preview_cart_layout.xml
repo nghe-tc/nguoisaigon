@@ -1,14 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-    
-        <EditText
-        android:id="@+id/editText2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10" 
-        android:text="preview cart"/>
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:gravity="center" >
 
-    
-</FrameLayout>
+    <FrameLayout
+        android:layout_width="600sp"
+        android:layout_height="383sp"
+        android:layout_gravity="center" >
+
+        <ImageView
+            android:id="@+id/storebackground"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/welcomebg"
+            android:src="@drawable/store_background" />
+
+        <ImageView
+            android:id="@+id/cartLabel"
+            android:layout_width="110sp"
+            android:layout_height="65sp"
+            android:layout_marginLeft="485sp"
+            android:layout_marginTop="25sp"
+            android:contentDescription="@string/welcomebg"
+            android:scaleType="fitXY"
+            android:src="@drawable/cartlabel" />
+
+        <ImageView
+            android:id="@+id/btnCartClose"
+            android:layout_width="32sp"
+            android:layout_height="32sp"
+            android:layout_marginLeft="561sp"
+            android:layout_marginTop="29sp"
+            android:contentDescription="@string/welcomebg"
+            android:onClick="btnCloseClick"
+            android:src="@drawable/closebutton" />
+
+        <ImageView
+            android:id="@+id/btnCartBack"
+            android:layout_width="35sp"
+            android:layout_height="30sp"
+            android:layout_marginLeft="10sp"
+            android:layout_marginTop="95sp"
+            android:contentDescription="@string/welcomebg"
+            android:onClick="btnBackClick"
+            android:src="@drawable/backbutton" />
+
+        <TextView
+            android:id="@+id/tvCartProductTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50sp"
+            android:layout_marginTop="100sp"
+            android:gravity="center"
+            android:text="@string/cart_product_title"
+            android:textColor="@android:color/black"
+            android:textSize="8pt"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvCartQuantityTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="260sp"
+            android:layout_marginTop="100sp"
+            android:gravity="center"
+            android:text="@string/cart_quantity_title"
+            android:textColor="@android:color/black"
+            android:textSize="8pt"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvCartPriceTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="400sp"
+            android:layout_marginTop="100sp"
+            android:gravity="center"
+            android:text="@string/cart_price_title"
+            android:textColor="@android:color/black"
+            android:textSize="8pt"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvCartTotalTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="500sp"
+            android:layout_marginTop="100sp"
+            android:gravity="center"
+            android:text="@string/cart_total_title"
+            android:textColor="@android:color/black"
+            android:textSize="8pt"
+            android:textStyle="bold" />
+
+        <ListView
+            android:id="@+id/cartListTransaction"
+            android:layout_width="match_parent"
+            android:layout_height="170sp"
+            android:layout_marginTop="130sp"
+            android:listSelector="@null" />
+        
+        <ImageView
+            android:id="@+id/btnCartCheckout"
+            android:layout_width="140dp"
+            android:layout_height="38dp"
+            android:layout_marginLeft="450sp"
+            android:layout_marginTop="310sp"
+            android:contentDescription="@string/welcomebg"
+            android:onClick="btnCartCheckoutClick"
+            android:src="@drawable/checkoutbutton" />
+        
+        <TextView
+            android:id="@+id/tvCartTotalText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="180sp"
+            android:layout_marginTop="320sp"
+            android:gravity="center"
+            android:text="@string/cart_total_text"
+            android:textColor="@color/red_dark"
+            android:textSize="8pt"
+            android:textStyle="bold" />
+        
+        <TextView
+            android:id="@+id/tvCartTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="268sp"
+            android:layout_marginTop="320sp"
+            android:gravity="center"
+            android:text="@string/cart_total_default"
+            android:textColor="@color/red_dark"
+            android:textSize="8pt"
+            android:textStyle="bold" />
+        
+    </FrameLayout>
+
+</LinearLayout>

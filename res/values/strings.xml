@@ -74,5 +74,22 @@
     <string name="cart_quantity_title">Số lượng</string>
     <string name="cart_price_title">Đơn giá</string>
     <string name="cart_total_title">Thành tiền</string>
-
+    <string name="cart_productname_default">Sản phẩm 1</string>
+    <string name="cart_quantity_default">0</string>
+    <string name="cart_total_default">0</string>
+    <string name="cart_total_text">Tổng cộng:</string>
+    
+    <!-- Application Checkout layout -->
+    <string name="checkout_step1_title">Bước 1</string>
+    <string name="checkout_step2_title">Bước 2</string>
+    <string name="checkout_step3_title">Bước 3</string>
+    <string name="checkout_step4_title">Hoàn tất</string>
+    <string name="checkout_step1_main_title">Bước 1 - Thông tin liên lạc</string>
+    <string name="checkout_step1_name">Tên người mua</string>
+    <string name="checkout_step1_email">Email</string>
+    <string name="checkout_step1_phone">Điện thoại</string>
+    <string name="checkout_step1_address">Địa chỉ giao hàng</string>
+    <string name="checkout_step1_note">Ghi chú</string>
+    <string name="checkout_step1_detail">Là các thông tin cần thiết để chúng tôi liên lại với quý khách</string>
+    
 </resources>

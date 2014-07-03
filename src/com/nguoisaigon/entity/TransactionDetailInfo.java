@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class TransactionDetailInfo {
 
+	private Integer id;
 	private Date addedDate;
 	private Integer categoryId;
 	private String productId;
@@ -14,6 +15,7 @@ public class TransactionDetailInfo {
 	private Double unitPrice;
 
 	public void clear() {
+		this.id = null;
 		this.addedDate = null;
 		this.categoryId = null;
 		this.productId = null;
@@ -23,7 +25,22 @@ public class TransactionDetailInfo {
 		this.stockQuantity = null;
 		this.unitPrice = null;
 	}
-	
+
+	/**
+	 * @return the id
+	 */
+	public Integer getId() {
+		return id;
+	}
+
+	/**
+	 * @param id
+	 *            the id to set
+	 */
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	/**
 	 * @return the addedDate
 	 */
