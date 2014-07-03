@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <FrameLayout
+        android:id="@+id/cartTransactionLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <FrameLayout
+            android:layout_width="30sp"
+            android:layout_height="30sp"
+            android:layout_marginLeft="10sp"
+            android:onClick="cartTransactionDeleteClick">
+            
+            <ImageView
+                android:id="@+id/cartTransactionDelete"
+                android:layout_width="30sp"
+                android:layout_height="30sp"
+                android:contentDescription="@string/welcomebg"
+                android:scaleType="fitXY"
+                android:src="@drawable/removebutton" />
+
+            <TextView
+                android:id="@+id/tvCartTransactionDeleteIndex"
+                android:layout_width="20sp"
+                android:layout_height="20sp"
+                android:visibility="gone" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="30sp"
+            android:layout_height="30sp"
+            android:layout_marginLeft="290sp" 
+            android:onClick="cartTransactionPlusClick">
+
+            <ImageView
+                android:id="@+id/storeDetailProductQuantityPlus"
+                android:layout_width="30sp"
+                android:layout_height="30sp"
+                android:contentDescription="@string/welcomebg"
+                android:scaleType="fitXY"
+                android:src="@drawable/plusbutton" />
+
+            <TextView
+                android:id="@+id/tvCartTransactionPlusIndex"
+                android:layout_width="20sp"
+                android:layout_height="20sp"
+                android:visibility="gone" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="30sp"
+            android:layout_height="30sp"
+            android:layout_marginLeft="325sp"
+            android:onClick="cartTransactionMunisClick">
+
+            <ImageView
+                android:id="@+id/storeDetailProductQuantityMinus"
+                android:layout_width="30sp"
+                android:layout_height="30sp"
+                android:contentDescription="@string/welcomebg"
+                android:scaleType="fitXY"
+                android:src="@drawable/minusbutton" />
+
+            <TextView
+                android:id="@+id/tvCartTransactionMunisIndex"
+                android:layout_width="20sp"
+                android:layout_height="20sp"
+                android:visibility="gone" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/tvCartProductName"
+            android:layout_width="200sp"
+            android:layout_height="30sp"
+            android:layout_marginLeft="45sp"
+            android:gravity="center_vertical"
+            android:text="@string/cart_productname_default"
+            android:textSize="7pt" />
+        
+        <TextView
+            android:id="@+id/tvCartTransactionQuantity"
+            android:layout_width="30sp"
+            android:layout_height="30sp"
+            android:layout_marginLeft="260sp"
+            android:gravity="center_vertical"
+            android:text="@string/cart_quantity_default"
+            android:textSize="7pt" />
+        
+        <TextView
+            android:id="@+id/tvCartTransactionPrice"
+            android:layout_width="80sp"
+            android:layout_height="30sp"
+            android:layout_marginLeft="380sp"
+            android:gravity="right|center_vertical"
+            android:text="@string/cart_quantity_default"
+            android:textSize="7pt" />
+        
+        <TextView
+            android:id="@+id/tvCartTransactionTotal"
+            android:layout_width="110sp"
+            android:layout_height="30sp"
+            android:layout_marginLeft="480sp"
+            android:gravity="right|center_vertical"
+            android:text="@string/cart_total_default"
+            android:textSize="7pt" />
+    </FrameLayout>
+
+</LinearLayout>
