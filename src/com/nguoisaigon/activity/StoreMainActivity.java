@@ -27,6 +27,7 @@ import com.nguoisaigon.db.TransactionDetailDB;
 import com.nguoisaigon.entity.ProductInfo;
 import com.nguoisaigon.entity.StoreProductPageInfo;
 import com.nguoisaigon.entity.TransactionDetailInfo;
+import com.nguoisaigon.util.BitmapCache;
 import com.nguoisaigon.util.CustomPagerAdapter;
 import com.nguoisaigon.util.StoreProductDetailPageFragment;
 import com.nguoisaigon.util.StoreProductPageAdapter;
@@ -72,6 +73,9 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 		Log.i("StoreMainActivity - onCreate", "Start");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.store_main_layout);
+
+		BitmapCache.createBitmapCache();
+
 		this.storeProduct = (FrameLayout) findViewById(R.id.storeMain);
 		this.storeProductDetail = (FrameLayout) findViewById(R.id.storeDetail);
 		storeProductDetail.setVisibility(FrameLayout.GONE);
