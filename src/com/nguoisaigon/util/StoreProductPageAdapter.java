@@ -70,7 +70,7 @@ public class StoreProductPageAdapter extends BaseAdapter {
 			holder.product3.setVisibility(FrameLayout.GONE);
 			holder.product4.setVisibility(FrameLayout.GONE);
 
-			ImageView pic = null;
+			ImageView mainPic = null;
 			ImageView newIcon = null;
 			ImageView salesIcon = null;
 			TextView productId = null;
@@ -86,7 +86,7 @@ public class StoreProductPageAdapter extends BaseAdapter {
 					salesIcon = (ImageView) view.findViewById(R.id.storeProduct1SaleIcon);
 					productId = (TextView) view.findViewById(R.id.tvProduct1Id);
 					productId.setText(product.getProductId());
-					pic = (ImageView) view.findViewById(R.id.storeProduct1);
+					mainPic = (ImageView) view.findViewById(R.id.storeProduct1);
 					break;
 				case 2:
 					holder.product2.setVisibility(FrameLayout.VISIBLE);
@@ -94,7 +94,7 @@ public class StoreProductPageAdapter extends BaseAdapter {
 					salesIcon = (ImageView) view.findViewById(R.id.storeProduct2SaleIcon);
 					productId = (TextView) view.findViewById(R.id.tvProduct2Id);
 					productId.setText(product.getProductId());
-					pic = (ImageView) view.findViewById(R.id.storeProduct2);
+					mainPic = (ImageView) view.findViewById(R.id.storeProduct2);
 					break;
 				case 3:
 					holder.product3.setVisibility(FrameLayout.VISIBLE);
@@ -102,7 +102,7 @@ public class StoreProductPageAdapter extends BaseAdapter {
 					salesIcon = (ImageView) view.findViewById(R.id.storeProduct3SaleIcon);
 					productId = (TextView) view.findViewById(R.id.tvProduct3Id);
 					productId.setText(product.getProductId());
-					pic = (ImageView) view.findViewById(R.id.storeProduct3);
+					mainPic = (ImageView) view.findViewById(R.id.storeProduct3);
 					break;
 				case 4:
 					holder.product4.setVisibility(FrameLayout.VISIBLE);
@@ -110,7 +110,7 @@ public class StoreProductPageAdapter extends BaseAdapter {
 					salesIcon = (ImageView) view.findViewById(R.id.storeProduct4SaleIcon);
 					productId = (TextView) view.findViewById(R.id.tvProduct4Id);
 					productId.setText(product.getProductId());
-					pic = (ImageView) view.findViewById(R.id.storeProduct4);
+					mainPic = (ImageView) view.findViewById(R.id.storeProduct4);
 					break;
 				default:
 					break;
@@ -123,8 +123,10 @@ public class StoreProductPageAdapter extends BaseAdapter {
 					salesIcon.setVisibility(ImageView.GONE);
 				}
 
-				new ImageLoadTask(pic, product.getImageList().get(0).getImageUrl(), product.getProductId())
-						.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+				if (product.getImageList().size() > 0) {
+					new ImageLoadTask(product.getImageList().get(0), mainPic)
+							.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+				}
 			}
 		}
 		return view;

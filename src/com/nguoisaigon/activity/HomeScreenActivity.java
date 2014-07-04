@@ -113,11 +113,11 @@ public class HomeScreenActivity extends Activity {
 		//
 		// intent.putExtras(bundle);
 		// startActivity(intent);
-		FacebookPlugin fbPlugin = new FacebookPlugin("Dialog description",
-				info.getAppLink(), "Dialog Caption");
-		fbPlugin.postToWall();
-		fbPlugin.showDialog("Dialog description", info.getAppLink(),
-				"Dialog Caption");
+//		FacebookPlugin fbPlugin = new FacebookPlugin("Dialog description",
+//				info.getAppLink(), "Dialog Caption");
+//		fbPlugin.postToWall();
+//		fbPlugin.showDialog("Dialog description", info.getAppLink(),
+//				"Dialog Caption");
 	}
 
 	public void btnphone_click(View view) {

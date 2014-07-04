@@ -27,6 +27,16 @@
             android:scaleType="fitXY"
             android:src="@drawable/productdetailframe" />
 
+        <LinearLayout
+            android:id="@+id/imageGroup"
+            android:layout_width="178sp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="38sp"
+            android:layout_marginTop="195sp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal" >
+        </LinearLayout>
+
         <ImageView
             android:id="@+id/storeDetailProductHotTag"
             android:layout_width="38sp"
@@ -114,8 +124,8 @@
                 android:layout_width="45sp"
                 android:layout_height="30sp"
                 android:layout_marginLeft="210sp"
-                android:contentDescription="@string/welcomebg"
                 android:clickable="false"
+                android:contentDescription="@string/welcomebg"
                 android:onClick="storeDetailProductSizeClick"
                 android:scaleType="fitEnd"
                 android:src="@drawable/productsizem_normal" />
@@ -125,8 +135,8 @@
                 android:layout_width="45sp"
                 android:layout_height="30sp"
                 android:layout_marginLeft="260sp"
-                android:contentDescription="@string/welcomebg"
                 android:clickable="false"
+                android:contentDescription="@string/welcomebg"
                 android:onClick="storeDetailProductSizeClick"
                 android:scaleType="fitEnd"
                 android:src="@drawable/productsizel_normal" />
@@ -136,8 +146,8 @@
                 android:layout_width="45sp"
                 android:layout_height="30sp"
                 android:layout_marginLeft="310sp"
-                android:contentDescription="@string/welcomebg"
                 android:clickable="false"
+                android:contentDescription="@string/welcomebg"
                 android:onClick="storeDetailProductSizeClick"
                 android:scaleType="fitEnd"
                 android:src="@drawable/productsizexl_normal" />

@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.ImageView;
+import com.nguoisaigon.entity.ImageInfo;
 
 public class ImageLoadTask extends AsyncTask<Void, Void, Bitmap> {
 
@@ -19,12 +20,24 @@ public class ImageLoadTask extends AsyncTask<Void, Void, Bitmap> {
 
 	public static final String SERVER_URL = "http://rest.itsleek.vn";
 	private String imageUrl, id;
+
 	private ImageView imageView;
 
-	public ImageLoadTask(ImageView imageView, String url, String id) {
+	/**
+	 * Instantiates a new image load task.
+	 * 
+	 * @param imageInfo
+	 *            the image info
+	 */
+	public ImageLoadTask(ImageInfo imageInfo) {
+		this.imageUrl = SERVER_URL + imageInfo.getImageUrl();
+		this.id = imageInfo.getImageId();
+	}
+
+	public ImageLoadTask(ImageInfo imageInfo, ImageView imageView) {
+		this.imageUrl = SERVER_URL + imageInfo.getImageUrl();
+		this.id = imageInfo.getImageId();
 		this.imageView = imageView;
-		this.imageUrl = SERVER_URL + url;
-		this.id = id;
 	}
 
 	@Override
@@ -67,7 +80,9 @@ public class ImageLoadTask extends AsyncTask<Void, Void, Bitmap> {
 	protected void onPostExecute(Bitmap result) {
 		super.onPostExecute(result);
 		if (result != null) {
-			imageView.setImageBitmap(result);
+			if (imageView != null) {
+				imageView.setImageBitmap(result);
+			}
 		} else {
 			Log.i(TAG, "The Bitmap is NULL");
 		}
