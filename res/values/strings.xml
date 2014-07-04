@@ -102,5 +102,9 @@
     <string name="checkout_step2_payment_type2_account_number">SỐ TK: 007.100.482.0302 (Ngân Hàng VietcomBank)</string>
     <string name="checkout_step2_payment_type3">Thanh toán bằng thẻ quốc tế</string>
     <string name="checkout_step2_payment_type3_detail">Thanh toán trực tiếp thông qua các dịch vụ tín dụng quốc tế</string>
+    <string name="checkout_step4_detail">Quý khách đã chọn hình thức thanh toán khi giao hàng. Chúng tôi sẽ liên lạc với quý khách trong thời gian sớm nhất.</string>
+    <string name="checkout_step4_facebook_title">Tôi đã sử dụng Người Sài Gòn App để mua hàng</string>
+    <string name="checkout_step4_store_title">Tiếp tục xem hàng trong Store</string>
+    <string name="checkout_step4_home_title">Trở về màn hình chính</string>
     
 </resources>

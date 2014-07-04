@@ -10,6 +10,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -29,6 +30,7 @@ public class PreviewCartActivity extends Activity {
 	private TransactionDetailDB db;
 
 	private ArrayList<TransactionDetailInfo> listTransaction;
+	CartTransactionAdapter adapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +56,7 @@ public class PreviewCartActivity extends Activity {
 		this.tvCartTotal.setTypeface(tf);
 
 		this.listTransaction = new ArrayList<TransactionDetailInfo>();
-//		this.db = new TransactionDetailDB(this);
+		this.db = new TransactionDetailDB(this);
 //		for (int i = 1; i < 5; i++) {
 //			TransactionDetailInfo info = new TransactionDetailInfo();
 //			info.setAddedDate(Calendar.getInstance().getTime());
@@ -74,15 +76,15 @@ public class PreviewCartActivity extends Activity {
 		Log.i("PreviewCartActivity - loadData", "Start");
 		this.listTransaction.clear();
 		try {
-			this.db.openDatabase();
 			this.listTransaction = this.db.getTransactions();
-			this.db.closeDatabase();
 			Log.i("PreviewCartActivity - loadData", "num of transaction: "
 					+ this.listTransaction.size());
-			CartTransactionAdapter adapter = new CartTransactionAdapter(this,
+			this.adapter = new CartTransactionAdapter(this,
 					this.listTransaction);
 			this.cartListTransaction.setAdapter(adapter);
 			this.cartListTransaction.setDivider(null);
+			this.cartListTransaction.invalidate();
+			((BaseAdapter) this.cartListTransaction.getAdapter()).notifyDataSetChanged();
 
 			Double total = 0.0;
 			for (TransactionDetailInfo transaction : this.listTransaction) {
@@ -91,8 +93,8 @@ public class PreviewCartActivity extends Activity {
 			NumberFormat formatter = new DecimalFormat("#,###,###");
 			this.tvCartTotal.setText(formatter.format(total) + "đ");
 
-		} catch (Exception e) {
-			Log.e("PreviewCartActivity - loadData", e.getMessage());
+		} catch (Exception ex) {
+			Log.e("PreviewCartActivity - loadData", ex.getMessage());
 		}
 	}
 
@@ -112,8 +114,11 @@ public class PreviewCartActivity extends Activity {
 				.findViewById(R.id.tvCartTransactionPlusIndex);
 		Integer index = Integer.parseInt(tvCartTransactionPlusIndex.getText()
 				.toString());
+		Log.i("PreviewCartActivity - cartTransactionPlusClick", "index: " + index);
 		TransactionDetailInfo transaction = this.listTransaction.get(index);
+		Log.i("PreviewCartActivity - cartTransactionPlusClick", "Quantity: " + transaction.getQuantity());
 		transaction.setQuantity(transaction.getQuantity() + 1);
+		Log.i("PreviewCartActivity - cartTransactionPlusClick", "Quantity plus: " + transaction.getQuantity());
 		this.db.update(transaction);
 		this.loadData();
 	}
@@ -124,9 +129,12 @@ public class PreviewCartActivity extends Activity {
 				.findViewById(R.id.tvCartTransactionMunisIndex);
 		Integer index = Integer.parseInt(tvCartTransactionMunisIndex.getText()
 				.toString());
+		Log.i("PreviewCartActivity - cartTransactionMunisClick", "index: " + index);
 		TransactionDetailInfo transaction = this.listTransaction.get(index);
 		if (transaction.getQuantity() > 1) {
+			Log.i("PreviewCartActivity - cartTransactionMunisClick", "Quantity: " + transaction.getQuantity());
 			transaction.setQuantity(transaction.getQuantity() - 1);
+			Log.i("PreviewCartActivity - cartTransactionMunisClick", "Quantity munis: " + transaction.getQuantity());
 			this.db.update(transaction);
 			this.loadData();
 		}

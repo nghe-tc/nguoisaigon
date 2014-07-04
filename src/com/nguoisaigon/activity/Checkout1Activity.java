@@ -104,7 +104,6 @@ public class Checkout1Activity extends Activity {
 			} else {
 				db.update(this.userInfo);
 			}
-			db.closeDatabase();
 			Intent intent = new Intent(this, Checkout2Activity.class);
 			startActivity(intent);
 		}

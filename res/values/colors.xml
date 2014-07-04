@@ -8,4 +8,8 @@
     <color name="red_dark">#800000</color>
     <color name="checkout_step">#FFFF66</color>
     <color name="red">#FF0000</color>
+    <color name="title_checkout4">#986636</color>
+    <color name="button_title_checkout4">#00427F</color>
+    
+    
 </resources>
