@@ -1,16 +1,12 @@
 package com.nguoisaigon.util;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.os.Environment;
 import android.util.Log;
 import android.widget.ImageView;
 
@@ -20,8 +16,6 @@ public class ImageLoadTask extends AsyncTask<Void, Void, Bitmap> {
 	 * The Constant TAG.
 	 */
 	private static final String TAG = ImageLoadTask.class.getSimpleName();
-	public static final String PREFIX_DOWNLOAD = "/.nguoisaigon/";
-	private String path = Environment.getExternalStorageDirectory() + PREFIX_DOWNLOAD;
 
 	public static final String SERVER_URL = "http://rest.itsleek.vn";
 	private String imageUrl, id;
@@ -35,28 +29,22 @@ public class ImageLoadTask extends AsyncTask<Void, Void, Bitmap> {
 
 	@Override
 	protected Bitmap doInBackground(Void... params) {
-		File file = new File(path);
-		if (!file.mkdirs()) {
-			Log.i("WebService", "Make directories failure because it already existed.");
-		}
-		File picFile = new File(file, id);
-		if (picFile.exists()) {
-			Bitmap bmp = BitmapFactory.decodeFile(picFile.getAbsolutePath());
-			return bmp;
+		Bitmap bitmap = BitmapCache.getBitmapFromMemCache(id);
+		if (bitmap != null) {
+			return bitmap;
 		}
 
 		HttpURLConnection con = null;
 		InputStream is = null;
-		OutputStream fOut = null;
 		try {
 			URL url = new URL(imageUrl);
 			con = (HttpURLConnection) url.openConnection();
 			is = con.getInputStream();
-			Bitmap bmp = BitmapFactory.decodeStream(is);
 
-			fOut = new FileOutputStream(picFile);
-			bmp.compress(Bitmap.CompressFormat.JPEG, 85, fOut);
-			fOut.flush();
+			BitmapFactory.Options bounds = new BitmapFactory.Options();
+			bounds.inSampleSize = 4;
+			Bitmap bmp = BitmapFactory.decodeStream(is, null, bounds);
+			BitmapCache.addBitmapToMemoryCache(id, bmp);
 			return bmp;
 		} catch (Exception e) {
 			Log.e(TAG, e.getMessage(), e);
@@ -64,13 +52,6 @@ public class ImageLoadTask extends AsyncTask<Void, Void, Bitmap> {
 			if (is != null) {
 				try {
 					is.close();
-				} catch (IOException e) {
-					Log.e(TAG, e.getMessage(), e);
-				}
-			}
-			if (fOut != null) {
-				try {
-					fOut.close();
 				} catch (IOException e) {
 					Log.e(TAG, e.getMessage(), e);
 				}
