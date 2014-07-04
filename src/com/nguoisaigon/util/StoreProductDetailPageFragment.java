@@ -98,13 +98,6 @@ public class StoreProductDetailPageFragment extends Fragment {
 		description.setText(product.getDescription());
 		unitPrice.setText(product.getUnitPrice() + " đ");
 
-		sizeXXS.setImageAlpha(70);
-		sizeXS.setImageAlpha(70);
-		sizeS.setImageAlpha(70);
-		sizeM.setImageAlpha(70);
-		sizeL.setImageAlpha(70);
-		sizeXL.setImageAlpha(70);
-
 		if (product.getSizeQtyList().size() > 0) {
 			sizeLayout.setVisibility(FrameLayout.VISIBLE);
 			quantityLayout.setVisibility(FrameLayout.GONE);
@@ -112,36 +105,42 @@ public class StoreProductDetailPageFragment extends Fragment {
 				switch (i) {
 				case 0:
 					sizeXXS.setClickable(true);
+					sizeXXS.setFocusableInTouchMode(true);
 					sizeXXS.setImageAlpha(255);
 					sizeXXS.setContentDescription(product.getSizeQtyList().get(i).getSizeType().toString());
 					break;
 
 				case 1:
 					sizeXS.setClickable(true);
+					sizeXS.setFocusableInTouchMode(true);
 					sizeXS.setImageAlpha(255);
 					sizeXS.setContentDescription(product.getSizeQtyList().get(i).getSizeType().toString());
 					break;
 
 				case 2:
 					sizeS.setClickable(true);
+					sizeS.setFocusableInTouchMode(true);
 					sizeS.setImageAlpha(255);
 					sizeS.setContentDescription(product.getSizeQtyList().get(i).getSizeType().toString());
 					break;
 
 				case 3:
 					sizeM.setClickable(true);
+					sizeM.setFocusableInTouchMode(true);
 					sizeM.setImageAlpha(255);
 					sizeM.setContentDescription(product.getSizeQtyList().get(i).getSizeType().toString());
 					break;
 
 				case 4:
 					sizeL.setClickable(true);
+					sizeL.setFocusableInTouchMode(true);
 					sizeL.setImageAlpha(255);
 					sizeL.setContentDescription(product.getSizeQtyList().get(i).getSizeType().toString());
 					break;
 
 				case 5:
 					sizeXL.setClickable(true);
+					sizeXL.setFocusableInTouchMode(true);
 					sizeXL.setImageAlpha(255);
 					sizeXL.setContentDescription(product.getSizeQtyList().get(i).getSizeType().toString());
 					break;
@@ -169,5 +168,4 @@ public class StoreProductDetailPageFragment extends Fragment {
 
 		return rootView;
 	}
-
 }
