@@ -25,6 +25,7 @@ public class UserDB extends DBHelper {
 	public static final String COLUMN_CONTACT_PHONE = "contactphone";
 	public static final String COLUMN_ADDRESS = "address";
 	public static final String COLUMN_ERNED_POINT = "ernedpoint";
+	public static final String COLUMN_NOTE = "note";
 
 	/**
 	 * Insert UserInfo into database
@@ -40,6 +41,7 @@ public class UserDB extends DBHelper {
 		values.put(COLUMN_CONTACT_PHONE, info.getContactPhone());
 		values.put(COLUMN_ADDRESS, info.getAddress());
 		values.put(COLUMN_ERNED_POINT, info.getErnedPoint());
+		values.put(COLUMN_NOTE, info.getNote());
 		return sqlite.insert(TABLE_NAME, null, values);
 	}
 
@@ -57,6 +59,7 @@ public class UserDB extends DBHelper {
 		values.put(COLUMN_CONTACT_PHONE, info.getContactPhone());
 		values.put(COLUMN_ADDRESS, info.getAddress());
 		values.put(COLUMN_ERNED_POINT, info.getErnedPoint());
+		values.put(COLUMN_NOTE, info.getNote());
 
 		String selection = COLUMN_ID + " = ?";
 		String[] selectionArgs = { String.valueOf(1) };
@@ -83,7 +86,7 @@ public class UserDB extends DBHelper {
 	 */
 	public UserInfo getUser() {
 		String[] projection = { COLUMN_USER_ID, COLUMN_NAME, COLUMN_EMAIL,
-				COLUMN_CONTACT_PHONE, COLUMN_ADDRESS, COLUMN_ERNED_POINT };
+				COLUMN_CONTACT_PHONE, COLUMN_ADDRESS, COLUMN_ERNED_POINT, COLUMN_NOTE };
 
 		Cursor c = sqlite.query(TABLE_NAME, projection, null, null, null, null,
 				null);
@@ -95,6 +98,7 @@ public class UserDB extends DBHelper {
 			user.setContactPhone(c.getString(3));
 			user.setAddress(c.getString(4));
 			user.setErnedPoint(c.getDouble(5));
+			user.setNote(c.getString(6));
 			return user;
 		}
 		return null;

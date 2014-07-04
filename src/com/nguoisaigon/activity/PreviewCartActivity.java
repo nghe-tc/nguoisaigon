@@ -3,12 +3,6 @@ package com.nguoisaigon.activity;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-
-import com.nguoisaigon.R;
-import com.nguoisaigon.db.TransactionDetailDB;
-import com.nguoisaigon.entity.TransactionDetailInfo;
-import com.nguoisaigon.util.CartTransactionAdapter;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -18,6 +12,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.nguoisaigon.R;
+import com.nguoisaigon.db.TransactionDetailDB;
+import com.nguoisaigon.entity.TransactionDetailInfo;
+import com.nguoisaigon.util.CartTransactionAdapter;
 
 public class PreviewCartActivity extends Activity {
 	private TextView tvCartProductTitle;
@@ -55,19 +54,19 @@ public class PreviewCartActivity extends Activity {
 		this.tvCartTotal.setTypeface(tf);
 
 		this.listTransaction = new ArrayList<TransactionDetailInfo>();
-		this.db = new TransactionDetailDB(this);
-		for (int i = 1; i < 3; i++) {
-			TransactionDetailInfo info = new TransactionDetailInfo();
-			info.setAddedDate(Calendar.getInstance().getTime());
-			info.setCategoryId(i);
-			info.setProductId("anghghhghgh1242314532");
-			info.setProductName("Sản phẩm thứ 1");
-			info.setQuantity(i);
-			info.setSizeType(i);
-			info.setStockQuantity(i);
-			info.setUnitPrice(1000000.0 * i);
-			this.db.insert(info);
-		}
+//		this.db = new TransactionDetailDB(this);
+//		for (int i = 1; i < 5; i++) {
+//			TransactionDetailInfo info = new TransactionDetailInfo();
+//			info.setAddedDate(Calendar.getInstance().getTime());
+//			info.setCategoryId(i);
+//			info.setProductId("anghghhghgh1242314532");
+//			info.setProductName("Sản phẩm thứ 1");
+//			info.setQuantity(i);
+//			info.setSizeType(i);
+//			info.setStockQuantity(i);
+//			info.setUnitPrice(1000000.0 * i);
+//			this.db.insert(info);
+//		}
 		this.loadData();
 	}
 
@@ -103,9 +102,7 @@ public class PreviewCartActivity extends Activity {
 				.findViewById(R.id.tvCartTransactionDeleteIndex);
 		Integer index = Integer.parseInt(tvCartTransactionDeleteIndex.getText()
 				.toString());
-		this.db.openDatabase();
 		this.db.delete(this.listTransaction.get(index).getId());
-		this.db.closeDatabase();
 		this.loadData();
 	}
 
@@ -117,9 +114,7 @@ public class PreviewCartActivity extends Activity {
 				.toString());
 		TransactionDetailInfo transaction = this.listTransaction.get(index);
 		transaction.setQuantity(transaction.getQuantity() + 1);
-		this.db.openDatabase();
 		this.db.update(transaction);
-		this.db.closeDatabase();
 		this.loadData();
 	}
 
@@ -132,9 +127,7 @@ public class PreviewCartActivity extends Activity {
 		TransactionDetailInfo transaction = this.listTransaction.get(index);
 		if (transaction.getQuantity() > 1) {
 			transaction.setQuantity(transaction.getQuantity() - 1);
-			this.db.openDatabase();
 			this.db.update(transaction);
-			this.db.closeDatabase();
 			this.loadData();
 		}
 	}

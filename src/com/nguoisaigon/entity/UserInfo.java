@@ -10,6 +10,7 @@ public class UserInfo {
 	private String address;
 	private String contactPhone;
 	private Double ernedPoint;
+	private String note;
 
 	/**
 	 * @return the userId
@@ -100,11 +101,26 @@ public class UserInfo {
 	public void setErnedPoint(Double ernedPoint) {
 		this.ernedPoint = ernedPoint;
 	}
-	
-	public UserInfo(){
+
+	public UserInfo() {
 		Calendar cal = Calendar.getInstance();
 		Long interval = cal.getTime().getTime();
 		setUserId(interval.toString());
+	}
+
+	/**
+	 * @return the note
+	 */
+	public String getNote() {
+		return note;
+	}
+
+	/**
+	 * @param note
+	 *            the note to set
+	 */
+	public void setNote(String note) {
+		this.note = note;
 	}
 
 }

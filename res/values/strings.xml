@@ -85,11 +85,22 @@
     <string name="checkout_step3_title">Bước 3</string>
     <string name="checkout_step4_title">Hoàn tất</string>
     <string name="checkout_step1_main_title">Bước 1 - Thông tin liên lạc</string>
+    <string name="checkout_step2_main_title">Bước 2 - Hình thức thanh toán</string>
+    <string name="checkout_step3_main_title">Bước 3 - Xác nhân đơn hàng</string>
+    <string name="checkout_step4_main_title">Cám ơn quý khách đã mua hàng tại Người Sài Gòn</string>
     <string name="checkout_step1_name">Tên người mua</string>
     <string name="checkout_step1_email">Email</string>
     <string name="checkout_step1_phone">Điện thoại</string>
     <string name="checkout_step1_address">Địa chỉ giao hàng</string>
     <string name="checkout_step1_note">Ghi chú</string>
-    <string name="checkout_step1_detail">Là các thông tin cần thiết để chúng tôi liên lại với quý khách</string>
+    <string name="checkout_step1_detail">Là các thông tin cần thiết để chúng tôi liên lạc với quý khách</string>
+    <string name="checkout_step2_payment_type1">Thanh toán khi giao hàng</string>
+    <string name="checkout_step2_payment_type1_detail">Hình thức thanh toán này chỉ áp dụng cho khách hàng trong địa bàn thành phố Hồ Chí Minh</string>
+    <string name="checkout_step2_payment_type2">Chuyển khoản</string>
+    <string name="checkout_step2_payment_type2_detail">Vui lòng chuyển số tiền cần thanh toán đến tài khoản sau:</string>
+    <string name="checkout_step2_payment_type2_account_name">Tên TK: Nguyễn Thị Kim Chi</string>
+    <string name="checkout_step2_payment_type2_account_number">SỐ TK: 007.100.482.0302 (Ngân Hàng VietcomBank)</string>
+    <string name="checkout_step2_payment_type3">Thanh toán bằng thẻ quốc tế</string>
+    <string name="checkout_step2_payment_type3_detail">Thanh toán trực tiếp thông qua các dịch vụ tín dụng quốc tế</string>
     
 </resources>
