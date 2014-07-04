@@ -79,7 +79,7 @@ public class TransactionDetailDB extends DBHelper {
 
 		String selection = COLUMN_ID + " = ?";
 		String[] selectionArgs = { String.valueOf(info.getId()) };
-
+		Log.i("TransactionDetailDB - update", "COLUMN_ID: " + info.getId());
 		return sqlite.update(TABLE_NAME, values, selection, selectionArgs);
 	}
 
@@ -92,6 +92,7 @@ public class TransactionDetailDB extends DBHelper {
 	public Integer delete(Integer id) {
 		String selection = COLUMN_ID + " = ?";
 		String[] selectionArgs = { String.valueOf(id) };
+		Log.i("TransactionDetailDB - delete", "COLUMN_ID: " + id);
 		return sqlite.delete(TABLE_NAME, selection, selectionArgs);
 	}
 
@@ -126,6 +127,7 @@ public class TransactionDetailDB extends DBHelper {
 		while (c.moveToNext()) {
 			TransactionDetailInfo info = new TransactionDetailInfo();
 			info.setId(c.getInt(0));
+			Log.i("TransactionDetailDB - getTransactions", "COLUMN_ID: " + info.getId());
 			info.setProductId(c.getString(1));
 			info.setProductName(c.getString(2));
 			info.setCategoryId(c.getInt(3));
@@ -133,7 +135,6 @@ public class TransactionDetailDB extends DBHelper {
 			info.setSizeType(c.getInt(5));
 			info.setStockQuantity(c.getInt(6));
 			String strAddDate = c.getString(7);
-			Log.i("TransactionDetailDB - getTransactions", strAddDate);
 			SimpleDateFormat fm = new SimpleDateFormat(DATE_FORMAT);
 			Date addDate = (Date) fm.parse(strAddDate);
 			info.setAddedDate(addDate);

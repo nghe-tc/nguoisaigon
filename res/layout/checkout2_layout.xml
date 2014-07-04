@@ -35,8 +35,7 @@
             android:gravity="center"
             android:text="@string/checkout_step1_title"
             android:textColor="@android:color/black"
-            android:textSize="8pt"
-            android:textStyle="bold" />
+            android:textSize="8pt" />
 
         <TextView
             android:id="@+id/tvCheckoutStep2Title"
@@ -47,7 +46,8 @@
             android:gravity="center"
             android:text="@string/checkout_step2_title"
             android:textColor="@color/checkout_step"
-            android:textSize="8pt" />
+            android:textSize="8pt"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvCheckoutStep3Title"
@@ -82,7 +82,7 @@
             android:textColor="@android:color/black"
             android:textSize="10pt"
             android:textStyle="bold" />
-        
+
         <ImageView
             android:id="@+id/btnCheckout2Next"
             android:layout_width="80sp"
@@ -91,9 +91,9 @@
             android:layout_marginTop="30sp"
             android:contentDescription="@string/welcomebg"
             android:onClick="btnCheckout2NextClick"
-            android:src="@drawable/nexttextbutton"
-            android:scaleType="fitXY" />
-        
+            android:scaleType="fitXY"
+            android:src="@drawable/nexttextbutton" />
+
         <ImageView
             android:id="@+id/btnCheckout2Previous"
             android:layout_width="120sp"
@@ -102,9 +102,9 @@
             android:layout_marginTop="30sp"
             android:contentDescription="@string/welcomebg"
             android:onClick="btnCheckout2PreviousClick"
-            android:src="@drawable/prevtextbutton"
-            android:scaleType="fitXY" />
-        
+            android:scaleType="fitXY"
+            android:src="@drawable/prevtextbutton" />
+
         <ImageView
             android:id="@+id/btnCheckout2Type1"
             android:layout_width="35sp"
@@ -113,9 +113,9 @@
             android:layout_marginTop="80sp"
             android:contentDescription="@string/welcomebg"
             android:onClick="btnCheckout2Type1Click"
-            android:src="@drawable/checkbox_unchecked"
-            android:scaleType="fitXY" />
-        
+            android:scaleType="fitXY"
+            android:src="@drawable/checkbox_unchecked" />
+
         <TextView
             android:id="@+id/tvCheckoutStep2Type1Title"
             android:layout_width="wrap_content"
@@ -127,8 +127,8 @@
             android:textColor="@android:color/black"
             android:textSize="10pt"
             android:textStyle="bold" />
-        
-         <TextView
+
+        <TextView
             android:id="@+id/tvCheckoutStep2Type1Detail"
             android:layout_width="400sp"
             android:layout_height="wrap_content"
@@ -137,8 +137,8 @@
             android:gravity="left"
             android:text="@string/checkout_step2_payment_type1_detail"
             android:textColor="@android:color/black"
-            android:textSize="7pt"/>
-        
+            android:textSize="7pt" />
+
         <ImageView
             android:id="@+id/btnCheckout2Type2"
             android:layout_width="35sp"
@@ -147,9 +147,9 @@
             android:layout_marginTop="165sp"
             android:contentDescription="@string/welcomebg"
             android:onClick="btnCheckout2Type2Click"
-            android:src="@drawable/checkbox_unchecked"
-            android:scaleType="fitXY" />
-        
+            android:scaleType="fitXY"
+            android:src="@drawable/checkbox_unchecked" />
+
         <TextView
             android:id="@+id/tvCheckoutStep2Type2Title"
             android:layout_width="wrap_content"
@@ -161,7 +161,7 @@
             android:textColor="@android:color/black"
             android:textSize="10pt"
             android:textStyle="bold" />
-        
+
         <TextView
             android:id="@+id/tvCheckoutStep2Type2Detail"
             android:layout_width="400sp"
@@ -171,8 +171,8 @@
             android:gravity="left"
             android:text="@string/checkout_step2_payment_type2_detail"
             android:textColor="@android:color/black"
-            android:textSize="7pt"/>
-        
+            android:textSize="7pt" />
+
         <TextView
             android:id="@+id/tvCheckoutStep2Type2AccountName"
             android:layout_width="400sp"
@@ -182,8 +182,8 @@
             android:gravity="left"
             android:text="@string/checkout_step2_payment_type2_account_name"
             android:textColor="@android:color/black"
-            android:textSize="7pt"/>
-        
+            android:textSize="7pt" />
+
         <TextView
             android:id="@+id/tvCheckoutStep2Type2AccountNumber"
             android:layout_width="400sp"
@@ -193,8 +193,8 @@
             android:gravity="left"
             android:text="@string/checkout_step2_payment_type2_account_number"
             android:textColor="@android:color/black"
-            android:textSize="7pt"/>
-        
+            android:textSize="7pt" />
+
         <ImageView
             android:id="@+id/btnCheckout2Type3"
             android:layout_width="35sp"
@@ -203,9 +203,9 @@
             android:layout_marginTop="270sp"
             android:contentDescription="@string/welcomebg"
             android:onClick="btnCheckout2Type3Click"
-            android:src="@drawable/checkbox_unchecked"
-            android:scaleType="fitXY" />
-        
+            android:scaleType="fitXY"
+            android:src="@drawable/checkbox_unchecked" />
+
         <TextView
             android:id="@+id/tvCheckoutStep2Type3Title"
             android:layout_width="wrap_content"
@@ -217,7 +217,7 @@
             android:textColor="@android:color/black"
             android:textSize="10pt"
             android:textStyle="bold" />
-        
+
         <TextView
             android:id="@+id/tvCheckoutStep2Type3Detail"
             android:layout_width="400sp"
@@ -227,7 +227,7 @@
             android:gravity="left"
             android:text="@string/checkout_step2_payment_type3_detail"
             android:textColor="@android:color/black"
-            android:textSize="7pt"/>
+            android:textSize="7pt" />
     </FrameLayout>
 
 </LinearLayout>

@@ -13,8 +13,8 @@
             android:layout_width="30sp"
             android:layout_height="30sp"
             android:layout_marginLeft="10sp"
-            android:onClick="cartTransactionDeleteClick">
-            
+            android:onClick="cartTransactionDeleteClick" >
+
             <ImageView
                 android:id="@+id/cartTransactionDelete"
                 android:layout_width="30sp"
@@ -33,8 +33,8 @@
         <FrameLayout
             android:layout_width="30sp"
             android:layout_height="30sp"
-            android:layout_marginLeft="290sp" 
-            android:onClick="cartTransactionPlusClick">
+            android:layout_marginLeft="290sp"
+            android:onClick="cartTransactionPlusClick" >
 
             <ImageView
                 android:id="@+id/storeDetailProductQuantityPlus"
@@ -55,7 +55,7 @@
             android:layout_width="30sp"
             android:layout_height="30sp"
             android:layout_marginLeft="325sp"
-            android:onClick="cartTransactionMunisClick">
+            android:onClick="cartTransactionMunisClick" >
 
             <ImageView
                 android:id="@+id/storeDetailProductQuantityMinus"
@@ -79,8 +79,9 @@
             android:layout_marginLeft="45sp"
             android:gravity="center_vertical"
             android:text="@string/cart_productname_default"
+            android:textColor="@android:color/black"
             android:textSize="7pt" />
-        
+
         <TextView
             android:id="@+id/tvCartTransactionQuantity"
             android:layout_width="30sp"
@@ -88,8 +89,9 @@
             android:layout_marginLeft="260sp"
             android:gravity="center_vertical"
             android:text="@string/cart_quantity_default"
+            android:textColor="@android:color/black"
             android:textSize="7pt" />
-        
+
         <TextView
             android:id="@+id/tvCartTransactionPrice"
             android:layout_width="80sp"
@@ -97,8 +99,9 @@
             android:layout_marginLeft="380sp"
             android:gravity="right|center_vertical"
             android:text="@string/cart_quantity_default"
+            android:textColor="@android:color/black"
             android:textSize="7pt" />
-        
+
         <TextView
             android:id="@+id/tvCartTransactionTotal"
             android:layout_width="110sp"
@@ -106,6 +109,7 @@
             android:layout_marginLeft="480sp"
             android:gravity="right|center_vertical"
             android:text="@string/cart_total_default"
+            android:textColor="@android:color/black"
             android:textSize="7pt" />
     </FrameLayout>
 

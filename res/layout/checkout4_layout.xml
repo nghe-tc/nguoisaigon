@@ -1,14 +1,161 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-    
-        <EditText
-        android:id="@+id/editText2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10" 
-        android:text="checkout 4"/>
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:gravity="center" >
 
-    
-</FrameLayout>
+    <FrameLayout
+        android:layout_width="600sp"
+        android:layout_height="383sp"
+        android:layout_gravity="center" >
+
+        <ImageView
+            android:id="@+id/checkout2background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/welcomebg"
+            android:src="@drawable/checkoutbackground" />
+
+        <ImageView
+            android:id="@+id/image1"
+            android:layout_width="30sp"
+            android:layout_height="40sp"
+            android:layout_marginLeft="52sp"
+            android:layout_marginTop="200sp"
+            android:contentDescription="@string/welcomebg"
+            android:src="@drawable/stepindicatearrow" />
+
+        <TextView
+            android:id="@+id/tvCheckoutStep1Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5sp"
+            android:layout_marginTop="80sp"
+            android:gravity="center"
+            android:text="@string/checkout_step1_title"
+            android:textColor="@android:color/black"
+            android:textSize="8pt" />
+
+        <TextView
+            android:id="@+id/tvCheckoutStep2Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5sp"
+            android:layout_marginTop="120sp"
+            android:gravity="center"
+            android:text="@string/checkout_step2_title"
+            android:textColor="@android:color/black"
+            android:textSize="8pt" />
+
+        <TextView
+            android:id="@+id/tvCheckoutStep3Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5sp"
+            android:layout_marginTop="160sp"
+            android:gravity="center"
+            android:text="@string/checkout_step3_title"
+            android:textColor="@android:color/black"
+            android:textSize="8pt" />
+
+        <TextView
+            android:id="@+id/tvCheckoutStep4Title"
+            android:layout_width="50sp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12sp"
+            android:layout_marginTop="200sp"
+            android:gravity="center"
+            android:text="@string/checkout_step4_title"
+            android:textColor="@color/checkout_step"
+            android:textSize="8pt"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvCheckoutStep4MainTitle"
+            android:layout_width="332dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="170sp"
+            android:layout_marginTop="40sp"
+            android:gravity="center"
+            android:text="@string/checkout_step4_main_title"
+            android:textColor="@color/title_checkout4"
+            android:textSize="10pt"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvCheckoutStep4Detail"
+            android:layout_width="459sp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="100sp"
+            android:layout_marginTop="130sp"
+            android:gravity="center"
+            android:text="@string/checkout_step4_detail"
+            android:textColor="@color/title_checkout4"
+            android:textSize="8pt" />
+
+        <ImageView
+            android:id="@+id/btnCheckout4Facebook"
+            android:layout_width="40sp"
+            android:layout_height="40sp"
+            android:layout_marginLeft="140sp"
+            android:layout_marginTop="225sp"
+            android:contentDescription="@string/welcomebg"
+            android:onClick="btnCheckout4FacebookClick"
+            android:src="@drawable/facebookbutton" />
+
+        <TextView
+            android:id="@+id/tvCheckout4FacebookTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="190sp"
+            android:layout_marginTop="237sp"
+            android:gravity="center"
+            android:text="@string/checkout_step4_facebook_title"
+            android:textColor="@color/button_title_checkout4"
+            android:textSize="8pt" />
+
+        <ImageView
+            android:id="@+id/btnCheckout4Store"
+            android:layout_width="40sp"
+            android:layout_height="40sp"
+            android:layout_marginLeft="140sp"
+            android:layout_marginTop="265sp"
+            android:contentDescription="@string/welcomebg"
+            android:onClick="btnCheckout4StoreClick"
+            android:src="@drawable/storebutton" />
+
+        <TextView
+            android:id="@+id/tvCheckout4StoreTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="190sp"
+            android:layout_marginTop="277sp"
+            android:gravity="center"
+            android:text="@string/checkout_step4_store_title"
+            android:textColor="@color/button_title_checkout4"
+            android:textSize="8pt" />
+
+        <ImageView
+            android:id="@+id/btnCheckout4Home"
+            android:layout_width="40sp"
+            android:layout_height="40sp"
+            android:layout_marginLeft="140sp"
+            android:layout_marginTop="305sp"
+            android:contentDescription="@string/welcomebg"
+            android:onClick="btnCheckout4HomeClick"
+            android:src="@drawable/homebutton" />
+
+        <TextView
+            android:id="@+id/tvCheckout4HomeTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="190sp"
+            android:layout_marginTop="317sp"
+            android:gravity="center"
+            android:text="@string/checkout_step4_home_title"
+            android:textColor="@color/button_title_checkout4"
+            android:textSize="8pt" />
+    </FrameLayout>
+
+</LinearLayout>
