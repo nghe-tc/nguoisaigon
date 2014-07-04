@@ -16,15 +16,6 @@ import com.nguoisaigon.entity.TransactionDetailInfo;
 @SuppressLint("SimpleDateFormat")
 public class TransactionDetailDB extends DBHelper {
 
-	/**
-	 * Constructor
-	 * 
-	 * @param vContext
-	 */
-	public TransactionDetailDB(Context vContext) {
-		super(vContext);
-	}
-
 	public static final String TABLE_NAME = "transactiondetail";
 	public static final String COLUMN_ID = "serial";
 	public static final String COLUMN_PRODUCT_ID = "productid";
@@ -35,6 +26,16 @@ public class TransactionDetailDB extends DBHelper {
 	public static final String COLUMN_STOCK_QUANTITY = "stockquantity";
 	public static final String COLUMN_ADDED_DATE = "addeddate";
 	public static final String COLUMN_UNIT_PRICE = "unitprice";
+	String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+
+	/**
+	 * Constructor
+	 * 
+	 * @param vContext
+	 */
+	public TransactionDetailDB(Context vContext) {
+		super(vContext);
+	}
 
 	/**
 	 * Insert TransactionDetailInfo into database
@@ -50,7 +51,7 @@ public class TransactionDetailDB extends DBHelper {
 		values.put(COLUMN_QUANTITY, info.getQuantity());
 		values.put(COLUMN_SIZE_TYPE, info.getSizeType());
 		values.put(COLUMN_STOCK_QUANTITY, info.getQuantity());
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+		SimpleDateFormat formatter = new SimpleDateFormat(DATE_FORMAT);
 		String addedDate = formatter.format(info.getAddedDate());
 		values.put(COLUMN_ADDED_DATE, addedDate);
 		values.put(COLUMN_UNIT_PRICE, info.getUnitPrice());
@@ -71,7 +72,7 @@ public class TransactionDetailDB extends DBHelper {
 		values.put(COLUMN_QUANTITY, info.getQuantity());
 		values.put(COLUMN_SIZE_TYPE, info.getSizeType());
 		values.put(COLUMN_STOCK_QUANTITY, info.getQuantity());
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+		SimpleDateFormat formatter = new SimpleDateFormat(DATE_FORMAT);
 		String addedDate = formatter.format(info.getAddedDate());
 		values.put(COLUMN_ADDED_DATE, addedDate);
 		values.put(COLUMN_UNIT_PRICE, info.getUnitPrice());
@@ -90,7 +91,7 @@ public class TransactionDetailDB extends DBHelper {
 	 */
 	public Integer delete(Integer id) {
 		String selection = COLUMN_ID + " = ?";
-		String[] selectionArgs = { String.valueOf(1) };
+		String[] selectionArgs = { String.valueOf(id) };
 		return sqlite.delete(TABLE_NAME, selection, selectionArgs);
 	}
 
@@ -102,7 +103,7 @@ public class TransactionDetailDB extends DBHelper {
 	 */
 	public Integer deleteByProductId(Integer id) {
 		String selection = COLUMN_PRODUCT_ID + " = ?";
-		String[] selectionArgs = { String.valueOf(1) };
+		String[] selectionArgs = { String.valueOf(id) };
 		return sqlite.delete(TABLE_NAME, selection, selectionArgs);
 	}
 
@@ -115,9 +116,10 @@ public class TransactionDetailDB extends DBHelper {
 	public ArrayList<TransactionDetailInfo> getTransactions()
 			throws ParseException {
 		ArrayList<TransactionDetailInfo> listTrans = new ArrayList<TransactionDetailInfo>();
-		String[] projection = { COLUMN_ID, COLUMN_PRODUCT_ID, COLUMN_PRODUCT_NAME,
-				COLUMN_CATEGORY_ID, COLUMN_QUANTITY, COLUMN_SIZE_TYPE,
-				COLUMN_STOCK_QUANTITY, COLUMN_ADDED_DATE, COLUMN_UNIT_PRICE };
+		String[] projection = { COLUMN_ID, COLUMN_PRODUCT_ID,
+				COLUMN_PRODUCT_NAME, COLUMN_CATEGORY_ID, COLUMN_QUANTITY,
+				COLUMN_SIZE_TYPE, COLUMN_STOCK_QUANTITY, COLUMN_ADDED_DATE,
+				COLUMN_UNIT_PRICE };
 
 		Cursor c = sqlite.query(TABLE_NAME, projection, null, null, null, null,
 				null);
@@ -132,7 +134,7 @@ public class TransactionDetailDB extends DBHelper {
 			info.setStockQuantity(c.getInt(6));
 			String strAddDate = c.getString(7);
 			Log.i("TransactionDetailDB - getTransactions", strAddDate);
-			SimpleDateFormat fm = new SimpleDateFormat("yyyy/MM/dd");
+			SimpleDateFormat fm = new SimpleDateFormat(DATE_FORMAT);
 			Date addDate = (Date) fm.parse(strAddDate);
 			info.setAddedDate(addDate);
 			info.setUnitPrice(c.getDouble(8));

@@ -1,14 +1,233 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-    
-        <EditText
-        android:id="@+id/editText2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10" 
-        android:text="checkout 2"/>
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:gravity="center" >
 
-    
-</FrameLayout>
+    <FrameLayout
+        android:layout_width="600sp"
+        android:layout_height="383sp"
+        android:layout_gravity="center" >
+
+        <ImageView
+            android:id="@+id/checkout2background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/welcomebg"
+            android:src="@drawable/checkoutbackground" />
+
+        <ImageView
+            android:id="@+id/image1"
+            android:layout_width="30sp"
+            android:layout_height="40sp"
+            android:layout_marginLeft="52sp"
+            android:layout_marginTop="110sp"
+            android:contentDescription="@string/welcomebg"
+            android:src="@drawable/stepindicatearrow" />
+
+        <TextView
+            android:id="@+id/tvCheckoutStep1Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5sp"
+            android:layout_marginTop="80sp"
+            android:gravity="center"
+            android:text="@string/checkout_step1_title"
+            android:textColor="@android:color/black"
+            android:textSize="8pt"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvCheckoutStep2Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5sp"
+            android:layout_marginTop="120sp"
+            android:gravity="center"
+            android:text="@string/checkout_step2_title"
+            android:textColor="@color/checkout_step"
+            android:textSize="8pt" />
+
+        <TextView
+            android:id="@+id/tvCheckoutStep3Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5sp"
+            android:layout_marginTop="160sp"
+            android:gravity="center"
+            android:text="@string/checkout_step3_title"
+            android:textColor="@android:color/black"
+            android:textSize="8pt" />
+
+        <TextView
+            android:id="@+id/tvCheckoutStep4Title"
+            android:layout_width="50sp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12sp"
+            android:layout_marginTop="200sp"
+            android:gravity="center"
+            android:text="@string/checkout_step4_title"
+            android:textColor="@android:color/black"
+            android:textSize="8pt" />
+
+        <TextView
+            android:id="@+id/tvCheckoutStep2MainTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="80sp"
+            android:layout_marginTop="38sp"
+            android:gravity="center"
+            android:text="@string/checkout_step2_main_title"
+            android:textColor="@android:color/black"
+            android:textSize="10pt"
+            android:textStyle="bold" />
+        
+        <ImageView
+            android:id="@+id/btnCheckout2Next"
+            android:layout_width="80sp"
+            android:layout_height="40sp"
+            android:layout_marginLeft="510sp"
+            android:layout_marginTop="30sp"
+            android:contentDescription="@string/welcomebg"
+            android:onClick="btnCheckout2NextClick"
+            android:src="@drawable/nexttextbutton"
+            android:scaleType="fitXY" />
+        
+        <ImageView
+            android:id="@+id/btnCheckout2Previous"
+            android:layout_width="120sp"
+            android:layout_height="40sp"
+            android:layout_marginLeft="380sp"
+            android:layout_marginTop="30sp"
+            android:contentDescription="@string/welcomebg"
+            android:onClick="btnCheckout2PreviousClick"
+            android:src="@drawable/prevtextbutton"
+            android:scaleType="fitXY" />
+        
+        <ImageView
+            android:id="@+id/btnCheckout2Type1"
+            android:layout_width="35sp"
+            android:layout_height="35sp"
+            android:layout_marginLeft="95sp"
+            android:layout_marginTop="80sp"
+            android:contentDescription="@string/welcomebg"
+            android:onClick="btnCheckout2Type1Click"
+            android:src="@drawable/checkbox_unchecked"
+            android:scaleType="fitXY" />
+        
+        <TextView
+            android:id="@+id/tvCheckoutStep2Type1Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="135sp"
+            android:layout_marginTop="85sp"
+            android:gravity="center"
+            android:text="@string/checkout_step2_payment_type1"
+            android:textColor="@android:color/black"
+            android:textSize="10pt"
+            android:textStyle="bold" />
+        
+         <TextView
+            android:id="@+id/tvCheckoutStep2Type1Detail"
+            android:layout_width="400sp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="155sp"
+            android:layout_marginTop="110sp"
+            android:gravity="left"
+            android:text="@string/checkout_step2_payment_type1_detail"
+            android:textColor="@android:color/black"
+            android:textSize="7pt"/>
+        
+        <ImageView
+            android:id="@+id/btnCheckout2Type2"
+            android:layout_width="35sp"
+            android:layout_height="35sp"
+            android:layout_marginLeft="95sp"
+            android:layout_marginTop="165sp"
+            android:contentDescription="@string/welcomebg"
+            android:onClick="btnCheckout2Type2Click"
+            android:src="@drawable/checkbox_unchecked"
+            android:scaleType="fitXY" />
+        
+        <TextView
+            android:id="@+id/tvCheckoutStep2Type2Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="135sp"
+            android:layout_marginTop="165sp"
+            android:gravity="center"
+            android:text="@string/checkout_step2_payment_type2"
+            android:textColor="@android:color/black"
+            android:textSize="10pt"
+            android:textStyle="bold" />
+        
+        <TextView
+            android:id="@+id/tvCheckoutStep2Type2Detail"
+            android:layout_width="400sp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="155sp"
+            android:layout_marginTop="190sp"
+            android:gravity="left"
+            android:text="@string/checkout_step2_payment_type2_detail"
+            android:textColor="@android:color/black"
+            android:textSize="7pt"/>
+        
+        <TextView
+            android:id="@+id/tvCheckoutStep2Type2AccountName"
+            android:layout_width="400sp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="155sp"
+            android:layout_marginTop="210sp"
+            android:gravity="left"
+            android:text="@string/checkout_step2_payment_type2_account_name"
+            android:textColor="@android:color/black"
+            android:textSize="7pt"/>
+        
+        <TextView
+            android:id="@+id/tvCheckoutStep2Type2AccountNumber"
+            android:layout_width="400sp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="155sp"
+            android:layout_marginTop="230sp"
+            android:gravity="left"
+            android:text="@string/checkout_step2_payment_type2_account_number"
+            android:textColor="@android:color/black"
+            android:textSize="7pt"/>
+        
+        <ImageView
+            android:id="@+id/btnCheckout2Type3"
+            android:layout_width="35sp"
+            android:layout_height="35sp"
+            android:layout_marginLeft="95sp"
+            android:layout_marginTop="270sp"
+            android:contentDescription="@string/welcomebg"
+            android:onClick="btnCheckout2Type3Click"
+            android:src="@drawable/checkbox_unchecked"
+            android:scaleType="fitXY" />
+        
+        <TextView
+            android:id="@+id/tvCheckoutStep2Type3Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="135sp"
+            android:layout_marginTop="270sp"
+            android:gravity="center"
+            android:text="@string/checkout_step2_payment_type3"
+            android:textColor="@android:color/black"
+            android:textSize="10pt"
+            android:textStyle="bold" />
+        
+        <TextView
+            android:id="@+id/tvCheckoutStep2Type3Detail"
+            android:layout_width="400sp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="155sp"
+            android:layout_marginTop="295sp"
+            android:gravity="left"
+            android:text="@string/checkout_step2_payment_type3_detail"
+            android:textColor="@android:color/black"
+            android:textSize="7pt"/>
+    </FrameLayout>
+
+</LinearLayout>

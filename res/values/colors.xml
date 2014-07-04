@@ -7,4 +7,5 @@
     <color name="black_color">#ff000000</color>
     <color name="red_dark">#800000</color>
     <color name="checkout_step">#FFFF66</color>
+    <color name="red">#FF0000</color>
 </resources>

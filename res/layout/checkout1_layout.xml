@@ -80,7 +80,7 @@
             android:text="@string/checkout_step4_title"
             android:textColor="@android:color/black"
             android:textSize="8pt" />
-        
+
         <TextView
             android:id="@+id/tvCheckoutStep1MainTitle"
             android:layout_width="wrap_content"
@@ -91,6 +91,184 @@
             android:text="@string/checkout_step1_main_title"
             android:textColor="@android:color/black"
             android:textSize="10pt" />
+
+        <TextView
+            android:id="@+id/tvCheckoutNameTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="90sp"
+            android:layout_marginTop="85sp"
+            android:gravity="center"
+            android:text="@string/checkout_step1_name"
+            android:textColor="@android:color/black"
+            android:textSize="8pt" />
+
+        <TextView
+            android:id="@+id/tv1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="205sp"
+            android:layout_marginTop="85sp"
+            android:gravity="center"
+            android:text="*"
+            android:textColor="@color/red"
+            android:textSize="9pt" />
+
+        <TextView
+            android:id="@+id/tvCheckoutEmailTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="90sp"
+            android:layout_marginTop="130sp"
+            android:gravity="center"
+            android:text="@string/checkout_step1_email"
+            android:textColor="@android:color/black"
+            android:textSize="8pt" />
+
+        <TextView
+            android:id="@+id/tvCheckoutPhoneTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="90sp"
+            android:layout_marginTop="175sp"
+            android:gravity="center"
+            android:text="@string/checkout_step1_phone"
+            android:textColor="@android:color/black"
+            android:textSize="8pt" />
+
+        <TextView
+            android:id="@id/tv1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="168sp"
+            android:layout_marginTop="175sp"
+            android:gravity="center"
+            android:text="*"
+            android:textColor="@color/red"
+            android:textSize="9pt" />
+
+        <TextView
+            android:id="@+id/tvCheckoutAddressTitle"
+            android:layout_width="80sp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="90sp"
+            android:layout_marginTop="220sp"
+            android:gravity="left"
+            android:text="@string/checkout_step1_address"
+            android:textColor="@android:color/black"
+            android:textSize="8pt" />
+
+        <TextView
+            android:id="@id/tv1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="168sp"
+            android:layout_marginTop="240sp"
+            android:gravity="center"
+            android:text="*"
+            android:textColor="@color/red"
+            android:textSize="9pt" />
+
+        <TextView
+            android:id="@+id/tvCheckoutNoteTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="90sp"
+            android:layout_marginTop="280sp"
+            android:gravity="center"
+            android:text="@string/checkout_step1_note"
+            android:textColor="@android:color/black"
+            android:textSize="8pt" />
+
+        <TextView
+            android:id="@id/tv1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="120sp"
+            android:layout_marginTop="330sp"
+            android:gravity="center"
+            android:text="*"
+            android:textColor="@color/red"
+            android:textSize="9pt" />
+
+        <TextView
+            android:id="@+id/tvCheckoutDetailTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="135sp"
+            android:layout_marginTop="330sp"
+            android:gravity="center"
+            android:text="@string/checkout_step1_detail"
+            android:textColor="@android:color/black"
+            android:textSize="8pt" />
+
+        <EditText
+            android:id="@+id/txtCheckoutName"
+            android:layout_width="335sp"
+            android:layout_height="35sp"
+            android:layout_marginLeft="250sp"
+            android:layout_marginTop="80sp"
+            android:ems="10" 
+            android:inputType="text"
+            android:hint="Chúng tôi sẽ liên lạc với bạn bằng tên này"
+            android:textSize="7pt">
+            <requestFocus />
+        </EditText>
+
+        <EditText
+            android:id="@+id/txtCheckoutEmail"
+            android:layout_width="335sp"
+            android:layout_height="35sp"
+            android:layout_marginLeft="250sp"
+            android:layout_marginTop="125sp"
+            android:ems="10"
+            android:inputType="textEmailAddress" 
+            android:hint="Địa chỉ email"
+            android:textSize="7pt"/>
+
+        <EditText
+            android:id="@+id/txtCheckoutPhone"
+            android:layout_width="335sp"
+            android:layout_height="35sp"
+            android:layout_marginLeft="250sp"
+            android:layout_marginTop="170sp"
+            android:ems="10"
+            android:inputType="phone" 
+            android:hint="Chúng tôi sẽ liên lạc với bạn bằng số này"
+            android:textSize="7pt"/>
+
+        <EditText
+            android:id="@+id/txtCheckoutAddress"
+            android:layout_width="335sp"
+            android:layout_height="35sp"
+            android:layout_marginLeft="250sp"
+            android:layout_marginTop="225sp"
+            android:ems="10"
+            android:inputType="text" 
+            android:hint="Chúng tôi sẽ giao hàng đến địa chỉ này"
+            android:textSize="7pt"/>
+
+        <EditText
+            android:id="@+id/txtCheckoutNote"
+            android:layout_width="335sp"
+            android:layout_height="35sp"
+            android:layout_marginLeft="250sp"
+            android:layout_marginTop="275sp"
+            android:ems="10"
+            android:inputType="text" 
+            android:hint="Ghi chú kèm theo nếu có"
+            android:textSize="7pt"/>
+        
+        <ImageView
+            android:id="@+id/btnCheckout1Next"
+            android:layout_width="80sp"
+            android:layout_height="40sp"
+            android:layout_marginLeft="510sp"
+            android:layout_marginTop="30sp"
+            android:contentDescription="@string/welcomebg"
+            android:onClick="btnCheckout1NextClick"
+            android:src="@drawable/nexttextbutton"
+            android:scaleType="fitXY" />
     </FrameLayout>
 
 </LinearLayout>
