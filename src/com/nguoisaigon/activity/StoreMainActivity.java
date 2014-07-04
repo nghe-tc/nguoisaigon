@@ -294,7 +294,7 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 		Log.i("StoreMainActivity - getProductDetailFragments", "Start");
 		List<Fragment> fList = new ArrayList<Fragment>();
 		for (ProductInfo product : this.listProduct) {
-			fList.add(StoreProductDetailPageFragment.newInstance(product));
+			fList.add(new StoreProductDetailPageFragment(product));
 		}
 		return fList;
 	}
