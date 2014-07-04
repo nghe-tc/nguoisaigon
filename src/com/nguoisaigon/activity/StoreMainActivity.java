@@ -8,6 +8,7 @@ import java.util.List;
 import org.json.JSONArray;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -24,11 +25,13 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.nguoisaigon.R;
 import com.nguoisaigon.db.TransactionDetailDB;
+import com.nguoisaigon.entity.ImageInfo;
 import com.nguoisaigon.entity.ProductInfo;
 import com.nguoisaigon.entity.StoreProductPageInfo;
 import com.nguoisaigon.entity.TransactionDetailInfo;
 import com.nguoisaigon.util.BitmapCache;
 import com.nguoisaigon.util.CustomPagerAdapter;
+import com.nguoisaigon.util.ImageLoadTask;
 import com.nguoisaigon.util.StoreProductDetailPageFragment;
 import com.nguoisaigon.util.StoreProductPageAdapter;
 import com.nguoisaigon.util.WebService;
@@ -119,6 +122,10 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 			for (int i = 0; i < result.length(); i++) {
 				try {
 					ProductInfo info = new Gson().fromJson(result.getString(i), ProductInfo.class);
+					// Get all image for product
+					for (ImageInfo imageInfo : info.getImageList()) {
+						new ImageLoadTask(imageInfo).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+					}
 					this.listProduct.add(info);
 					this.hsProduct.put(info.getProductId(), i);
 				} catch (Exception e) {
