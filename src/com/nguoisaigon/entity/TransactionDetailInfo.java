@@ -15,7 +15,7 @@ public class TransactionDetailInfo {
 	private Double unitPrice;
 
 	public TransactionDetailInfo () {
-		quantity = 0;
+		quantity = 1;
 	}
 	
 	public void clear() {

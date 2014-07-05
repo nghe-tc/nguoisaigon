@@ -71,12 +71,6 @@ public class Checkout1Activity extends Activity {
 		this.tvCheckoutAddressTitle.setTypeface(tf);
 		this.tvCheckoutNoteTitle.setTypeface(tf);
 		this.tvCheckoutDetailTitle.setTypeface(tf);
-//		this.txtCheckoutName.setTypeface(tf);
-//		this.txtCheckoutEmail.setTypeface(tf);
-//		this.txtCheckoutPhone.setTypeface(tf);
-//		this.txtCheckoutAddress.setTypeface(tf);
-//		this.txtCheckoutNote.setTypeface(tf);
-		
 		tvCheckoutStep1MainTitle.setText(mainTitle);
 		
 		this.loadData();

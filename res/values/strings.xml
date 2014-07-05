@@ -65,7 +65,7 @@
     <string name="product_description_default">"Product's description"</string>
     <string name="product_size">Size:</string>
     <string name="product_quantity">Số lượng:</string>
-    <string name="product_quantity_default">0</string>
+    <string name="product_quantity_default">1</string>
     <string name="product_unit_price_default">0 đ</string>
     <string name="product_price">Đơn giá:</string>
     

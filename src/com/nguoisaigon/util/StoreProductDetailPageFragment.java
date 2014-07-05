@@ -2,6 +2,7 @@ package com.nguoisaigon.util;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,9 +14,11 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.Toast;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.nguoisaigon.R;
 import com.nguoisaigon.activity.StoreMainActivity;
 import com.nguoisaigon.dialog.ImageViewDialog;
@@ -28,9 +31,11 @@ import com.nguoisaigon.entity.TransactionDetailInfo;
 public class StoreProductDetailPageFragment extends Fragment {
 
 	private ProductInfo product;
+	private Context context;
 
-	public StoreProductDetailPageFragment(ProductInfo product) {
+	public StoreProductDetailPageFragment(Context context, ProductInfo product) {
 		this.product = product;
+		this.context = context;
 	}
 
 	@Override
@@ -101,6 +106,8 @@ public class StoreProductDetailPageFragment extends Fragment {
 				.findViewById(R.id.btnStoreDetailProductQuantityPlus);
 		ImageView btnQuantityMinus = (ImageView) rootView
 				.findViewById(R.id.btnStoreDetailProductQuantityMinus);
+		TextView stockQuantity = (TextView) rootView
+				.findViewById(R.id.tvStoreDetailProductStockQuantity);
 		FrameLayout sizeLayout = (FrameLayout) rootView
 				.findViewById(R.id.storeDetailProductSizeLayout);
 		FrameLayout quantityLayout = (FrameLayout) rootView
@@ -116,6 +123,7 @@ public class StoreProductDetailPageFragment extends Fragment {
 		sizeText.setTypeface(tf);
 		quantityText.setTypeface(tf);
 		quantity.setTypeface(tf);
+		stockQuantity.setTypeface(tf);
 
 		name.setText(product.getName());
 		description.setText(product.getDescription());
@@ -181,23 +189,24 @@ public class StoreProductDetailPageFragment extends Fragment {
 		} else {
 			sizeLayout.setVisibility(FrameLayout.GONE);
 			quantityLayout.setVisibility(FrameLayout.VISIBLE);
-			final TransactionDetailInfo transaction = new TransactionDetailInfo();
+			stockQuantity.setText("(Trong kho còn: " + product.getQuantity()
+					+ ")");
+
 			btnQuantityPlus.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					transaction.setCategoryId(product.getCategoryId());
-					transaction.setProductId(product.getProductId());
-					transaction.setProductName(product.getName());
-					if (transaction.getQuantity() > 0) {
+					TransactionDetailInfo transaction = StoreMainActivity.getProductTransactionDetailInfo();
+					if (transaction.getQuantity() < product.getQuantity()) {
 						transaction.setQuantity(transaction.getQuantity() + 1);
 					} else {
-						transaction.setQuantity(1);
+						String message = "Không đáp ứng đủ số lượng yêu cầu.\nChúng tôi chỉ còn ["
+								+ product.getQuantity()
+								+ "] sản phẩm trong kho";
+						Toast.makeText(context, message, Toast.LENGTH_LONG)
+								.show();
 					}
-					transaction.setUnitPrice(product.getUnitPrice());
-					if (transaction.getQuantity() > 0) {
-						StoreMainActivity
-								.setProductTransactionDetailInfo(transaction);
-					}
+					StoreMainActivity
+							.setProductTransactionDetailInfo(transaction);
 					System.out.println("-----------------------------");
 					System.out.println(transaction.getProductId());
 					System.out.println(transaction.getProductName());
@@ -212,19 +221,16 @@ public class StoreProductDetailPageFragment extends Fragment {
 			btnQuantityMinus.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
+					TransactionDetailInfo transaction = StoreMainActivity.getProductTransactionDetailInfo();
+					if (transaction.getQuantity() > 1) {
+						transaction.setQuantity(transaction.getQuantity() - 1);
+					}
 					transaction.setCategoryId(product.getCategoryId());
 					transaction.setProductId(product.getProductId());
 					transaction.setProductName(product.getName());
-
-					if (transaction.getQuantity() > 0) {
-						transaction.setQuantity(transaction.getQuantity() - 1);
-					}
-
 					transaction.setUnitPrice(product.getUnitPrice());
-					if (transaction.getQuantity() > 0) {
-						StoreMainActivity
-								.setProductTransactionDetailInfo(transaction);
-					}
+					StoreMainActivity
+							.setProductTransactionDetailInfo(transaction);
 					System.out.println("-----------------------------");
 					System.out.println(transaction.getProductId());
 					System.out.println(transaction.getProductName());

@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+
 import org.json.JSONArray;
+
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Intent;
@@ -27,6 +29,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.google.gson.Gson;
 import com.nguoisaigon.R;
 import com.nguoisaigon.db.TransactionDetailDB;
@@ -346,10 +349,31 @@ public class StoreMainActivity extends FragmentActivity implements
 
 	public void btnAddToCartClick(View view) {
 		Log.i("StoreMainActivity - btnAddToCartClick", "Start");
-		if (StoreMainActivity.productTransactionDetailInfo.getProductId() != null) {
+		try {
+			TransactionDetailInfo transaction = StoreMainActivity.productTransactionDetailInfo;
+			if (transaction.getCategoryId() < 5
+					&& transaction.getSizeType() == null) {
+				Toast.makeText(this, "Xin vui lòng chọn size sản phẩm",
+						Toast.LENGTH_LONG).show();
+				return;
+			}
+			
+			TransactionDetailDB db = new TransactionDetailDB(this);
+			ArrayList<TransactionDetailInfo> transactions = db
+					.getTransactions();
+			for (TransactionDetailInfo transactionDetailInfo : transactions) {
+				if (transaction.getProductId().equals(
+						transactionDetailInfo.getProductId())) {
+					Toast.makeText(
+							this,
+							"Sản phẩm này đã có trong giỏ hàng.\nVui lòng xem giỏ hàng để biết chi tiết.",
+							Toast.LENGTH_LONG).show();
+					return;
+				}
+			}
+
 			StoreMainActivity.productTransactionDetailInfo
 					.setAddedDate(Calendar.getInstance().getTime());
-			TransactionDetailDB db = new TransactionDetailDB(this);
 			db.insert(StoreMainActivity.productTransactionDetailInfo);
 			Toast.makeText(this, "Đã thêm vào giỏ hàng", Toast.LENGTH_LONG)
 					.show();
@@ -357,9 +381,9 @@ public class StoreMainActivity extends FragmentActivity implements
 			this.storeProduct.setVisibility(FrameLayout.VISIBLE);
 			this.storeProductDetail.setVisibility(FrameLayout.GONE);
 			StoreMainActivity.productTransactionDetailInfo = null;
-		} else {
-			Toast.makeText(this, "Xin vui lòng chọn sản phẩm",
-					Toast.LENGTH_LONG).show();
+
+		} catch (Exception e) {
+			Log.e("StoreMainActivity - btnAddToCartClick", e.getMessage());
 		}
 	}
 
@@ -419,6 +443,15 @@ public class StoreMainActivity extends FragmentActivity implements
 		Integer index = this.hsProduct.get(view.getText());
 		Log.i("StoreMainActivity - storeProductClick", "index: " + index);
 		this.updateDataDetail(index);
+		ProductInfo product = listProduct.get(index);
+		StoreMainActivity.productTransactionDetailInfo.setCategoryId(product
+				.getCategoryId());
+		StoreMainActivity.productTransactionDetailInfo.setProductId(product
+				.getProductId());
+		StoreMainActivity.productTransactionDetailInfo.setProductName(product
+				.getName());
+		StoreMainActivity.productTransactionDetailInfo.setUnitPrice(product
+				.getUnitPrice());
 	}
 
 	private void updateDataDetail(Integer index) {
@@ -472,7 +505,16 @@ public class StoreMainActivity extends FragmentActivity implements
 					btnPageNext.setImageAlpha(70);
 					btnPagePrevious.setImageAlpha(70);
 				}
-				StoreMainActivity.productTransactionDetailInfo = new TransactionDetailInfo();
+
+				ProductInfo product = listProduct.get(mPager.getCurrentItem());
+				StoreMainActivity.productTransactionDetailInfo
+						.setCategoryId(product.getCategoryId());
+				StoreMainActivity.productTransactionDetailInfo
+						.setProductId(product.getProductId());
+				StoreMainActivity.productTransactionDetailInfo
+						.setProductName(product.getName());
+				StoreMainActivity.productTransactionDetailInfo
+						.setUnitPrice(product.getUnitPrice());
 			}
 
 		});
@@ -483,7 +525,7 @@ public class StoreMainActivity extends FragmentActivity implements
 		Log.i("StoreMainActivity - getProductDetailFragments", "Start");
 		List<Fragment> fList = new ArrayList<Fragment>();
 		for (ProductInfo product : this.listProduct) {
-			fList.add(new StoreProductDetailPageFragment(product));
+			fList.add(new StoreProductDetailPageFragment(this, product));
 		}
 		return fList;
 	}

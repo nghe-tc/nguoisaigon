@@ -179,8 +179,7 @@ public class Checkout3Activity extends Activity implements WebServiceDelegate {
 	}
 
 	public void btnCheckout3PreviousClick(View view) {
-		Intent intent = new Intent(this, Checkout2Activity.class);
-		startActivity(intent);
+		onBackPressed();
 	}
 
 	@Override

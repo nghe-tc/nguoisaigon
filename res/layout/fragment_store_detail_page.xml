@@ -164,7 +164,7 @@
         <FrameLayout
             android:id="@+id/storeDetailProductQuantityLayout"
             android:layout_width="match_parent"
-            android:layout_height="30sp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="220sp"
             android:layout_marginTop="158sp" >
 
@@ -192,9 +192,9 @@
 
             <ImageView
                 android:id="@+id/btnStoreDetailProductQuantityMinus"
-                android:layout_width="20sp"
-                android:layout_height="20sp"
-                android:layout_marginLeft="120sp"
+                android:layout_width="25sp"
+                android:layout_height="25sp"
+                android:layout_marginLeft="157sp"
                 android:layout_marginTop="8sp"
                 android:contentDescription="@string/welcomebg"
                 android:scaleType="fitXY"
@@ -202,13 +202,24 @@
 
             <ImageView
                 android:id="@+id/btnStoreDetailProductQuantityPlus"
-                android:layout_width="20sp"
-                android:layout_height="20sp"
-                android:layout_marginLeft="142sp"
+                android:layout_width="25sp"
+                android:layout_height="25sp"
+                android:layout_marginLeft="125sp"
                 android:layout_marginTop="8sp"
                 android:contentDescription="@string/welcomebg"
                 android:scaleType="fitXY"
                 android:src="@drawable/plusbutton" />
+            
+            <TextView
+                android:id="@+id/tvStoreDetailProductStockQuantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="190sp"
+                android:layout_marginTop="8sp"
+                android:gravity="center_horizontal"
+                android:text="@string/product_quantity_default"
+                android:textColor="@color/red_dark"
+                android:textSize="8pt" />
         </FrameLayout>
 
         <TextView
@@ -237,8 +248,8 @@
             android:id="@+id/storeDetailProductSaleIcon"
             android:layout_width="100sp"
             android:layout_height="55sp"
-            android:layout_marginLeft="350sp"
-            android:layout_marginTop="195sp"
+            android:layout_marginLeft="365sp"
+            android:layout_marginTop="197sp"
             android:contentDescription="@string/welcomebg"
             android:scaleType="fitXY"
             android:src="@drawable/saleicon" />
