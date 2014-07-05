@@ -1,18 +1,17 @@
 package com.nguoisaigon.util;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore.Images;
+
 import com.nguoisaigon.db.SettingDB;
 import com.nguoisaigon.entity.EventsInfo;
 import com.nguoisaigon.entity.MusicInfo;
 import com.nguoisaigon.entity.NewsInfo;
 import com.nguoisaigon.entity.ProductInfo;
 import com.nguoisaigon.entity.SettingInfo;
-import com.nguoisaigon.entity.TransactionDetailInfo;
 
 public class Emailplugin {
 	

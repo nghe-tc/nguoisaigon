@@ -2,19 +2,24 @@ package com.nguoisaigon.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.graphics.drawable.AnimationDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.nguoisaigon.R;
 import com.nguoisaigon.db.DBHelper;
 import com.nguoisaigon.db.SettingDB;
 import com.nguoisaigon.entity.SettingInfo;
+import com.nguoisaigon.util.Emailplugin;
 
 public class HomeScreenActivity extends Activity {
 	private DBHelper datahelper;
@@ -33,6 +38,14 @@ public class HomeScreenActivity extends Activity {
 	Handler handler = new Handler();
 	
 	private FrameLayout contactView;
+	private TextView homeContactCafe;
+	private TextView homeContactNguoiSaiGon;
+	private TextView homeContactAddress1;
+	private TextView homeContactAddress2;
+	private TextView homeContactEmail;
+	private TextView homeContactphone1;
+	private TextView homeContactphone2;
+	private TextView homeContactFacebook;
 
 	Runnable hideHelp = new Runnable() {
 
@@ -61,6 +74,18 @@ public class HomeScreenActivity extends Activity {
 		btnhomemusic = (ImageView) findViewById(R.id.btnhomemusic);
 		btnhometv = (ImageView) findViewById(R.id.btnhometv);
 		btnhomeevents = (ImageView) findViewById(R.id.btnhomeevents);
+		
+		contactView = (FrameLayout) findViewById(R.id.homeContactView);
+		homeContactCafe = (TextView) findViewById(R.id.homeContactCafe);
+		homeContactNguoiSaiGon = (TextView) findViewById(R.id.homeContactNguoiSaiGon);
+		homeContactAddress1 = (TextView) findViewById(R.id.homeContactAddress1);
+		homeContactAddress2 = (TextView) findViewById(R.id.homeContactAddress2);
+		homeContactEmail = (TextView) findViewById(R.id.homeContactEmail);
+		homeContactphone1 = (TextView) findViewById(R.id.homeContactphone1);
+		homeContactphone2 = (TextView) findViewById(R.id.homeContactphone2);
+		homeContactFacebook = (TextView) findViewById(R.id.homeContactFacebook);
+		
+		setupContactView();
 
 		ImageView tvImage = (ImageView) findViewById(R.id.homeTVAnimation);
 		tvImage.setBackgroundResource(R.drawable.tvanimation);
@@ -91,6 +116,62 @@ public class HomeScreenActivity extends Activity {
 
 		this.setOntouchListener();
 	}
+	
+	void setupContactView()
+	{
+		Typeface tf = Typeface.createFromAsset(getAssets(),
+				"fonts/noteworthy.ttc");
+		homeContactCafe.setTypeface(tf);
+		homeContactNguoiSaiGon.setTypeface(tf);
+		homeContactAddress1.setTypeface(tf);
+		homeContactAddress2.setTypeface(tf);
+		homeContactEmail.setTypeface(tf);
+		homeContactphone1.setTypeface(tf);
+		homeContactphone2.setTypeface(tf);
+		homeContactFacebook.setTypeface(tf);
+	}
+	
+	public void emailOnClick(View view) {
+		try {
+			Emailplugin.SendEmailFromHomeView(this);
+		} catch (Exception e) {
+			Log.e("HomeScreen", "emailOnClick: " + e.getMessage());
+		}
+	}
+	
+	public void phone2OnClick(View view) {
+		try {
+			String number = "tel:" + "0932113183";
+	        Intent callIntent = new Intent(Intent.ACTION_CALL, Uri.parse(number)); 
+	        startActivity(callIntent);
+		} catch (Exception e) {
+			Log.e("HomeScreen", "phone2OnClick: " + e.getMessage());
+		}
+	}
+	
+	public void phone1OnClick(View view) {
+		try {
+			String number = "tel:" + "0932113103";
+	        Intent callIntent = new Intent(Intent.ACTION_CALL, Uri.parse(number)); 
+	        startActivity(callIntent);
+		} catch (Exception e) {
+			Log.e("HomeScreen", "phone1OnClick: " + e.getMessage());
+		}
+	}
+	
+	public void facebookOnClick(View view) {
+		try {
+			Intent browserIntent = new Intent(Intent.ACTION_VIEW,
+					Uri.parse("https://www.facebook.com/Cafedansaigon"));
+			startActivity(browserIntent);
+		} catch (Exception e) {
+			Log.e("HomeScreen", "facebookOnClick: " + e.getMessage());
+		}
+	}
+	
+	public void hideContactOnClick(View view) {
+		contactView.setVisibility(View.INVISIBLE);
+	}
 
 	public void btnstore_click(View view) {
 		btnhomestore.setImageResource(R.drawable.store_normal);
@@ -107,26 +188,11 @@ public class HomeScreenActivity extends Activity {
 		btnhomefacebook.setImageResource(R.drawable.fbboard_normal);
 		SettingDB settingDB = new SettingDB(this);
 		SettingInfo info = settingDB.getSetting();
-
-		// Intent intent = new Intent(this, FacebookPlugin.class);
-		// Bundle bundle = new Bundle();
-		// bundle.putString("link", info.getAppLink());
-		// bundle.putString("description", "Dialog description");
-		// bundle.putString("caption", "Dialog Caption");
-		//
-		// intent.putExtras(bundle);
-		// startActivity(intent);
-//		FacebookPlugin fbPlugin = new FacebookPlugin("Dialog description",
-//				info.getAppLink(), "Dialog Caption");
-//		fbPlugin.postToWall();
-//		fbPlugin.showDialog("Dialog description", info.getAppLink(),
-//				"Dialog Caption");
 	}
 
 	public void btnphone_click(View view) {
 		btnhomephone.setImageResource(R.drawable.phone_normal);
-		// Intent intent = new Intent(this, StoreMainActivity.class);
-		// startActivity(intent);
+		contactView.setVisibility(View.VISIBLE);
 	}
 
 	public void btnmusic_click(View view) {
