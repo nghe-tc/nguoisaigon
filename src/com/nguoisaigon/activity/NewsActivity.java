@@ -58,7 +58,7 @@ public class NewsActivity extends FragmentActivity implements
 
 		this.currentDate = Calendar.getInstance();
 		Typeface tf = Typeface.createFromAsset(getAssets(),
-				"fonts/wg_legacy_edition.ttf");
+				"fonts/noteworthy.ttc");
 		TextView tvPage = (TextView) findViewById(R.id.tvNewsPage);
 		TextView tvMonth = (TextView) findViewById(R.id.tvNewsMonth);
 		TextView tvDate = (TextView) findViewById(R.id.tvNewsDate);

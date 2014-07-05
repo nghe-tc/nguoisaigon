@@ -76,7 +76,12 @@ public class MainActivity extends Activity implements WebServiceDelegate {
 		indicator.setVisibility(View.VISIBLE);
 
 		// Setup loading label
+<<<<<<< HEAD
+		Typeface tf = Typeface.createFromAsset(getAssets(),
+				"fonts/noteworthy.ttc");
+=======
 		Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/wg_legacy_edition.ttf");
+>>>>>>> FETCH_HEAD
 		loadingLabel.setTypeface(tf);
 		loadingLabel.setVisibility(View.VISIBLE);
 	}

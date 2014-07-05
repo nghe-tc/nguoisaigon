@@ -75,7 +75,7 @@ public class Checkout3TransactionAdapter extends BaseAdapter {
 			TransactionDetailInfo transaction = this.listTransaction
 					.get(position);
 			Typeface tf = Typeface.createFromAsset(this.activity.getAssets(),
-					"fonts/wg_legacy_edition.ttf");
+					"fonts/noteworthy.ttc");
 
 			holder.tvCheckout3ProductName.setTypeface(tf);
 			holder.tvCheckout3Quantity.setTypeface(tf);

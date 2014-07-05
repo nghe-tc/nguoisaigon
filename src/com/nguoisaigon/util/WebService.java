@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import org.apache.http.HttpEntity;
@@ -29,7 +30,10 @@ import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.nguoisaigon.entity.TransactionDetailInfo;
 import com.nguoisaigon.entity.TransactionPost;
+import com.nguoisaigon.entity.UserInfo;
 
 public class WebService extends AsyncTask<String, Void, JSONArray> {
 	public interface WebServiceDelegate {
@@ -191,8 +195,41 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 		// http://rest.itsleek.vn/api/TransactionDetail
 		try {
 			url = SERVER_URL + "/api/TransactionDetail";
-			params = new JSONObject(info.toString());
-			Log.i("WebService", "setTransactionDetail" + info.toString());
+			params = new JSONObject();
+
+			JSONArray transDetailList = new JSONArray();
+			for (TransactionDetailInfo transaction : info.getTransDetailList()) {
+				JSONObject transDetail = new JSONObject();
+				transDetail.put("categoryID", transaction.getCategoryId());
+				transDetail.put("productId", transaction.getProductId());
+				transDetail.put("productName", transaction.getProductName());
+				transDetail.put("sizeType", transaction.getSizeType());
+				transDetail.put("transDetailId", "");
+				transDetail.put("transactionId", "");
+				transDetail.put("unitPrice", transaction.getUnitPrice());
+				transDetailList.put(transDetail);
+			}
+
+			UserInfo userInfo = info.getUserInfo();
+			JSONObject transList = new JSONObject();
+			transList.put("address", userInfo.getAddress());
+			transList.put("contactPhone", userInfo.getContactPhone());
+			transList.put("createDate", "");
+			transList.put("note", userInfo.getNote());
+			transList.put("ownerInfo", "");
+			transList.put("paymentMethod", info.getPaymentMethod());
+			transList.put("status", 0);
+			transList.put("totalAmount", info.getTotalAmount());
+			transList.put("transDetailList", "");
+			transList.put("transactionId", "");
+			transList.put("userId", userInfo.getUserId());
+			transList.put("userName", "");
+
+			params.put("transDetailList", transDetailList);
+			params.put("transList", transList);
+
+			Log.i("WebService - setTransactionDetailRequest", "params: "
+					+ params.toString());
 			this.isPostRequest = true;
 		} catch (JSONException e) {
 			Log.e("WebService", e.getMessage());
@@ -281,17 +318,19 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 	}
 
 	public static final String PREFIX_DOWNLOAD = "/.nguoisaigon/";
-	private String path = Environment.getExternalStorageDirectory() + PREFIX_DOWNLOAD;
-	
+	private String path = Environment.getExternalStorageDirectory()
+			+ PREFIX_DOWNLOAD;
+
 	/**
 	 * Download music.
-	 *
+	 * 
 	 * @return the JSON array
 	 */
 	private JSONArray downloadMusic() {
 		File file = new File(path);
 		if (!file.mkdirs()) {
-			Log.i("WebService", "Make directories failure because it already existed.");
+			Log.i("WebService",
+					"Make directories failure because it already existed.");
 		}
 		File musicFile = new File(file, musicId);
 		if (musicFile.exists()) {
@@ -311,7 +350,8 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 			final int statusCode = response.getStatusLine().getStatusCode();
 
 			if (statusCode != HttpStatus.SC_OK) {
-				Log.w("downloadMusic", "Error " + statusCode + " while retrieving music from " + url);
+				Log.w("downloadMusic", "Error " + statusCode
+						+ " while retrieving music from " + url);
 				return null;
 			}
 
@@ -334,7 +374,8 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 		} catch (Exception e) {
 			// You Could provide a more explicit error message for IOException
 			getRequest.abort();
-			Log.e("downloadMusic", "Something went wrong while" + " retrieving music from " + url + e.toString());
+			Log.e("downloadMusic", "Something went wrong while"
+					+ " retrieving music from " + url + e.toString());
 		}
 
 		return null;
@@ -361,12 +402,23 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 			entity = new ByteArrayEntity(params.toString().getBytes("UTF8"));
 			httppost.setEntity(entity);
 
-			httpclient.execute(httppost);
+			HttpResponse response = httpclient.execute(httppost);
+			Log.i("WebService - response", response.toString());
 
-		} catch (ClientProtocolException e) {
-			Log.e("WebService", e.getMessage());
-		} catch (IOException e) {
-			Log.e("WebService", e.getMessage());
+			// check 200 OK for success
+			final int statusCode = response.getStatusLine().getStatusCode();
+
+			JSONArray result = new JSONArray();
+			if (statusCode != HttpStatus.SC_OK) {
+				result.put(false);
+				return result;
+			}
+			
+			result.put(true);
+			return result;
+
+		} catch (Exception e) {
+			Log.e("WebService - postDataToServer", e.getMessage());
 		}
 		return null;
 	}
@@ -418,7 +470,7 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 	protected JSONArray doInBackground(String... arg0) {
 		if (url != null) {
 			if (this.isPostRequest) {
-				postDataToServer();
+				return postDataToServer();
 			} else if (this.isDwonloadImageRequest) {
 				return downloadBitmap();
 			} else if (this.isDwonloadMusicRequest) {

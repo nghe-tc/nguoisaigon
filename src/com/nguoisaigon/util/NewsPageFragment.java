@@ -47,7 +47,7 @@ public class NewsPageFragment extends Fragment {
 		TextView tvContent = (TextView) rootView.findViewById(R.id.tvNewsContent);
 		
 		Typeface tf = Typeface.createFromAsset(getActivity().getAssets(),
-				"fonts/wg_legacy_edition.ttf");
+				"fonts/noteworthy.ttc");
 		
 		tvNgayDang.setTypeface(tf);
 		tvCreateDate.setTypeface(tf);

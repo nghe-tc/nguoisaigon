@@ -27,7 +27,7 @@ import com.nguoisaigon.util.MusicManager;
 
 public class MusicActivity extends Activity {
 
-	private ArrayList<MusicInfo> songList = new ArrayList<>();
+	private ArrayList<MusicInfo> songList = new ArrayList<MusicInfo>();
 	private MediaPlayer player;
 	private View stop, play;
 	private ListView lvSongList;
@@ -43,7 +43,7 @@ public class MusicActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.music_layout);
 
-		tf = Typeface.createFromAsset(getAssets(), "fonts/wg_legacy_edition.ttf");
+		tf = Typeface.createFromAsset(getAssets(), "fonts/noteworthy.ttc");
 
 		stop = (View) findViewById(R.id.btnMusicStop);
 		play = (View) findViewById(R.id.btnMusicPlay);

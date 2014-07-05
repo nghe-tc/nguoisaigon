@@ -81,7 +81,7 @@ public class CartTransactionAdapter extends BaseAdapter {
 			TransactionDetailInfo transaction = this.listTransaction
 					.get(position);
 			Typeface tf = Typeface.createFromAsset(this.activity.getAssets(),
-					"fonts/wg_legacy_edition.ttf");
+					"fonts/noteworthy.ttc");
 
 			holder.tvCartProductName.setTypeface(tf);
 			holder.tvCartQuantity.setTypeface(tf);

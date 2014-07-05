@@ -52,7 +52,7 @@ public class Checkout2Activity extends Activity {
 		this.tvCheckoutStep2Type3Detail = (TextView) findViewById(R.id.tvCheckoutStep2Type3Detail);
 
 		Typeface tf = Typeface.createFromAsset(getAssets(),
-				"fonts/wg_legacy_edition.ttf");
+				"fonts/noteworthy.ttc");
 
 		this.tvCheckoutStep1Title.setTypeface(tf);
 		this.tvCheckoutStep2Title.setTypeface(tf);
