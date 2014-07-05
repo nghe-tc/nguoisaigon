@@ -5,7 +5,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 import org.apache.http.Header;
@@ -34,6 +33,7 @@ import android.os.Environment;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.nguoisaigon.db.UserDB;
 import com.nguoisaigon.entity.TransactionDetailInfo;
 import com.nguoisaigon.entity.TransactionPost;
 import com.nguoisaigon.entity.UserInfo;
@@ -109,6 +109,7 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 	private String url;
 	private WebServiceDelegate delegate;
 	private String musicId;
+	Boolean isUserInfoUpdate = false;
 
 	protected JSONObject params;
 
@@ -230,6 +231,62 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 
 			params.put("transDetailList", transDetailList);
 			params.put("transList", transList);
+
+			Log.i("WebService - setTransactionDetailRequest", "params: "
+					+ params.toString());
+			this.isPostRequest = true;
+		} catch (JSONException e) {
+			Log.e("WebService", e.getMessage());
+		}
+	}
+	
+	/**
+	 * Send User information to server
+	 * 
+	 * @param info
+	 *            This object contains all keys/values of user.
+	 * */
+	public void setUserInfoRequest(UserInfo info) {
+		// http://rest.itsleek.vn/api/TransactionDetail
+		try {
+			url = SERVER_URL + "/api/User";
+			isUserInfoUpdate = true;
+			params = new JSONObject();
+			
+			params.put("address", info.getAddress());
+			params.put("contactPhone", info.getContactPhone());
+			params.put("earnedPoint", 0);
+			params.put("email", info.getEmail());
+			params.put("name", info.getName());
+			params.put("userId", "");
+
+			Log.i("WebService - setTransactionDetailRequest", "params: "
+					+ params.toString());
+			this.isPostRequest = true;
+		} catch (JSONException e) {
+			Log.e("WebService", e.getMessage());
+		}
+	}
+	
+	/**
+	 * Send updating User information to server
+	 * 
+	 * @param info
+	 *            This object contains all keys/values of user.
+	 * */
+	public void setEdittingUserInfoRequest(UserInfo info) {
+		// http://rest.itsleek.vn/api/TransactionDetail
+		try {
+			url = SERVER_URL + "/api/User";
+			isUserInfoUpdate = true;
+			params = new JSONObject();
+
+			params.put("address", info.getAddress());
+			params.put("contactPhone", info.getContactPhone());
+			params.put("earnedPoint", info.getErnedPoint());
+			params.put("email", info.getEmail());
+			params.put("name", info.getName());
+			params.put("userId", info.getUserId());
 
 			Log.i("WebService - setTransactionDetailRequest", "params: "
 					+ params.toString());
@@ -416,14 +473,27 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 
 			// check 200 OK for success
 			final int statusCode = response.getStatusLine().getStatusCode();
-
 			JSONArray result = new JSONArray();
-			if (statusCode != HttpStatus.SC_OK) {
-				result.put(false);
-				return result;
+			
+			if(isUserInfoUpdate)
+			{
+				String jsonText = EntityUtils.toString(response.getEntity(),
+						HTTP.UTF_8);
+				Log.i("WebService", "WebService: response " + jsonText);
+				
+				JSONObject userData = new JSONObject(jsonText);
+				result.put(userData);
+			}
+			else
+			{
+				if (statusCode != HttpStatus.SC_OK) {
+					result.put(false);
+					return result;
+				}
+				
+				result.put(true);
 			}
 			
-			result.put(true);
 			return result;
 
 		} catch (Exception e) {
