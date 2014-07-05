@@ -59,9 +59,7 @@ public class ImageLoadTask extends AsyncTask<Void, Void, Bitmap> {
 			con = (HttpURLConnection) url.openConnection();
 			is = con.getInputStream();
 
-			BitmapFactory.Options bounds = new BitmapFactory.Options();
-			bounds.inSampleSize = 4;
-			Bitmap bmp = BitmapFactory.decodeStream(is, null, bounds);
+			Bitmap bmp = BitmapFactory.decodeStream(is);
 			BitmapCache.addBitmapToMemoryCache(id, bmp);
 			return bmp;
 		} catch (Exception e) {
@@ -87,7 +85,7 @@ public class ImageLoadTask extends AsyncTask<Void, Void, Bitmap> {
 		if (result != null) {
 			if (imageView != null) {
 				imageView.setImageBitmap(result);
-				if (loading != null){
+				if (loading != null) {
 					loading.setVisibility(View.INVISIBLE);
 				}
 			}

@@ -5,6 +5,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -14,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.nguoisaigon.R;
 import com.nguoisaigon.activity.StoreMainActivity;
+import com.nguoisaigon.dialog.ImageViewDialog;
 import com.nguoisaigon.entity.ImageInfo;
 import com.nguoisaigon.entity.ProductInfo;
 import com.nguoisaigon.entity.TransactionDetailInfo;
@@ -53,6 +55,16 @@ public class StoreProductDetailPageFragment extends Fragment {
 		}
 
 		mainPic.setImageBitmap(BitmapCache.getBitmapFromMemCache(product.getImageList().get(0).getImageId()));
+		mainPic.setOnTouchListener(new View.OnTouchListener() {
+
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				ImageViewDialog imageDialog = new ImageViewDialog(getActivity(), product.getImageList());
+				imageDialog.createView();
+				imageDialog.show();
+				return false;
+			}
+		});
 
 		TextView name = (TextView) rootView.findViewById(R.id.tvStoreDetailProductName);
 		TextView description = (TextView) rootView.findViewById(R.id.tvStoreDetailProductDescription);
@@ -67,7 +79,7 @@ public class StoreProductDetailPageFragment extends Fragment {
 		FrameLayout sizeLayout = (FrameLayout) rootView.findViewById(R.id.storeDetailProductSizeLayout);
 		FrameLayout quantityLayout = (FrameLayout) rootView.findViewById(R.id.storeDetailProductQuantityLayout);
 
-		Typeface tf = Typeface.createFromAsset(getActivity().getAssets(), "fonts/wg_legacy_edition.ttf");
+		Typeface tf = Typeface.createFromAsset(getActivity().getAssets(), "fonts/noteworthy.ttc");
 
 		name.setTypeface(tf);
 		description.setTypeface(tf);

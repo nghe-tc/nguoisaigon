@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_gravity="center"
+    android:gravity="center" >
+
+    <FrameLayout
+        android:layout_width="600sp"
+        android:layout_height="383sp"
+        android:layout_gravity="center" >
+
+        <ImageView
+            android:id="@+id/imgage"
+            android:layout_width="500sp"
+            android:layout_height="370sp"
+            android:layout_gravity="center"
+            android:scaleType="fitCenter" />
+
+        <ImageButton
+            android:id="@+id/previousButton"
+            android:layout_width="30sp"
+            android:layout_height="80sp"
+            android:layout_gravity="center|left"
+            android:layout_marginLeft="20sp"
+            android:background="@android:color/transparent"
+            android:scaleType="fitXY"
+            android:src="@drawable/previmgbutton" />
+
+        <ImageButton
+            android:id="@+id/nextButton"
+            android:layout_width="30sp"
+            android:layout_height="80sp"
+            android:layout_gravity="center|right"
+            android:layout_marginRight="20sp"
+            android:background="@android:color/transparent"
+            android:scaleType="fitXY"
+            android:src="@drawable/nextimgbutton" />
+
+        <ImageView
+            android:id="@+id/btnStoreClose"
+            android:layout_width="32sp"
+            android:layout_height="32sp"
+            android:layout_marginLeft="561sp"
+            android:layout_marginTop="29sp"
+            android:contentDescription="@string/welcomebg"
+            android:onClick="btnCloseClick"
+            android:src="@drawable/closebutton" />
+    </FrameLayout>
+
+</LinearLayout>

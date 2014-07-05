@@ -412,7 +412,7 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 				transactionDetailInfo.setProductId(product.getProductId());
 				transactionDetailInfo.setProductName(product.getName());
 				transactionDetailInfo.setQuantity(1);
-				transactionDetailInfo.setSizeType(product.getSizeQtyList().get(3).getSizeType());
+				//transactionDetailInfo.setSizeType(product.getSizeQtyList().get(3).getSizeType());
 				transactionDetailInfo.setUnitPrice(product.getUnitPrice());
 			}
 
