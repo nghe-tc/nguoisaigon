@@ -151,24 +151,24 @@
 
         <ImageView
             android:id="@+id/menuStoreFood"
-            android:layout_width="86sp"
-            android:layout_height="60sp"
+            android:layout_width="90sp"
+            android:layout_height="70sp"
             android:layout_marginLeft="350sp"
             android:layout_marginTop="23sp"
+            android:clickable="true"
             android:contentDescription="@string/welcomebg"
-            android:focusableInTouchMode="true"
             android:onClick="menuStoreFoodClick"
             android:scaleType="fitStart"
             android:src="@drawable/storemenu_food_selector" />
 
         <ImageView
             android:id="@+id/menuStoreLifeStyle"
-            android:layout_width="80sp"
-            android:layout_height="58sp"
+            android:layout_width="90sp"
+            android:layout_height="68sp"
             android:layout_marginLeft="410sp"
             android:layout_marginTop="23sp"
+            android:clickable="true"
             android:contentDescription="@string/welcomebg"
-            android:focusableInTouchMode="true"
             android:onClick="menuStoreLifeStyleClick"
             android:scaleType="fitStart"
             android:src="@drawable/storemenu_lifestyle_selector" />
@@ -176,11 +176,11 @@
         <ImageView
             android:id="@+id/menuStoreCosmeticWoman"
             android:layout_width="97sp"
-            android:layout_height="80sp"
+            android:layout_height="90sp"
             android:layout_marginLeft="265sp"
             android:layout_marginTop="23sp"
+            android:clickable="true"
             android:contentDescription="@string/welcomebg"
-            android:focusableInTouchMode="true"
             android:onClick="menuStoreCosmeticWomanClick"
             android:scaleType="fitStart"
             android:src="@drawable/storemenu_cosmetic_woman_selector" />
@@ -188,11 +188,11 @@
         <ImageView
             android:id="@+id/menuStoreCosmeticMan"
             android:layout_width="100sp"
-            android:layout_height="80sp"
+            android:layout_height="90sp"
             android:layout_marginLeft="216sp"
             android:layout_marginTop="23sp"
+            android:clickable="true"
             android:contentDescription="@string/welcomebg"
-            android:focusableInTouchMode="true"
             android:onClick="menuStoreCosmeticManClick"
             android:scaleType="fitStart"
             android:src="@drawable/storemenu_cosmetic_man_selector" />
@@ -203,42 +203,43 @@
             android:layout_height="40sp"
             android:layout_marginLeft="241sp"
             android:layout_marginTop="23sp"
+            android:clickable="true"
             android:contentDescription="@string/welcomebg"
             android:scaleType="fitStart"
             android:src="@drawable/storemenu_cosmetic" />
 
         <ImageView
             android:id="@+id/menuStoreFashionKid"
-            android:layout_width="87dp"
-            android:layout_height="80sp"
+            android:layout_width="92dp"
+            android:layout_height="90sp"
             android:layout_marginLeft="141sp"
             android:layout_marginTop="23sp"
+            android:clickable="true"
             android:contentDescription="@string/welcomebg"
-            android:focusableInTouchMode="true"
             android:onClick="menuStoreFashionKidClick"
             android:scaleType="fitStart"
             android:src="@drawable/storemenu_fashion_kid_selector" />
 
         <ImageView
             android:id="@+id/menuStoreFashionWoman"
-            android:layout_width="70dp"
-            android:layout_height="75sp"
+            android:layout_width="75dp"
+            android:layout_height="80sp"
             android:layout_marginLeft="100sp"
             android:layout_marginTop="23sp"
+            android:clickable="true"
             android:contentDescription="@string/welcomebg"
-            android:focusableInTouchMode="true"
             android:onClick="menuStoreFashionWomanClick"
             android:scaleType="fitStart"
             android:src="@drawable/storemenu_fashion_woman_selector" />
 
         <ImageView
             android:id="@+id/menuStoreFashionMan"
-            android:layout_width="83dp"
-            android:layout_height="80sp"
+            android:layout_width="85dp"
+            android:layout_height="90sp"
             android:layout_marginLeft="42sp"
             android:layout_marginTop="23sp"
+            android:clickable="true"
             android:contentDescription="@string/welcomebg"
-            android:focusableInTouchMode="true"
             android:onClick="menuStoreFashionManClick"
             android:scaleType="fitStart"
             android:src="@drawable/storemenu_fashion_man_selector" />

@@ -16,7 +16,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
-import android.view.DragEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -32,6 +32,7 @@ import com.nguoisaigon.entity.StoreProductPageInfo;
 import com.nguoisaigon.entity.TransactionDetailInfo;
 import com.nguoisaigon.util.BitmapCache;
 import com.nguoisaigon.util.CustomPagerAdapter;
+import com.nguoisaigon.util.Emailplugin;
 import com.nguoisaigon.util.ImageLoadTask;
 import com.nguoisaigon.util.StoreProductDetailPageFragment;
 import com.nguoisaigon.util.StoreProductPageAdapter;
@@ -42,6 +43,32 @@ import com.nguoisaigon.util.WebService.productSearchType;
 
 @SuppressLint("UseSparseArrays")
 public class StoreMainActivity extends FragmentActivity implements WebServiceDelegate {
+	private static final int[] type = { 
+		R.id.menuStoreFashionMan, 
+		R.id.menuStoreLifeStyle, 
+		R.id.menuStoreFood,
+		R.id.menuStoreCosmeticMan, 
+		R.id.menuStoreCosmeticWoman, 
+		R.id.menuStoreFashionWoman,
+		R.id.menuStoreFashionKid };
+
+	private static final int[] typeClick = { 
+		R.drawable.storemenu_fashion_man_clicked,
+		R.drawable.storemenu_lifestyle_clicked, 
+		R.drawable.storemenu_food_clicked,
+		R.drawable.storemenu_cosmetic_man_clicked,
+		R.drawable.storemenu_cosmetic_woman_clicked,
+		R.drawable.storemenu_fashion_woman_clicked, 
+		R.drawable.storemenu_fashion_kid_clicked };
+
+	private static final int[] typeNormal = { 
+		R.drawable.storemenu_fashion_man_normal,
+		R.drawable.storemenu_lifestyle_normal, 
+		R.drawable.storemenu_food_normal,
+		R.drawable.storemenu_cosmetic_man_normal, 
+		R.drawable.storemenu_cosmetic_woman_normal,
+		R.drawable.storemenu_fashion_woman_normal, 
+		R.drawable.storemenu_fashion_kid_normal };
 
 	private static TransactionDetailInfo productTransactionDetailInfo = new TransactionDetailInfo();
 
@@ -80,13 +107,6 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 	private FrameLayout storeProduct;
 	private FrameLayout storeProductDetail;
 
-	private ImageView lifeStyle;
-	private ImageView food;
-	private ImageView cosMan;
-	private ImageView cosWoman;
-	private ImageView fasMan;
-	private ImageView fasWoman;
-	private ImageView fasKid;
 	private TextView tvStoreCart;
 
 	@Override
@@ -105,19 +125,34 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 		this.transactionDetailInfo = new TransactionDetailInfo();
 		this.storeMainListViewProduct = (ListView) findViewById(R.id.storeMainListProduct);
 
-		fasMan = (ImageView) findViewById(R.id.menuStoreFashionMan);
-		menuStoreFashionManClick(fasMan);
-		this.loadData(productCategory.cat_fashion_man, productSearchType.search_for_client);
+		menuStoreFashionManClick(null);
+		for (int i = 0; i < type.length; i++) {
+			final ImageView image = (ImageView) findViewById(type[i]);
+			if (i == 0) {
+				image.setImageResource(typeClick[i]);
+			}
+			final int resourceId = i;
+			image.setOnTouchListener(new View.OnTouchListener() {
 
-		setOnFocusChangeListener();
+				@Override
+				public boolean onTouch(View v, MotionEvent arg1) {
+					System.out.println("========== " + resourceId);
+					image.setImageResource(typeClick[resourceId]);
+					for (int i = 0; i < type.length; i++) {
+						final ImageView image = (ImageView) findViewById(type[i]);
+						if (i != resourceId){
+							image.setImageResource(typeNormal[i]);
+						}
+					}
+					return false;
+				}
+			});
+		}
 		this.updateStoreCart();
 	}
 
 	public void loadData(productCategory category, productSearchType searchType) {
 		Log.i("StoreMainActivity - loadData", "Start");
-		this.listProduct.clear();
-		this.hsProduct.clear();
-		this.transactionDetailInfo.clear();
 		this.transactionDetailInfo.setCategoryId(category.getIntValue());
 		if (storeMainProductAdapter != null) {
 			this.storeMainProductAdapter = new StoreProductPageAdapter(this, new ArrayList<StoreProductPageInfo>());
@@ -136,6 +171,9 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 		Log.i("StoreMainActivity - taskCompletionResult",
 				"JSONArray result: " + ((result == null) ? "null" : result.toString()));
 		if (result != null) {
+			this.listProduct.clear();
+			this.hsProduct.clear();
+			this.transactionDetailInfo.clear();
 			Log.i("StoreMainActivity - taskCompletionResult", "result's length: " + result.length());
 			for (int i = 0; i < result.length(); i++) {
 				try {
@@ -195,7 +233,6 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 	}
 
 	public void menuStoreFashionManClick(View view) {
-		view.requestFocus();
 		loadData(productCategory.cat_fashion_man, productSearchType.search_for_client);
 	}
 
@@ -238,7 +275,7 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 	}
 
 	public void btnStoreDetailEmailClick(View view) {
-
+		Emailplugin.SendEmailFromStoreView(this, listProduct.get(mPager.getCurrentItem()));
 	}
 
 	public void btnStoreDetailFacebookClick(View view) {
@@ -329,6 +366,7 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 		mPager = (ViewPager) findViewById(R.id.storeDetailPager);
 		mPagerAdapter = new CustomPagerAdapter(getSupportFragmentManager(), fragments);
 		mPager.setAdapter(mPagerAdapter);
+		mPagerAdapter.notifyDataSetChanged();
 		mPager.setCurrentItem(index);
 		mPager.setOnPageChangeListener(new OnPageChangeListener() {
 
@@ -472,72 +510,6 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 			this.transactionDetailInfo.setSizeType(product.getSizeQtyList().get(3).getSizeType());
 		}
 		this.transactionDetailInfo.setUnitPrice(product.getUnitPrice());
-	}
-
-	private void setOnFocusChangeListener() {
-		lifeStyle = (ImageView) findViewById(R.id.menuStoreLifeStyle);
-		food = (ImageView) findViewById(R.id.menuStoreFood);
-		cosMan = (ImageView) findViewById(R.id.menuStoreCosmeticMan);
-		cosWoman = (ImageView) findViewById(R.id.menuStoreCosmeticWoman);
-		fasMan = (ImageView) findViewById(R.id.menuStoreFashionMan);
-		fasWoman = (ImageView) findViewById(R.id.menuStoreFashionWoman);
-		fasKid = (ImageView) findViewById(R.id.menuStoreFashionKid);
-
-		lifeStyle.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-			public void onFocusChange(View v, boolean hasFocus) {
-				if (hasFocus) {
-					v.performClick();
-				}
-			}
-		});
-
-		food.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-			public void onFocusChange(View v, boolean hasFocus) {
-				if (hasFocus) {
-					v.performClick();
-				}
-			}
-		});
-
-		cosMan.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-			public void onFocusChange(View v, boolean hasFocus) {
-				if (hasFocus) {
-					v.performClick();
-				}
-			}
-		});
-
-		cosWoman.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-			public void onFocusChange(View v, boolean hasFocus) {
-				if (hasFocus) {
-					v.performClick();
-				}
-			}
-		});
-
-		fasMan.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-			public void onFocusChange(View v, boolean hasFocus) {
-				if (hasFocus) {
-					v.performClick();
-				}
-			}
-		});
-
-		fasWoman.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-			public void onFocusChange(View v, boolean hasFocus) {
-				if (hasFocus) {
-					v.performClick();
-				}
-			}
-		});
-
-		fasKid.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-			public void onFocusChange(View v, boolean hasFocus) {
-				if (hasFocus) {
-					v.performClick();
-				}
-			}
-		});
 	}
 
 	private void updateStoreCart() {
