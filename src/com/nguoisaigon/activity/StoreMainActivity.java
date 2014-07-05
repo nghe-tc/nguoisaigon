@@ -42,6 +42,22 @@ import com.nguoisaigon.util.WebService.productSearchType;
 @SuppressLint("UseSparseArrays")
 public class StoreMainActivity extends FragmentActivity implements WebServiceDelegate {
 
+	private static TransactionDetailInfo productTransactionDetailInfo = new TransactionDetailInfo();
+
+	/**
+	 * @return the productTransactionDetailInfo
+	 */
+	public static TransactionDetailInfo getProductTransactionDetailInfo() {
+		return productTransactionDetailInfo;
+	}
+
+	/**
+	 * @param productTransactionDetailInfo the productTransactionDetailInfo to set
+	 */
+	public static void setProductTransactionDetailInfo(TransactionDetailInfo productTransactionDetailInfo) {
+		StoreMainActivity.productTransactionDetailInfo = productTransactionDetailInfo;
+	}
+
 	/**
 	 * The pager widget, which handles animation and allows swiping horizontally
 	 * to access previous and next wizard steps.

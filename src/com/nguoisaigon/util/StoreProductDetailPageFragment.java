@@ -13,8 +13,10 @@ import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.nguoisaigon.R;
+import com.nguoisaigon.activity.StoreMainActivity;
 import com.nguoisaigon.entity.ImageInfo;
 import com.nguoisaigon.entity.ProductInfo;
+import com.nguoisaigon.entity.TransactionDetailInfo;
 
 @SuppressLint("SimpleDateFormat")
 public class StoreProductDetailPageFragment extends Fragment {
@@ -92,10 +94,27 @@ public class StoreProductDetailPageFragment extends Fragment {
 				imageSize.setFocusableInTouchMode(true);
 				imageSize.setImageAlpha(255);
 				imageSize.setContentDescription(product.getSizeQtyList().get(i).getSizeType().toString());
+				final int sizeSelected = i;
 				imageSize.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 					public void onFocusChange(View v, boolean hasFocus) {
 						if (hasFocus) {
-							
+							TransactionDetailInfo transaction = new TransactionDetailInfo();
+							transaction.setCategoryId(product.getCategoryId());
+							transaction.setProductId(product.getProductId());
+							transaction.setProductName(product.getName());
+							transaction.setQuantity(1);
+							if (product.getSizeQtyList().size() > 0) {
+								transaction.setSizeType(sizeSelected);
+							}
+							transaction.setUnitPrice(product.getUnitPrice());
+							StoreMainActivity.setProductTransactionDetailInfo(transaction);
+							System.out.println("-----------------------------");
+							System.out.println(transaction.getProductId());
+							System.out.println(transaction.getProductName());
+							System.out.println(transaction.getCategoryId());
+							System.out.println(transaction.getQuantity());
+							System.out.println(transaction.getSizeType());
+							System.out.println("-----------------------------");
 						}
 					}
 				});
@@ -116,7 +135,7 @@ public class StoreProductDetailPageFragment extends Fragment {
 		if (product.getIsSale() < 1) {
 			salseIcon.setVisibility(ImageView.GONE);
 		}
-
+		mainPic.requestFocus();
 		return rootView;
 	}
 }
