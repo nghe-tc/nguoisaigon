@@ -26,6 +26,7 @@ import android.widget.TextView;
 import com.nguoisaigon.R;
 import com.nguoisaigon.entity.NewsInfo;
 import com.nguoisaigon.util.CustomPagerAdapter;
+import com.nguoisaigon.util.Emailplugin;
 import com.nguoisaigon.util.NewsPageFragment;
 import com.nguoisaigon.util.WebService;
 import com.nguoisaigon.util.WebService.WebServiceDelegate;
@@ -64,7 +65,7 @@ public class NewsActivity extends FragmentActivity implements
 		TextView tvLoading = (TextView) findViewById(R.id.tvNewsLoading);
 		TextView tvNoNews = (TextView) findViewById(R.id.noNews);
 		this.mPager = (ViewPager) findViewById(R.id.newsPager);
-		
+
 		tvPage.setTypeface(tf);
 		tvMonth.setTypeface(tf);
 		tvDate.setTypeface(tf);
@@ -199,7 +200,8 @@ public class NewsActivity extends FragmentActivity implements
 	 * @param view
 	 */
 	public void btnEmailClick(View view) {
-
+		Emailplugin.SendEmailFromNewsView(this,
+				this.listNews.get(this.mPager.getCurrentItem()));
 	}
 
 	/**
@@ -255,18 +257,18 @@ public class NewsActivity extends FragmentActivity implements
 		tvLoading.setVisibility(TextView.VISIBLE);
 		this.loadData();
 	}
-	
+
 	void setNewsPageChageLisener() {
 		this.mPager.setOnPageChangeListener(new OnPageChangeListener() {
 
 			@Override
 			public void onPageSelected(int arg0) {
-				
+
 			}
 
 			@Override
 			public void onPageScrolled(int arg0, float arg1, int arg2) {
-				
+
 			}
 
 			@Override
@@ -286,7 +288,8 @@ public class NewsActivity extends FragmentActivity implements
 					if (mPager.getCurrentItem() == 0) {
 						btnPagePrevious.setImageAlpha(70);
 						btnPageNext.setImageAlpha(255);
-					} else if (mPager.getCurrentItem() == (mPagerAdapter.getCount() - 1)) {
+					} else if (mPager.getCurrentItem() == (mPagerAdapter
+							.getCount() - 1)) {
 						btnPageNext.setImageAlpha(70);
 						btnPagePrevious.setImageAlpha(255);
 					} else {

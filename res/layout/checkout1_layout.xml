@@ -208,7 +208,7 @@
             android:layout_height="35sp"
             android:layout_marginLeft="250sp"
             android:layout_marginTop="80sp"
-            android:ems="10" 
+            android:ems="5" 
             android:inputType="text"
             android:hint="Chúng tôi sẽ liên lạc với bạn bằng tên này"
             android:textSize="7pt">
@@ -221,7 +221,7 @@
             android:layout_height="35sp"
             android:layout_marginLeft="250sp"
             android:layout_marginTop="125sp"
-            android:ems="10"
+            android:ems="5"
             android:inputType="textEmailAddress" 
             android:hint="Địa chỉ email"
             android:textSize="7pt"/>
@@ -232,7 +232,7 @@
             android:layout_height="35sp"
             android:layout_marginLeft="250sp"
             android:layout_marginTop="170sp"
-            android:ems="10"
+            android:ems="5"
             android:inputType="phone" 
             android:hint="Chúng tôi sẽ liên lạc với bạn bằng số này"
             android:textSize="7pt"/>
@@ -243,7 +243,7 @@
             android:layout_height="35sp"
             android:layout_marginLeft="250sp"
             android:layout_marginTop="225sp"
-            android:ems="10"
+            android:ems="5"
             android:inputType="text" 
             android:hint="Chúng tôi sẽ giao hàng đến địa chỉ này"
             android:textSize="7pt"/>
@@ -254,7 +254,7 @@
             android:layout_height="35sp"
             android:layout_marginLeft="250sp"
             android:layout_marginTop="275sp"
-            android:ems="10"
+            android:ems="5"
             android:inputType="text" 
             android:hint="Ghi chú kèm theo nếu có"
             android:textSize="7pt"/>

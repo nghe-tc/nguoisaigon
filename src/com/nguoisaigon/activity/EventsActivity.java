@@ -24,6 +24,7 @@ import com.google.gson.Gson;
 import com.nguoisaigon.R;
 import com.nguoisaigon.entity.EventsInfo;
 import com.nguoisaigon.util.CustomPagerAdapter;
+import com.nguoisaigon.util.Emailplugin;
 import com.nguoisaigon.util.EventsPageFragment;
 import com.nguoisaigon.util.WebService;
 import com.nguoisaigon.util.WebService.WebServiceDelegate;
@@ -72,10 +73,11 @@ public class EventsActivity extends FragmentActivity implements
 			try {
 				for (int i = 0; i < result.length(); i++) {
 					JSONObject eventJSON = result.getJSONObject(i);
-					EventsInfo event = new Gson().fromJson(eventJSON.toString(), EventsInfo.class);
-//					event.setEventId(eventJSON.getString("eventId"));
-//					event.setEventContent(eventJSON.getString("eventContent"));
-//					event.setTitle(eventJSON.getString("title"));
+					EventsInfo event = new Gson().fromJson(
+							eventJSON.toString(), EventsInfo.class);
+					// event.setEventId(eventJSON.getString("eventId"));
+					// event.setEventContent(eventJSON.getString("eventContent"));
+					// event.setTitle(eventJSON.getString("title"));
 					this.listEvents.add(event);
 				}
 			} catch (Exception e) {
@@ -178,7 +180,8 @@ public class EventsActivity extends FragmentActivity implements
 	 * @param view
 	 */
 	public void btnEmailClick(View view) {
-
+		Emailplugin.SendEmailFromEventView(this,
+				this.listEvents.get(this.mPager.getCurrentItem()));
 	}
 
 	/**

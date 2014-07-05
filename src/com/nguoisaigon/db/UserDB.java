@@ -61,8 +61,8 @@ public class UserDB extends DBHelper {
 		values.put(COLUMN_ERNED_POINT, info.getErnedPoint());
 		values.put(COLUMN_NOTE, info.getNote());
 
-		String selection = COLUMN_ID + " = ?";
-		String[] selectionArgs = { String.valueOf(1) };
+		String selection = COLUMN_USER_ID + " = ?";
+		String[] selectionArgs = { String.valueOf(info.getUserId()) };
 
 		return sqlite.update(TABLE_NAME, values, selection, selectionArgs);
 	}
@@ -74,8 +74,8 @@ public class UserDB extends DBHelper {
 	 * @return
 	 */
 	public Integer delete(Integer id) {
-		String selection = COLUMN_ID + " = ?";
-		String[] selectionArgs = { String.valueOf(1) };
+		String selection = COLUMN_USER_ID + " = ?";
+		String[] selectionArgs = { String.valueOf(id) };
 		return sqlite.delete(TABLE_NAME, selection, selectionArgs);
 	}
 

@@ -1,14 +1,294 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-    
-        <EditText
-        android:id="@+id/editText2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10" 
-        android:text="checkout 3"/>
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:gravity="center" >
 
-    
-</FrameLayout>
+    <FrameLayout
+        android:layout_width="600sp"
+        android:layout_height="383sp"
+        android:layout_gravity="center" >
+
+        <ImageView
+            android:id="@+id/checkout2background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/welcomebg"
+            android:src="@drawable/checkoutbackground" />
+
+        <ImageView
+            android:id="@+id/image1"
+            android:layout_width="30sp"
+            android:layout_height="40sp"
+            android:layout_marginLeft="52sp"
+            android:layout_marginTop="150sp"
+            android:contentDescription="@string/welcomebg"
+            android:src="@drawable/stepindicatearrow" />
+
+        <TextView
+            android:id="@+id/tvCheckoutStep1Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5sp"
+            android:layout_marginTop="80sp"
+            android:gravity="center"
+            android:text="@string/checkout_step1_title"
+            android:textColor="@android:color/black"
+            android:textSize="8pt" />
+
+        <TextView
+            android:id="@+id/tvCheckoutStep2Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5sp"
+            android:layout_marginTop="120sp"
+            android:gravity="center"
+            android:text="@string/checkout_step2_title"
+            android:textColor="@android:color/black"
+            android:textSize="8pt" />
+
+        <TextView
+            android:id="@+id/tvCheckoutStep3Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5sp"
+            android:layout_marginTop="160sp"
+            android:gravity="center"
+            android:text="@string/checkout_step3_title"
+            android:textColor="@color/checkout_step"
+            android:textSize="8pt"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvCheckoutStep4Title"
+            android:layout_width="50sp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12sp"
+            android:layout_marginTop="200sp"
+            android:gravity="center"
+            android:text="@string/checkout_step4_title"
+            android:textColor="@android:color/black"
+            android:textSize="8pt" />
+
+        <TextView
+            android:id="@+id/tvCheckoutStep3MainTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="80sp"
+            android:layout_marginTop="38sp"
+            android:gravity="center"
+            android:text="@string/checkout_step3_main_title"
+            android:textColor="@android:color/black"
+            android:textSize="10pt"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/btnCheckout3Payment"
+            android:layout_width="140sp"
+            android:layout_height="40sp"
+            android:layout_marginLeft="455sp"
+            android:layout_marginTop="30sp"
+            android:contentDescription="@string/welcomebg"
+            android:onClick="btnCheckout3PaymentClick"
+            android:scaleType="fitXY"
+            android:src="@drawable/checkoutbutton" />
+
+        <ImageView
+            android:id="@+id/btnCheckout3Previous"
+            android:layout_width="100sp"
+            android:layout_height="40sp"
+            android:layout_marginLeft="350sp"
+            android:layout_marginTop="30sp"
+            android:contentDescription="@string/welcomebg"
+            android:onClick="btnCheckout3PreviousClick"
+            android:scaleType="fitXY"
+            android:src="@drawable/prevtextbutton" />
+
+        <TextView
+            android:id="@+id/tvCheckoutStep3NameTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="85sp"
+            android:layout_marginTop="75sp"
+            android:gravity="center"
+            android:text="@string/checkout_step3_name_title"
+            android:textColor="@android:color/black"
+            android:textSize="7pt" />
+
+        <TextView
+            android:id="@+id/tvCheckoutStep3Name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="120sp"
+            android:layout_marginTop="75sp"
+            android:gravity="center"
+            android:text="name"
+            android:textColor="@android:color/black"
+            android:textSize="7pt"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvCheckoutStep3AddressTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="85sp"
+            android:layout_marginTop="120sp"
+            android:gravity="center"
+            android:text="@string/checkout_step3_address_title"
+            android:textColor="@android:color/black"
+            android:textSize="7pt" />
+
+        <TextView
+            android:id="@+id/tvCheckoutStep3Address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="140sp"
+            android:layout_marginTop="120sp"
+            android:gravity="center"
+            android:text="address"
+            android:textColor="@android:color/black"
+            android:textSize="7pt"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvCheckoutStep3PhoneTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="380sp"
+            android:layout_marginTop="75sp"
+            android:gravity="center"
+            android:text="@string/checkout_step3_phone_title"
+            android:textColor="@android:color/black"
+            android:textSize="7pt" />
+
+        <TextView
+            android:id="@+id/tvCheckoutStep3Phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="460sp"
+            android:layout_marginTop="75sp"
+            android:gravity="center"
+            android:text="phone"
+            android:textColor="@android:color/black"
+            android:textSize="7pt"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvCheckoutStep3NoteTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="380sp"
+            android:layout_marginTop="120sp"
+            android:gravity="center"
+            android:text="@string/checkout_step3_note_title"
+            android:textColor="@android:color/black"
+            android:textSize="7pt" />
+
+        <TextView
+            android:id="@+id/tvCheckoutStep3Note"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="440sp"
+            android:layout_marginTop="120sp"
+            android:gravity="center"
+            android:text="note"
+            android:textColor="@android:color/black"
+            android:textSize="7pt"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvCheckoutStep3ProductNameTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="85sp"
+            android:layout_marginTop="170sp"
+            android:gravity="center"
+            android:text="@string/checkout_step3_product_name_title"
+            android:textColor="@android:color/black"
+            android:textSize="7pt"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvCheckoutStep3ProductQuantityTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="290sp"
+            android:layout_marginTop="170sp"
+            android:gravity="center"
+            android:text="@string/checkout_step3_product_quantity_title"
+            android:textColor="@android:color/black"
+            android:textSize="7pt"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvCheckoutStep3ProductPriceTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="400sp"
+            android:layout_marginTop="170sp"
+            android:gravity="center"
+            android:text="@string/checkout_step3_product_price_title"
+            android:textColor="@android:color/black"
+            android:textSize="7pt"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvCheckoutStep3ProductTotalTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="515sp"
+            android:layout_marginTop="170sp"
+            android:gravity="center"
+            android:text="@string/checkout_step3_product_total_title"
+            android:textColor="@android:color/black"
+            android:textSize="7pt"
+            android:textStyle="bold" />
+
+        <ListView
+            android:id="@+id/checkout3ListTransaction"
+            android:layout_width="match_parent"
+            android:layout_height="121dp"
+            android:layout_marginLeft="85sp"
+            android:layout_marginTop="200sp"
+            android:cacheColorHint="#00000000"
+            android:listSelector="@android:color/transparent" />
+        
+        <TextView
+            android:id="@+id/tvCheckoutStep3PaymentMethod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="85sp"
+            android:layout_marginTop="335sp"
+            android:gravity="center"
+            android:text="@string/checkout_step3_payment_method_default"
+            android:textColor="@android:color/black"
+            android:textSize="8pt"
+            android:textStyle="bold" />
+        
+        <TextView
+            android:id="@+id/tvCheckoutStep3PaymentTotalTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="350sp"
+            android:layout_marginTop="335sp"
+            android:gravity="center"
+            android:text="@string/checkout_step3_payment_total_title"
+            android:textColor="@color/red_dark"
+            android:textSize="8pt"
+            android:textStyle="bold" />
+        
+        <TextView
+            android:id="@+id/tvCheckoutStep3PaymentTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="440sp"
+            android:layout_marginTop="335sp"
+            android:gravity="center"
+            android:text="@string/checkout_step3_payment_total_default"
+            android:textColor="@color/red_dark"
+            android:textSize="8.5pt"
+            android:textStyle="bold" />
+    </FrameLayout>
+
+</LinearLayout>

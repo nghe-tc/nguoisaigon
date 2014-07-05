@@ -71,11 +71,11 @@ public class Checkout1Activity extends Activity {
 		this.tvCheckoutAddressTitle.setTypeface(tf);
 		this.tvCheckoutNoteTitle.setTypeface(tf);
 		this.tvCheckoutDetailTitle.setTypeface(tf);
-		this.txtCheckoutName.setTypeface(tf);
-		this.txtCheckoutEmail.setTypeface(tf);
-		this.txtCheckoutPhone.setTypeface(tf);
-		this.txtCheckoutAddress.setTypeface(tf);
-		this.txtCheckoutNote.setTypeface(tf);
+//		this.txtCheckoutName.setTypeface(tf);
+//		this.txtCheckoutEmail.setTypeface(tf);
+//		this.txtCheckoutPhone.setTypeface(tf);
+//		this.txtCheckoutAddress.setTypeface(tf);
+//		this.txtCheckoutNote.setTypeface(tf);
 		
 		tvCheckoutStep1MainTitle.setText(mainTitle);
 		
@@ -108,6 +108,10 @@ public class Checkout1Activity extends Activity {
 			startActivity(intent);
 		}
 	}
+	
+	public void btnBackClick(View view) {
+		this.onBackPressed();
+	}
 
 	private Boolean checkInput() {
 		String name = this.txtCheckoutName.getText().toString();
@@ -119,18 +123,21 @@ public class Checkout1Activity extends Activity {
 		if (name.isEmpty()) {
 			Toast.makeText(this, "Xin vui lòng nhập tên người dùng",
 					Toast.LENGTH_LONG).show();
+			this.txtCheckoutName.requestFocus();
 			return false;
 		}
 
 		if (phone.isEmpty()) {
-			Toast.makeText(this, "Xin vui lòng nhập tên người dùng",
+			Toast.makeText(this, "Xin vui lòng nhập số điện thoại",
 					Toast.LENGTH_LONG).show();
+			this.txtCheckoutPhone.requestFocus();
 			return false;
 		}
 
 		if (address.isEmpty()) {
-			Toast.makeText(this, "Xin vui lòng nhập tên người dùng",
+			Toast.makeText(this, "Xin vui lòng nhập địa chỉ giao hàng",
 					Toast.LENGTH_LONG).show();
+			this.txtCheckoutAddress.requestFocus();
 			return false;
 		}
 
