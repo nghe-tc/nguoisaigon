@@ -24,6 +24,8 @@
             android:layout_marginLeft="38sp"
             android:layout_marginTop="18sp"
             android:contentDescription="@string/welcomebg"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:scaleType="fitXY"
             android:src="@drawable/productdetailframe" />
 
