@@ -1,9 +1,11 @@
 package com.nguoisaigon.activity;
 
 import java.util.ArrayList;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -15,6 +17,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.nguoisaigon.R;
 import com.nguoisaigon.db.SettingDB;
 import com.nguoisaigon.entity.MusicInfo;
@@ -35,6 +39,7 @@ public class MainActivity extends Activity implements WebServiceDelegate {
 	private AnimationDrawable animation;
 	private ProgressBar indicator;
 	TextView loadingLabel;
+	TextView recheckLabel;
 
 	Boolean isAppSettingDownloaded = false;
 	Boolean isMusicDownloaded = false;
@@ -52,7 +57,18 @@ public class MainActivity extends Activity implements WebServiceDelegate {
 		ImageView welcomeIcon = (ImageView) findViewById(R.id.welcomeicon);
 		welcomeIcon.setBackgroundResource(R.drawable.welcomeiconani);
 		indicator = (ProgressBar) findViewById(R.id.welcome_indicator);
-		loadingLabel = (TextView) findViewById(R.id.welcom_loadinglabel);
+		loadingLabel = (TextView) findViewById(R.id.welcome_loadinglabel);
+		recheckLabel = (TextView) findViewById(R.id.welcome_recheckNetwork);
+
+		indicator.setVisibility(View.VISIBLE);
+
+		// Setup loading label
+		Typeface tf = Typeface.createFromAsset(getAssets(),
+				"fonts/noteworthy.ttc");
+		loadingLabel.setTypeface(tf);
+		loadingLabel.setVisibility(View.VISIBLE);
+		recheckLabel.setTypeface(tf);
+		recheckLabel.setVisibility(View.INVISIBLE);
 
 		// Set indicator color
 		indicator.getIndeterminateDrawable().setColorFilter(
@@ -65,22 +81,25 @@ public class MainActivity extends Activity implements WebServiceDelegate {
 			animation.start();
 		}
 
-		// Download data
-		WebService appSettingWS = new WebService(this);
-		appSettingWS.setGettingAppSetting();
-		appSettingWS.execute();
+		// Check for network connection
+		if (WebService.isNetworkAvailable(this)) {
+			// Download data
+			WebService appSettingWS = new WebService(this);
+			appSettingWS.setGettingAppSetting();
+			appSettingWS.execute();
 
-		// Download music
-		MusicManager musicManager = new MusicManager(getApplicationContext());
-		musicManager.getMusicInfoList();
+			// Download music
+			MusicManager musicManager = new MusicManager(
+					getApplicationContext());
+			musicManager.getMusicInfoList();
+		} else {
+			Toast.makeText(this, "Không tìm thấy kết nối Internet. Xin hãy thiết lập Internet và nhấn nút [Kiểm tra lại].",
+					Toast.LENGTH_LONG).show();
+			loadingLabel.setVisibility(View.INVISIBLE);
+			indicator.setVisibility(View.INVISIBLE);
 
-		indicator.setVisibility(View.VISIBLE);
-
-		// Setup loading label
-		Typeface tf = Typeface.createFromAsset(getAssets(),
-				"fonts/noteworthy.ttc");
-		loadingLabel.setTypeface(tf);
-		loadingLabel.setVisibility(View.VISIBLE);
+			recheckLabel.setVisibility(View.VISIBLE);
+		}
 	}
 
 	@Override
@@ -135,5 +154,28 @@ public class MainActivity extends Activity implements WebServiceDelegate {
 		Intent browserIntent = new Intent(Intent.ACTION_VIEW,
 				Uri.parse("https://www.facebook.com/Cafedansaigon"));
 		startActivity(browserIntent);
+	}
+
+	public void recheckNetworkOnClick(View view) {
+		// Check for network connection
+		if (WebService.isNetworkAvailable(this)) {
+			loadingLabel.setVisibility(View.VISIBLE);
+			indicator.setVisibility(View.VISIBLE);
+
+			recheckLabel.setVisibility(View.INVISIBLE);
+			
+			// Download data
+			WebService appSettingWS = new WebService(this);
+			appSettingWS.setGettingAppSetting();
+			appSettingWS.execute();
+
+			// Download music
+			MusicManager musicManager = new MusicManager(
+					getApplicationContext());
+			musicManager.getMusicInfoList();
+		} else {
+			Toast.makeText(this, "Không tìm thấy kết nối Internet. Xin hãy thiết lập Internet và nhấn nút [Kiểm tra lại].",
+					Toast.LENGTH_LONG).show();
+		}
 	}
 }

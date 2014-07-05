@@ -7,7 +7,6 @@ import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -15,7 +14,6 @@ import org.apache.http.StatusLine;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicHeader;
@@ -26,14 +24,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Log;
 
-import com.google.gson.Gson;
-import com.nguoisaigon.db.UserDB;
 import com.nguoisaigon.entity.TransactionDetailInfo;
 import com.nguoisaigon.entity.TransactionPost;
 import com.nguoisaigon.entity.UserInfo;
@@ -239,7 +238,7 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 			Log.e("WebService", e.getMessage());
 		}
 	}
-	
+
 	/**
 	 * Send User information to server
 	 * 
@@ -252,7 +251,7 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 			url = SERVER_URL + "/api/User";
 			isUserInfoUpdate = true;
 			params = new JSONObject();
-			
+
 			params.put("address", info.getAddress());
 			params.put("contactPhone", info.getContactPhone());
 			params.put("earnedPoint", 0);
@@ -267,7 +266,7 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 			Log.e("WebService", e.getMessage());
 		}
 	}
-	
+
 	/**
 	 * Send updating User information to server
 	 * 
@@ -452,19 +451,20 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 
 			HttpPost httppost = new HttpPost(url);
 
-//			httppost.addHeader("User-Agent", STR_MAIN_USER_AGENT);
-//			httppost.addHeader("Host", STR_MAIN_USER_AGENT);
-//			httppost.addHeader("Content-Type", STR_MAIN_USER_AGENT);
-//			httppost.addHeader("Content-Length", STR_MAIN_USER_AGENT);
+			// httppost.addHeader("User-Agent", STR_MAIN_USER_AGENT);
+			// httppost.addHeader("Host", STR_MAIN_USER_AGENT);
+			// httppost.addHeader("Content-Type", STR_MAIN_USER_AGENT);
+			// httppost.addHeader("Content-Length", STR_MAIN_USER_AGENT);
 
-//			ByteArrayEntity entity;
-//
-//			entity = new ByteArrayEntity(params.toString().getBytes("UTF8"));
-//			httppost.setEntity(entity);
+			// ByteArrayEntity entity;
+			//
+			// entity = new ByteArrayEntity(params.toString().getBytes("UTF8"));
+			// httppost.setEntity(entity);
 
 			StringEntity se = new StringEntity(params.toString());
 			se.setContentEncoding(HTTP.UTF_8);
-			se.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+			se.setContentType(new BasicHeader(HTTP.CONTENT_TYPE,
+					"application/json"));
 			httppost.setEntity(se);
 			httppost.setHeader(HTTP.USER_AGENT, STR_MAIN_USER_AGENT);
 			httppost.setHeader(HTTP.CONTENT_TYPE, "application/json");
@@ -474,26 +474,23 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 			// check 200 OK for success
 			final int statusCode = response.getStatusLine().getStatusCode();
 			JSONArray result = new JSONArray();
-			
-			if(isUserInfoUpdate)
-			{
+
+			if (isUserInfoUpdate) {
 				String jsonText = EntityUtils.toString(response.getEntity(),
 						HTTP.UTF_8);
 				Log.i("WebService", "WebService: response " + jsonText);
-				
+
 				JSONObject userData = new JSONObject(jsonText);
 				result.put(userData);
-			}
-			else
-			{
+			} else {
 				if (statusCode != HttpStatus.SC_OK) {
 					result.put(false);
 					return result;
 				}
-				
+
 				result.put(true);
 			}
-			
+
 			return result;
 
 		} catch (Exception e) {
@@ -574,5 +571,26 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 
 	public void setDelegate(WebServiceDelegate delegate) {
 		this.delegate = delegate;
+	}
+
+	static public boolean isNetworkAvailable(Context context) {
+		try {
+			ConnectivityManager connectivity = (ConnectivityManager) context
+					.getSystemService(Context.CONNECTIVITY_SERVICE);
+			if (connectivity != null) {
+				NetworkInfo[] info = connectivity.getAllNetworkInfo();
+				if (info != null)
+					for (int i = 0; i < info.length; i++)
+						if (info[i].getState() == NetworkInfo.State.CONNECTED) {
+							return true;
+						}
+
+			}
+			return false;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+
 	}
 }
