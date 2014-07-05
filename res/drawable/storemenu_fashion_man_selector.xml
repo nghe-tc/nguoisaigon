@@ -2,7 +2,6 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:drawable="@drawable/storemenu_fashion_man_over" android:state_pressed="true"/>
-    <item android:drawable="@drawable/storemenu_fashion_man_clicked" android:state_focused="true"/>
     <item android:drawable="@drawable/storemenu_fashion_man_normal"/>
 
 </selector>

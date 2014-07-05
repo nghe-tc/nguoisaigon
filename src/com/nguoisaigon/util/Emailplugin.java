@@ -1,15 +1,16 @@
 package com.nguoisaigon.util;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore.Images;
-
 import com.nguoisaigon.db.SettingDB;
 import com.nguoisaigon.entity.EventsInfo;
 import com.nguoisaigon.entity.MusicInfo;
 import com.nguoisaigon.entity.NewsInfo;
+import com.nguoisaigon.entity.ProductInfo;
 import com.nguoisaigon.entity.SettingInfo;
 import com.nguoisaigon.entity.TransactionDetailInfo;
 
@@ -69,14 +70,14 @@ public class Emailplugin {
 		Emailplugin.SendEmail(context, toRecipient, subject, body, null);
 	}
 	
-	static public void SendEmailFromStoreView(Context context, TransactionDetailInfo product)
+	static public void SendEmailFromStoreView(Context context, ProductInfo product)
 	{
 		SettingDB settingDB = new SettingDB(context);
 		SettingInfo info = settingDB.getSetting();
 		
 		String[] toRecipient = null; 
 		String subject = "Thông tin sản phẩm chia sẻ từ Người Sài Gòn";
-		String body = product.getProductName() + "\n" + product.getProductId() +  "\n\n---------\nNgười Sài Gòn App\n AppStore Link: "
+		String body = product.getName() + "\n" + product.getProductId() +  "\n\n---------\nNgười Sài Gòn App\n AppStore Link: "
 										+ info.getAppLink();
 		
 		Emailplugin.SendEmail(context, toRecipient, subject, body, null);
@@ -85,6 +86,7 @@ public class Emailplugin {
 	static public Boolean SendEmail (Context context, String[] toRecipient, String subject, String body, Bitmap attatchment)
 	{
 		Intent i = new Intent(Intent.ACTION_SEND);
+		i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		if (toRecipient != null)
 			i.putExtra(Intent.EXTRA_EMAIL  , toRecipient);
 		i.putExtra(Intent.EXTRA_SUBJECT, subject);
