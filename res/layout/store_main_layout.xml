@@ -115,6 +115,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:listSelector="@android:color/transparent" />
+
+            <TextView
+                android:id="@+id/tvLoading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="480sp"
+                android:layout_marginTop="235sp"
+                android:text="@string/loading"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@android:color/black" />
+
+            <ProgressBar
+                android:id="@+id/downloadIndicator"
+                style="?android:attr/progressBarStyleSmall"
+                android:layout_width="15sp"
+                android:layout_height="15sp"
+                android:layout_marginLeft="460sp"
+                android:layout_marginTop="235sp" />
         </FrameLayout>
 
         <ImageView

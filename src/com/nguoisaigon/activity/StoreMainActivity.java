@@ -21,6 +21,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.gson.Gson;
@@ -43,32 +44,19 @@ import com.nguoisaigon.util.WebService.productSearchType;
 
 @SuppressLint("UseSparseArrays")
 public class StoreMainActivity extends FragmentActivity implements WebServiceDelegate {
-	private static final int[] type = { 
-		R.id.menuStoreFashionMan, 
-		R.id.menuStoreLifeStyle, 
-		R.id.menuStoreFood,
-		R.id.menuStoreCosmeticMan, 
-		R.id.menuStoreCosmeticWoman, 
-		R.id.menuStoreFashionWoman,
-		R.id.menuStoreFashionKid };
+	private static final int[] type = { R.id.menuStoreFashionMan, R.id.menuStoreLifeStyle, R.id.menuStoreFood,
+			R.id.menuStoreCosmeticMan, R.id.menuStoreCosmeticWoman, R.id.menuStoreFashionWoman,
+			R.id.menuStoreFashionKid };
 
-	private static final int[] typeClick = { 
-		R.drawable.storemenu_fashion_man_clicked,
-		R.drawable.storemenu_lifestyle_clicked, 
-		R.drawable.storemenu_food_clicked,
-		R.drawable.storemenu_cosmetic_man_clicked,
-		R.drawable.storemenu_cosmetic_woman_clicked,
-		R.drawable.storemenu_fashion_woman_clicked, 
-		R.drawable.storemenu_fashion_kid_clicked };
+	private static final int[] typeClick = { R.drawable.storemenu_fashion_man_clicked,
+			R.drawable.storemenu_lifestyle_clicked, R.drawable.storemenu_food_clicked,
+			R.drawable.storemenu_cosmetic_man_clicked, R.drawable.storemenu_cosmetic_woman_clicked,
+			R.drawable.storemenu_fashion_woman_clicked, R.drawable.storemenu_fashion_kid_clicked };
 
-	private static final int[] typeNormal = { 
-		R.drawable.storemenu_fashion_man_normal,
-		R.drawable.storemenu_lifestyle_normal, 
-		R.drawable.storemenu_food_normal,
-		R.drawable.storemenu_cosmetic_man_normal, 
-		R.drawable.storemenu_cosmetic_woman_normal,
-		R.drawable.storemenu_fashion_woman_normal, 
-		R.drawable.storemenu_fashion_kid_normal };
+	private static final int[] typeNormal = { R.drawable.storemenu_fashion_man_normal,
+			R.drawable.storemenu_lifestyle_normal, R.drawable.storemenu_food_normal,
+			R.drawable.storemenu_cosmetic_man_normal, R.drawable.storemenu_cosmetic_woman_normal,
+			R.drawable.storemenu_fashion_woman_normal, R.drawable.storemenu_fashion_kid_normal };
 
 	private static TransactionDetailInfo productTransactionDetailInfo = new TransactionDetailInfo();
 
@@ -109,6 +97,9 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 
 	private TextView tvStoreCart;
 
+	private TextView textLoading;
+	private ProgressBar downloading;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		Log.i("StoreMainActivity - onCreate", "Start");
@@ -125,6 +116,9 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 		this.transactionDetailInfo = new TransactionDetailInfo();
 		this.storeMainListViewProduct = (ListView) findViewById(R.id.storeMainListProduct);
 
+		textLoading = (TextView) findViewById(R.id.tvLoading);
+		downloading = (ProgressBar) findViewById(R.id.downloadIndicator);
+
 		menuStoreFashionManClick(null);
 		for (int i = 0; i < type.length; i++) {
 			final ImageView image = (ImageView) findViewById(type[i]);
@@ -140,7 +134,7 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 					image.setImageResource(typeClick[resourceId]);
 					for (int i = 0; i < type.length; i++) {
 						final ImageView image = (ImageView) findViewById(type[i]);
-						if (i != resourceId){
+						if (i != resourceId) {
 							image.setImageResource(typeNormal[i]);
 						}
 					}
@@ -151,7 +145,17 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 		this.updateStoreCart();
 	}
 
+	/**
+	 * Show downloading.
+	 */
+	private void showDownloading() {
+		textLoading.setVisibility(View.VISIBLE);
+		downloading.setVisibility(View.VISIBLE);
+	}
+
 	public void loadData(productCategory category, productSearchType searchType) {
+		btnStoreDetailBackClick(null);
+		showDownloading();
 		Log.i("StoreMainActivity - loadData", "Start");
 		this.transactionDetailInfo.setCategoryId(category.getIntValue());
 		if (storeMainProductAdapter != null) {
@@ -294,7 +298,7 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 	}
 
 	public void storeProduct1Click(View view) {
-		if (checkViewVisible(view.findViewById(R.id.musicIndicator1))) {
+		if (checkViewVisible(findViewById(R.id.downloadIndicator))) {
 			return;
 		}
 		Log.i("StoreMainActivity - storeProduct1Click", "start");
@@ -303,7 +307,7 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 	}
 
 	public void storeProduct2Click(View view) {
-		if (checkViewVisible(view.findViewById(R.id.musicIndicator2))) {
+		if (checkViewVisible(findViewById(R.id.downloadIndicator))) {
 			return;
 		}
 		Log.i("StoreMainActivity - storeProduct2Click", "start");
@@ -312,7 +316,7 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 	}
 
 	public void storeProduct3Click(View view) {
-		if (checkViewVisible(view.findViewById(R.id.musicIndicator3))) {
+		if (checkViewVisible(findViewById(R.id.downloadIndicator))) {
 			return;
 		}
 		Log.i("StoreMainActivity - storeProduct3Click", "start");
@@ -321,7 +325,7 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 	}
 
 	public void storeProduct4Click(View view) {
-		if (checkViewVisible(view.findViewById(R.id.musicIndicator4))) {
+		if (checkViewVisible(findViewById(R.id.downloadIndicator))) {
 			return;
 		}
 		Log.i("StoreMainActivity - storeProduct4Click", "start");
@@ -412,7 +416,7 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 				transactionDetailInfo.setProductId(product.getProductId());
 				transactionDetailInfo.setProductName(product.getName());
 				transactionDetailInfo.setQuantity(1);
-				//transactionDetailInfo.setSizeType(product.getSizeQtyList().get(3).getSizeType());
+				// transactionDetailInfo.setSizeType(product.getSizeQtyList().get(3).getSizeType());
 				transactionDetailInfo.setUnitPrice(product.getUnitPrice());
 			}
 
