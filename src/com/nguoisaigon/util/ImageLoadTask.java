@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import com.nguoisaigon.entity.ImageInfo;
 
 public class ImageLoadTask extends AsyncTask<Void, Void, Bitmap> {
@@ -25,7 +26,9 @@ public class ImageLoadTask extends AsyncTask<Void, Void, Bitmap> {
 
 	private ImageView imageView;
 
-	private ProgressBar loading;
+	private ProgressBar downloading;
+
+	private TextView loading;
 
 	/**
 	 * Instantiates a new image load task.
@@ -38,10 +41,11 @@ public class ImageLoadTask extends AsyncTask<Void, Void, Bitmap> {
 		this.id = imageInfo.getImageId();
 	}
 
-	public ImageLoadTask(ImageInfo imageInfo, ImageView imageView, ProgressBar loading) {
+	public ImageLoadTask(ImageInfo imageInfo, ImageView imageView, ProgressBar downloading, TextView loading) {
 		this.imageUrl = SERVER_URL + imageInfo.getImageUrl();
 		this.id = imageInfo.getImageId();
 		this.imageView = imageView;
+		this.downloading = downloading;
 		this.loading = loading;
 	}
 
@@ -59,7 +63,9 @@ public class ImageLoadTask extends AsyncTask<Void, Void, Bitmap> {
 			con = (HttpURLConnection) url.openConnection();
 			is = con.getInputStream();
 
-			Bitmap bmp = BitmapFactory.decodeStream(is);
+			BitmapFactory.Options bounds = new BitmapFactory.Options();
+			bounds.inSampleSize = 2;
+			Bitmap bmp = BitmapFactory.decodeStream(is, null, bounds);
 			BitmapCache.addBitmapToMemoryCache(id, bmp);
 			return bmp;
 		} catch (Exception e) {
@@ -85,9 +91,8 @@ public class ImageLoadTask extends AsyncTask<Void, Void, Bitmap> {
 		if (result != null) {
 			if (imageView != null) {
 				imageView.setImageBitmap(result);
-				if (loading != null) {
-					loading.setVisibility(View.INVISIBLE);
-				}
+				downloading.setVisibility(View.GONE);
+				loading.setVisibility(View.GONE);
 			}
 		} else {
 			Log.i(TAG, "The Bitmap is NULL");
