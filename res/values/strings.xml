@@ -86,7 +86,7 @@
     <string name="checkout_step4_title">Hoàn tất</string>
     <string name="checkout_step1_main_title">Bước 1 - Thông tin liên lạc</string>
     <string name="checkout_step2_main_title">Bước 2 - Hình thức thanh toán</string>
-    <string name="checkout_step3_main_title">Bước 3 - Xác nhân đơn hàng</string>
+    <string name="checkout_step3_main_title">Bước 3 - Xác nhận đơn hàng</string>
     <string name="checkout_step4_main_title">Cám ơn quý khách đã mua hàng tại Người Sài Gòn</string>
     <string name="checkout_step1_name">Tên người mua</string>
     <string name="checkout_step1_email">Email</string>
@@ -106,5 +106,16 @@
     <string name="checkout_step4_facebook_title">Tôi đã sử dụng Người Sài Gòn App để mua hàng</string>
     <string name="checkout_step4_store_title">Tiếp tục xem hàng trong Store</string>
     <string name="checkout_step4_home_title">Trở về màn hình chính</string>
+    <string name="checkout_step3_name_title">Tên:</string>
+    <string name="checkout_step3_phone_title">Điện thoại:</string>
+    <string name="checkout_step3_address_title">Địa chỉ:</string>
+    <string name="checkout_step3_note_title">Ghi chú:</string>
+    <string name="checkout_step3_product_name_title">Sản phẩm</string>
+    <string name="checkout_step3_product_quantity_title">Số lượng</string>
+    <string name="checkout_step3_product_price_title">Đơn giá</string>
+    <string name="checkout_step3_product_total_title">Thành tiền</string>
+    <string name="checkout_step3_payment_method_default">Thanh toán khi giao hàng</string>
+    <string name="checkout_step3_payment_total_title">Tổng cộng:</string>
+    <string name="checkout_step3_payment_total_default">0 đ</string>
     
 </resources>

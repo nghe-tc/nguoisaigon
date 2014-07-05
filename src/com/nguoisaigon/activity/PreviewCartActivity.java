@@ -3,6 +3,7 @@ package com.nguoisaigon.activity;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -30,7 +31,7 @@ public class PreviewCartActivity extends Activity {
 	private TransactionDetailDB db;
 
 	private ArrayList<TransactionDetailInfo> listTransaction;
-	CartTransactionAdapter adapter;
+	private CartTransactionAdapter adapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -57,18 +58,18 @@ public class PreviewCartActivity extends Activity {
 
 		this.listTransaction = new ArrayList<TransactionDetailInfo>();
 		this.db = new TransactionDetailDB(this);
-//		for (int i = 1; i < 5; i++) {
-//			TransactionDetailInfo info = new TransactionDetailInfo();
-//			info.setAddedDate(Calendar.getInstance().getTime());
-//			info.setCategoryId(i);
-//			info.setProductId("anghghhghgh1242314532");
-//			info.setProductName("Sản phẩm thứ 1");
-//			info.setQuantity(i);
-//			info.setSizeType(i);
-//			info.setStockQuantity(i);
-//			info.setUnitPrice(1000000.0 * i);
+		for (int i = 1; i < 5; i++) {
+			TransactionDetailInfo info = new TransactionDetailInfo();
+			info.setAddedDate(Calendar.getInstance().getTime());
+			info.setCategoryId(i);
+			info.setProductId("anghghhghgh1242314532");
+			info.setProductName("Sản phẩm thứ 00" + (i + 1));
+			info.setQuantity(i);
+			info.setSizeType(i);
+			info.setStockQuantity(i);
+			info.setUnitPrice(1000000.0 * i);
 //			this.db.insert(info);
-//		}
+		}
 		this.loadData();
 	}
 

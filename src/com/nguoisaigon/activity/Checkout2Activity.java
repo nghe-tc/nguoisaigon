@@ -85,27 +85,27 @@ public class Checkout2Activity extends Activity {
 		startActivity(intent);
 	}
 
-	public void btnCheckout2Type1Click(ImageView view) {
+	public void btnCheckout2Type1Click(View view) {
 		this.uncheckAll();
-		view.setImageResource(R.drawable.checkbox_checked);
+		((ImageView)view).setImageResource(R.drawable.checkbox_checked);
 		this.paymentMethod = 1;
 	}
 
-	public void btnCheckout2Type2Click(ImageView view) {
+	public void btnCheckout2Type2Click(View view) {
 		this.uncheckAll();
-		view.setImageResource(R.drawable.checkbox_checked);
+		((ImageView)view).setImageResource(R.drawable.checkbox_checked);
 		this.paymentMethod = 2;
 	}
 
-	public void btnCheckout2Type3Click(ImageView view) {
+	public void btnCheckout2Type3Click(View view) {
 		this.uncheckAll();
-		view.setImageResource(R.drawable.checkbox_checked);
+		((ImageView)view).setImageResource(R.drawable.checkbox_checked);
 		this.paymentMethod = 3;
 	}
 
 	private void uncheckAll() {
-		this.btnCheckout2Type1.setImageResource(R.drawable.checkbox_checked);
-		this.btnCheckout2Type2.setImageResource(R.drawable.checkbox_checked);
-		this.btnCheckout2Type3.setImageResource(R.drawable.checkbox_checked);
+		this.btnCheckout2Type1.setImageResource(R.drawable.checkbox_unchecked);
+		this.btnCheckout2Type2.setImageResource(R.drawable.checkbox_unchecked);
+		this.btnCheckout2Type3.setImageResource(R.drawable.checkbox_unchecked);
 	}
 }

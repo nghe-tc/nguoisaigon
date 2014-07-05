@@ -22,14 +22,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.nguoisaigon.entity.TransactionDetailInfo;
-
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Log;
+
+import com.nguoisaigon.entity.TransactionPost;
 
 public class WebService extends AsyncTask<String, Void, JSONArray> {
 	public interface WebServiceDelegate {
@@ -187,7 +187,7 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 	 * @param info
 	 *            This object contains all keys/values of event.
 	 * */
-	public void setTransactionDetailRequest(TransactionDetailInfo info) {
+	public void setTransactionDetailRequest(TransactionPost info) {
 		// http://rest.itsleek.vn/api/TransactionDetail
 		try {
 			url = SERVER_URL + "/api/TransactionDetail";
