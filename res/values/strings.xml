@@ -87,7 +87,7 @@
     <string name="checkout_step1_main_title">Bước 1 - Thông tin liên lạc</string>
     <string name="checkout_step2_main_title">Bước 2 - Hình thức thanh toán</string>
     <string name="checkout_step3_main_title">Bước 3 - Xác nhận đơn hàng</string>
-    <string name="checkout_step4_main_title">Cám ơn quý khách đã mua hàng tại Người Sài Gòn</string>
+    <string name="checkout_step4_main_title">Cám ơn quý khách đã mua hàng tại\nNgười Sài Gòn</string>
     <string name="checkout_step1_name">Tên người mua</string>
     <string name="checkout_step1_email">Email</string>
     <string name="checkout_step1_phone">Điện thoại</string>

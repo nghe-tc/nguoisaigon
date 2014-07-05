@@ -47,7 +47,7 @@ public class PreviewCartActivity extends Activity {
 		this.tvCartTotal = (TextView) findViewById(R.id.tvCartTotal);
 
 		Typeface tf = Typeface.createFromAsset(getAssets(),
-				"fonts/wg_legacy_edition.ttf");
+				"fonts/noteworthy.ttc");
 
 		this.tvCartProductTitle.setTypeface(tf);
 		this.tvCartQuantityTitle.setTypeface(tf);
@@ -68,7 +68,7 @@ public class PreviewCartActivity extends Activity {
 			info.setSizeType(i);
 			info.setStockQuantity(i);
 			info.setUnitPrice(1000000.0 * i);
-//			this.db.insert(info);
+			//this.db.insert(info);
 		}
 		this.loadData();
 	}

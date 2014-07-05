@@ -42,7 +42,7 @@ public class EventsPageFragment extends Fragment {
 		TextView tvContent = (TextView) rootView.findViewById(R.id.tvEventsContent);
 		
 		Typeface tf = Typeface.createFromAsset(getActivity().getAssets(),
-				"fonts/wg_legacy_edition.ttf");
+				"fonts/noteworthy.ttc");
 		tvTitle.setTypeface(tf);
 		tvEventDate.setTypeface(tf);
 

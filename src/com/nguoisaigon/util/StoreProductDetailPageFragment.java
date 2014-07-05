@@ -67,7 +67,7 @@ public class StoreProductDetailPageFragment extends Fragment {
 		FrameLayout sizeLayout = (FrameLayout) rootView.findViewById(R.id.storeDetailProductSizeLayout);
 		FrameLayout quantityLayout = (FrameLayout) rootView.findViewById(R.id.storeDetailProductQuantityLayout);
 
-		Typeface tf = Typeface.createFromAsset(getActivity().getAssets(), "fonts/wg_legacy_edition.ttf");
+		Typeface tf = Typeface.createFromAsset(getActivity().getAssets(), "fonts/noteworthy.ttc");
 
 		name.setTypeface(tf);
 		description.setTypeface(tf);

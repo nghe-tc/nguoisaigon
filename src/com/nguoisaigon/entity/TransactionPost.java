@@ -6,16 +6,18 @@ public class TransactionPost {
 	private ArrayList<TransactionDetailInfo> transDetailList;
 	private UserInfo userInfo;
 	private Integer paymentMethod;
+	private Double totalAmount;
 
 	public TransactionPost() {
 
 	}
 
 	public TransactionPost(ArrayList<TransactionDetailInfo> transDetailList,
-			UserInfo userInfo, Integer paymentMethod) {
+			UserInfo userInfo, Integer paymentMethod, Double totalAmount) {
 		this.transDetailList = transDetailList;
 		this.userInfo = userInfo;
 		this.paymentMethod = paymentMethod;
+		this.totalAmount = totalAmount;
 	}
 
 	/**
@@ -62,6 +64,20 @@ public class TransactionPost {
 	 */
 	public void setPaymentMethod(Integer paymentMethod) {
 		this.paymentMethod = paymentMethod;
+	}
+
+	/**
+	 * @return the totalAmount
+	 */
+	public Double getTotalAmount() {
+		return totalAmount;
+	}
+
+	/**
+	 * @param totalAmount the totalAmount to set
+	 */
+	public void setTotalAmount(Double totalAmount) {
+		this.totalAmount = totalAmount;
 	}
 
 }

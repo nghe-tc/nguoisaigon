@@ -38,7 +38,7 @@ public class Checkout4Activity extends Activity {
 		this.tvCheckout4HomeTitle = (TextView) findViewById(R.id.tvCheckout4HomeTitle);
 
 		Typeface tf = Typeface.createFromAsset(getAssets(),
-				"fonts/wg_legacy_edition.ttf");
+				"fonts/noteworthy.ttc");
 
 		this.tvCheckoutStep1Title.setTypeface(tf);
 		this.tvCheckoutStep2Title.setTypeface(tf);

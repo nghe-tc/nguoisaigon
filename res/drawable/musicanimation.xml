@@ -19,5 +19,6 @@
     <item android:drawable="@drawable/musicnote_17" android:duration="50" />
     <item android:drawable="@drawable/musicnote_18" android:duration="50" />
     <item android:drawable="@drawable/musicnote_19" android:duration="50" />
+    <item android:drawable="@drawable/musicnote_1" android:duration="1000" />
 
 </animation-list>

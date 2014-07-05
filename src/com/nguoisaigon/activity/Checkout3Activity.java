@@ -5,6 +5,7 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nguoisaigon.R;
 import com.nguoisaigon.db.TransactionDetailDB;
@@ -50,6 +52,7 @@ public class Checkout3Activity extends Activity implements WebServiceDelegate {
 	private TextView tvCheckoutStep3PaymentTotal;
 
 	private Integer paymentMethod = 1;
+	private Double totalAmount = 0.0;
 	private ArrayList<TransactionDetailInfo> listTransaction;
 	private Checkout3TransactionAdapter adapter;
 	private UserInfo userInfo;
@@ -87,7 +90,7 @@ public class Checkout3Activity extends Activity implements WebServiceDelegate {
 		this.tvCheckoutStep3PaymentTotal = (TextView) findViewById(R.id.tvCheckoutStep3PaymentTotal);
 
 		Typeface tf = Typeface.createFromAsset(getAssets(),
-				"fonts/wg_legacy_edition.ttf");
+				"fonts/noteworthy.ttc");
 
 		this.tvCheckoutStep1Title.setTypeface(tf);
 		this.tvCheckoutStep2Title.setTypeface(tf);
@@ -129,13 +132,14 @@ public class Checkout3Activity extends Activity implements WebServiceDelegate {
 		default:
 			break;
 		}
-		
-		Double total = 0.0;
+
 		for (TransactionDetailInfo transaction : this.listTransaction) {
-			total += transaction.getQuantity() * transaction.getUnitPrice();
+			totalAmount += transaction.getQuantity()
+					* transaction.getUnitPrice();
 		}
 		NumberFormat formatter = new DecimalFormat("#,###,###");
-		this.tvCheckoutStep3PaymentTotal.setText(formatter.format(total) + "đ");
+		this.tvCheckoutStep3PaymentTotal.setText(formatter.format(totalAmount)
+				+ "đ");
 	}
 
 	private void loadUserInfo() {
@@ -167,7 +171,8 @@ public class Checkout3Activity extends Activity implements WebServiceDelegate {
 
 	public void btnCheckout3PaymentClick(View view) {
 		TransactionPost transactionPost = new TransactionPost(
-				this.listTransaction, this.userInfo, this.paymentMethod);
+				this.listTransaction, this.userInfo, this.paymentMethod,
+				this.totalAmount);
 		WebService ws = new WebService(this);
 		ws.setTransactionDetailRequest(transactionPost);
 		ws.execute();
@@ -180,7 +185,16 @@ public class Checkout3Activity extends Activity implements WebServiceDelegate {
 
 	@Override
 	public void taskCompletionResult(JSONArray result) {
-		Intent intent = new Intent(this, Checkout4Activity.class);
-		startActivity(intent);
+		try {
+			if(result.getBoolean(0)) {
+				Intent intent = new Intent(this, Checkout4Activity.class);
+				startActivity(intent);
+			}else {
+				Toast.makeText(this, "Lỗi kết nối mạng\nXin vui lòng kiểm tra lại.", Toast.LENGTH_LONG).show();
+			}
+		} catch (JSONException e) {
+			Log.e("Checkout3Activity - taskCompletionResult", e.getMessage());
+		}
+		
 	}
 }

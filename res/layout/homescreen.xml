@@ -188,7 +188,7 @@
 
             <ImageView
                 android:layout_width="400sp"
-                android:layout_height="320sp"
+                android:layout_height="300sp"
                 android:layout_gravity="center"
                 android:contentDescription="@string/welcomebg"
                 android:src="@drawable/contactbg" />

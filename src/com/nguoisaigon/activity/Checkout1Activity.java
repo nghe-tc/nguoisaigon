@@ -58,7 +58,7 @@ public class Checkout1Activity extends Activity {
 		this.txtCheckoutNote = (EditText) findViewById(R.id.txtCheckoutNote);
 
 		Typeface tf = Typeface.createFromAsset(getAssets(),
-				"fonts/wg_legacy_edition.ttf");
+				"fonts/noteworthy.ttc");
 
 		this.tvCheckoutStep1Title.setTypeface(tf);
 		this.tvCheckoutStep2Title.setTypeface(tf);

@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.nguoisaigon.R;
@@ -30,6 +31,8 @@ public class HomeScreenActivity extends Activity {
 	private ImageView btnhometv;
 	private ImageView btnhomeevents;
 	Handler handler = new Handler();
+	
+	private FrameLayout contactView;
 
 	Runnable hideHelp = new Runnable() {
 

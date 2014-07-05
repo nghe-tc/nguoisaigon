@@ -52,7 +52,7 @@ public class EventsActivity extends FragmentActivity implements
 		setContentView(R.layout.events_layout);
 
 		Typeface tf = Typeface.createFromAsset(getAssets(),
-				"fonts/wg_legacy_edition.ttf");
+				"fonts/noteworthy.ttc");
 		TextView tvPage = (TextView) findViewById(R.id.tvEventsPage);
 		TextView tvLoading = (TextView) findViewById(R.id.tvEventsLoading);
 		TextView tvNoEvent = (TextView) findViewById(R.id.noEvent);

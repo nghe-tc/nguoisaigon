@@ -85,7 +85,7 @@ public class MainActivity extends Activity implements WebServiceDelegate {
 
 		// Setup loading label
 		Typeface tf = Typeface.createFromAsset(getAssets(),
-				"fonts/wg_legacy_edition.ttf");
+				"fonts/noteworthy.ttc");
 		loadingLabel.setTypeface(tf);
 		loadingLabel.setVisibility(View.VISIBLE);
 	}
