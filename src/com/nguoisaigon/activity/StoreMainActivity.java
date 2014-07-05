@@ -16,6 +16,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
+import android.view.DragEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -52,7 +53,8 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 	}
 
 	/**
-	 * @param productTransactionDetailInfo the productTransactionDetailInfo to set
+	 * @param productTransactionDetailInfo
+	 *            the productTransactionDetailInfo to set
 	 */
 	public static void setProductTransactionDetailInfo(TransactionDetailInfo productTransactionDetailInfo) {
 		StoreMainActivity.productTransactionDetailInfo = productTransactionDetailInfo;
@@ -255,27 +257,53 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 	}
 
 	public void storeProduct1Click(View view) {
+		if (checkViewVisible(view.findViewById(R.id.musicIndicator1))) {
+			return;
+		}
 		Log.i("StoreMainActivity - storeProduct1Click", "start");
 		TextView productId = (TextView) view.findViewById(R.id.tvProduct1Id);
 		storeProductClick(productId);
 	}
 
 	public void storeProduct2Click(View view) {
+		if (checkViewVisible(view.findViewById(R.id.musicIndicator2))) {
+			return;
+		}
 		Log.i("StoreMainActivity - storeProduct2Click", "start");
 		TextView productId = (TextView) view.findViewById(R.id.tvProduct2Id);
 		storeProductClick(productId);
 	}
 
 	public void storeProduct3Click(View view) {
+		if (checkViewVisible(view.findViewById(R.id.musicIndicator3))) {
+			return;
+		}
 		Log.i("StoreMainActivity - storeProduct3Click", "start");
 		TextView productId = (TextView) view.findViewById(R.id.tvProduct3Id);
 		storeProductClick(productId);
 	}
 
 	public void storeProduct4Click(View view) {
+		if (checkViewVisible(view.findViewById(R.id.musicIndicator4))) {
+			return;
+		}
 		Log.i("StoreMainActivity - storeProduct4Click", "start");
 		TextView productId = (TextView) view.findViewById(R.id.tvProduct4Id);
 		storeProductClick(productId);
+	}
+
+	/**
+	 * Check view visible.
+	 * 
+	 * @param view
+	 *            the view
+	 * @return true, if view visible
+	 */
+	private boolean checkViewVisible(View view) {
+		if (View.VISIBLE == view.getVisibility()) {
+			return true;
+		}
+		return false;
 	}
 
 	public void storeProductClick(TextView view) {
@@ -302,7 +330,55 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 		mPagerAdapter = new CustomPagerAdapter(getSupportFragmentManager(), fragments);
 		mPager.setAdapter(mPagerAdapter);
 		mPager.setCurrentItem(index);
-		Log.i("StoreMainActivity - updateDataDetail", "Num of page: " + mPagerAdapter.getCount());
+		mPager.setOnPageChangeListener(new OnPageChangeListener() {
+
+			@Override
+			public void onPageSelected(int arg0) {
+
+			}
+
+			@Override
+			public void onPageScrolled(int arg0, float arg1, int arg2) {
+
+			}
+
+			@Override
+			public void onPageScrollStateChanged(int arg0) {
+
+				Log.i("StoreMainActivity - onPageScrollStateChanged", "Start");
+				TextView tvPage = (TextView) findViewById(R.id.tvStoreDetailPage);
+				if (listProduct.size() > 0) {
+					String pageDisplay = mPager.getCurrentItem() + 1 + "/" + mPagerAdapter.getCount();
+					tvPage.setText(pageDisplay);
+				}
+
+				ImageView btnPagePrevious = (ImageView) findViewById(R.id.btnStoreDetailPagePrevious);
+				ImageView btnPageNext = (ImageView) findViewById(R.id.btnStoreDetailPageNext);
+
+				if (mPagerAdapter.getCount() > 1) {
+					if (mPager.getCurrentItem() == 0) {
+						btnPagePrevious.setImageAlpha(70);
+						btnPageNext.setImageAlpha(255);
+					} else if (mPager.getCurrentItem() == (mPagerAdapter.getCount() - 1)) {
+						btnPageNext.setImageAlpha(70);
+						btnPagePrevious.setImageAlpha(255);
+					} else {
+						btnPagePrevious.setImageAlpha(255);
+					}
+				} else {
+					btnPageNext.setImageAlpha(70);
+					btnPagePrevious.setImageAlpha(70);
+				}
+
+				ProductInfo product = listProduct.get(mPager.getCurrentItem());
+				transactionDetailInfo.setProductId(product.getProductId());
+				transactionDetailInfo.setProductName(product.getName());
+				transactionDetailInfo.setQuantity(1);
+				transactionDetailInfo.setSizeType(product.getSizeQtyList().get(3).getSizeType());
+				transactionDetailInfo.setUnitPrice(product.getUnitPrice());
+			}
+
+		});
 		this.updatePageNumView();
 	}
 
@@ -396,58 +472,6 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 			this.transactionDetailInfo.setSizeType(product.getSizeQtyList().get(3).getSizeType());
 		}
 		this.transactionDetailInfo.setUnitPrice(product.getUnitPrice());
-	}
-
-	void setStoreDetailPageChageLisener() {
-		this.mPager.setOnPageChangeListener(new OnPageChangeListener() {
-
-			@Override
-			public void onPageSelected(int arg0) {
-
-			}
-
-			@Override
-			public void onPageScrolled(int arg0, float arg1, int arg2) {
-
-			}
-
-			@Override
-			public void onPageScrollStateChanged(int arg0) {
-
-				Log.i("StoreMainActivity - onPageScrollStateChanged", "Start");
-				TextView tvPage = (TextView) findViewById(R.id.tvStoreDetailPage);
-				if (listProduct.size() > 0) {
-					String pageDisplay = mPager.getCurrentItem() + 1 + "/" + mPagerAdapter.getCount();
-					tvPage.setText(pageDisplay);
-				}
-
-				ImageView btnPagePrevious = (ImageView) findViewById(R.id.btnStoreDetailPagePrevious);
-				ImageView btnPageNext = (ImageView) findViewById(R.id.btnStoreDetailPageNext);
-
-				if (mPagerAdapter.getCount() > 1) {
-					if (mPager.getCurrentItem() == 0) {
-						btnPagePrevious.setImageAlpha(70);
-						btnPageNext.setImageAlpha(255);
-					} else if (mPager.getCurrentItem() == (mPagerAdapter.getCount() - 1)) {
-						btnPageNext.setImageAlpha(70);
-						btnPagePrevious.setImageAlpha(255);
-					} else {
-						btnPagePrevious.setImageAlpha(255);
-					}
-				} else {
-					btnPageNext.setImageAlpha(70);
-					btnPagePrevious.setImageAlpha(70);
-				}
-
-				ProductInfo product = listProduct.get(mPager.getCurrentItem());
-				transactionDetailInfo.setProductId(product.getProductId());
-				transactionDetailInfo.setProductName(product.getName());
-				transactionDetailInfo.setQuantity(1);
-				transactionDetailInfo.setSizeType(product.getSizeQtyList().get(3).getSizeType());
-				transactionDetailInfo.setUnitPrice(product.getUnitPrice());
-			}
-
-		});
 	}
 
 	private void setOnFocusChangeListener() {

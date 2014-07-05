@@ -107,7 +107,7 @@
         <FrameLayout
             android:id="@+id/storeMain"
             android:layout_width="598sp"
-            android:layout_height="262sp"
+            android:layout_height="254sp"
             android:layout_marginTop="90sp" >
 
             <ListView

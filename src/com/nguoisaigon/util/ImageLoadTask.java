@@ -8,7 +8,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import com.nguoisaigon.entity.ImageInfo;
 
 public class ImageLoadTask extends AsyncTask<Void, Void, Bitmap> {
@@ -23,6 +25,8 @@ public class ImageLoadTask extends AsyncTask<Void, Void, Bitmap> {
 
 	private ImageView imageView;
 
+	private ProgressBar loading;
+
 	/**
 	 * Instantiates a new image load task.
 	 * 
@@ -34,10 +38,11 @@ public class ImageLoadTask extends AsyncTask<Void, Void, Bitmap> {
 		this.id = imageInfo.getImageId();
 	}
 
-	public ImageLoadTask(ImageInfo imageInfo, ImageView imageView) {
+	public ImageLoadTask(ImageInfo imageInfo, ImageView imageView, ProgressBar loading) {
 		this.imageUrl = SERVER_URL + imageInfo.getImageUrl();
 		this.id = imageInfo.getImageId();
 		this.imageView = imageView;
+		this.loading = loading;
 	}
 
 	@Override
@@ -82,6 +87,9 @@ public class ImageLoadTask extends AsyncTask<Void, Void, Bitmap> {
 		if (result != null) {
 			if (imageView != null) {
 				imageView.setImageBitmap(result);
+				if (loading != null){
+					loading.setVisibility(View.INVISIBLE);
+				}
 			}
 		} else {
 			Log.i(TAG, "The Bitmap is NULL");

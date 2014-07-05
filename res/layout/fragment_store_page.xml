@@ -55,6 +55,14 @@
                 android:layout_width="20sp"
                 android:layout_height="20sp"
                 android:visibility="gone" />
+
+            <ProgressBar
+                android:id="@+id/musicIndicator1"
+                style="?android:attr/progressBarStyleSmall"
+                android:layout_width="25sp"
+                android:layout_height="25sp"
+                android:layout_marginLeft="70sp"
+                android:layout_marginTop="60sp" />
         </FrameLayout>
 
         <FrameLayout
@@ -105,6 +113,14 @@
                 android:layout_width="20sp"
                 android:layout_height="20sp"
                 android:visibility="gone" />
+
+            <ProgressBar
+                android:id="@+id/musicIndicator2"
+                style="?android:attr/progressBarStyleSmall"
+                android:layout_width="25sp"
+                android:layout_height="25sp"
+                android:layout_marginLeft="70sp"
+                android:layout_marginTop="60sp" />
         </FrameLayout>
 
         <FrameLayout
@@ -155,6 +171,14 @@
                 android:layout_width="20sp"
                 android:layout_height="20sp"
                 android:visibility="gone" />
+
+            <ProgressBar
+                android:id="@+id/musicIndicator3"
+                style="?android:attr/progressBarStyleSmall"
+                android:layout_width="25sp"
+                android:layout_height="25sp"
+                android:layout_marginLeft="70sp"
+                android:layout_marginTop="60sp" />
         </FrameLayout>
 
         <FrameLayout
@@ -205,6 +229,14 @@
                 android:layout_width="20sp"
                 android:layout_height="20sp"
                 android:visibility="gone" />
+
+            <ProgressBar
+                android:id="@+id/musicIndicator4"
+                style="?android:attr/progressBarStyleSmall"
+                android:layout_width="25sp"
+                android:layout_height="25sp"
+                android:layout_marginLeft="70sp"
+                android:layout_marginTop="60sp" />
         </FrameLayout>
     </FrameLayout>
 

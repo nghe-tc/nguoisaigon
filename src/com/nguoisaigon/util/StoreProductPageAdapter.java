@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import com.nguoisaigon.R;
 import com.nguoisaigon.entity.ProductInfo;
@@ -74,6 +75,7 @@ public class StoreProductPageAdapter extends BaseAdapter {
 			ImageView newIcon = null;
 			ImageView salesIcon = null;
 			TextView productId = null;
+			ProgressBar loading = null;
 			// show product
 			Integer index = 0;
 			ArrayList<ProductInfo> products = this.listProduct.get(position).getListProducInfo();
@@ -87,6 +89,7 @@ public class StoreProductPageAdapter extends BaseAdapter {
 					productId = (TextView) view.findViewById(R.id.tvProduct1Id);
 					productId.setText(product.getProductId());
 					mainPic = (ImageView) view.findViewById(R.id.storeProduct1);
+					loading = (ProgressBar) view.findViewById(R.id.musicIndicator1);
 					break;
 				case 2:
 					holder.product2.setVisibility(FrameLayout.VISIBLE);
@@ -95,6 +98,7 @@ public class StoreProductPageAdapter extends BaseAdapter {
 					productId = (TextView) view.findViewById(R.id.tvProduct2Id);
 					productId.setText(product.getProductId());
 					mainPic = (ImageView) view.findViewById(R.id.storeProduct2);
+					loading = (ProgressBar) view.findViewById(R.id.musicIndicator2);
 					break;
 				case 3:
 					holder.product3.setVisibility(FrameLayout.VISIBLE);
@@ -103,6 +107,7 @@ public class StoreProductPageAdapter extends BaseAdapter {
 					productId = (TextView) view.findViewById(R.id.tvProduct3Id);
 					productId.setText(product.getProductId());
 					mainPic = (ImageView) view.findViewById(R.id.storeProduct3);
+					loading = (ProgressBar) view.findViewById(R.id.musicIndicator3);
 					break;
 				case 4:
 					holder.product4.setVisibility(FrameLayout.VISIBLE);
@@ -111,6 +116,7 @@ public class StoreProductPageAdapter extends BaseAdapter {
 					productId = (TextView) view.findViewById(R.id.tvProduct4Id);
 					productId.setText(product.getProductId());
 					mainPic = (ImageView) view.findViewById(R.id.storeProduct4);
+					loading = (ProgressBar) view.findViewById(R.id.musicIndicator4);
 					break;
 				default:
 					break;
@@ -124,7 +130,7 @@ public class StoreProductPageAdapter extends BaseAdapter {
 				}
 
 				if (product.getImageList().size() > 0) {
-					new ImageLoadTask(product.getImageList().get(0), mainPic)
+					new ImageLoadTask(product.getImageList().get(0), mainPic, loading)
 							.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 				}
 			}

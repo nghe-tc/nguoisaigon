@@ -2,11 +2,11 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/content"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="254dp" >
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="274sp" >
+        android:layout_height="254dp" >
 
         <ImageView
             android:id="@+id/storeDetailProductNewIcon"
@@ -238,7 +238,7 @@
             android:layout_width="100sp"
             android:layout_height="55sp"
             android:layout_marginLeft="350sp"
-            android:layout_marginTop="250sp"
+            android:layout_marginTop="195sp"
             android:contentDescription="@string/welcomebg"
             android:scaleType="fitXY"
             android:src="@drawable/saleicon" />

@@ -62,8 +62,8 @@ public class MusicManager implements WebServiceDelegate {
 
 	@Override
 	public void taskCompletionResult(JSONArray result) {
-		Log.i(TAG, (result == null) ? "null" : result.toString());
 		if (result != null) {
+			Log.i(TAG, result.toString());
 			if (!isDownloadingMusic) {
 				saveDataToSharedPreference(context, MUSIC_DATA, result.toString());
 				try {
