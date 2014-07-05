@@ -142,8 +142,7 @@ public class PreviewCartActivity extends Activity {
 	}
 
 	public void btnBackClick(View view) {
-		Intent intent = new Intent(this, StoreMainActivity.class);
-		startActivity(intent);
+		onBackPressed();
 	}
 
 	public void btnCloseClick(View view) {

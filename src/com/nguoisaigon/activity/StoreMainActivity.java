@@ -7,8 +7,10 @@ import java.util.HashMap;
 import java.util.List;
 import org.json.JSONArray;
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -41,34 +43,32 @@ import com.nguoisaigon.util.WebService.WebServiceDelegate;
 import com.nguoisaigon.util.WebService.productCategory;
 import com.nguoisaigon.util.WebService.productSearchType;
 
+@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
 @SuppressLint("UseSparseArrays")
-public class StoreMainActivity extends FragmentActivity implements WebServiceDelegate {
-	private static final int[] type = { 
-		R.id.menuStoreFashionMan, 
-		R.id.menuStoreLifeStyle, 
-		R.id.menuStoreFood,
-		R.id.menuStoreCosmeticMan, 
-		R.id.menuStoreCosmeticWoman, 
-		R.id.menuStoreFashionWoman,
-		R.id.menuStoreFashionKid };
+public class StoreMainActivity extends FragmentActivity implements
+		WebServiceDelegate {
+	private static final int[] type = { R.id.menuStoreFashionMan,
+			R.id.menuStoreLifeStyle, R.id.menuStoreFood,
+			R.id.menuStoreCosmeticMan, R.id.menuStoreCosmeticWoman,
+			R.id.menuStoreFashionWoman, R.id.menuStoreFashionKid };
 
-	private static final int[] typeClick = { 
-		R.drawable.storemenu_fashion_man_clicked,
-		R.drawable.storemenu_lifestyle_clicked, 
-		R.drawable.storemenu_food_clicked,
-		R.drawable.storemenu_cosmetic_man_clicked,
-		R.drawable.storemenu_cosmetic_woman_clicked,
-		R.drawable.storemenu_fashion_woman_clicked, 
-		R.drawable.storemenu_fashion_kid_clicked };
+	private static final int[] typeClick = {
+			R.drawable.storemenu_fashion_man_clicked,
+			R.drawable.storemenu_lifestyle_clicked,
+			R.drawable.storemenu_food_clicked,
+			R.drawable.storemenu_cosmetic_man_clicked,
+			R.drawable.storemenu_cosmetic_woman_clicked,
+			R.drawable.storemenu_fashion_woman_clicked,
+			R.drawable.storemenu_fashion_kid_clicked };
 
-	private static final int[] typeNormal = { 
-		R.drawable.storemenu_fashion_man_normal,
-		R.drawable.storemenu_lifestyle_normal, 
-		R.drawable.storemenu_food_normal,
-		R.drawable.storemenu_cosmetic_man_normal, 
-		R.drawable.storemenu_cosmetic_woman_normal,
-		R.drawable.storemenu_fashion_woman_normal, 
-		R.drawable.storemenu_fashion_kid_normal };
+	private static final int[] typeNormal = {
+			R.drawable.storemenu_fashion_man_normal,
+			R.drawable.storemenu_lifestyle_normal,
+			R.drawable.storemenu_food_normal,
+			R.drawable.storemenu_cosmetic_man_normal,
+			R.drawable.storemenu_cosmetic_woman_normal,
+			R.drawable.storemenu_fashion_woman_normal,
+			R.drawable.storemenu_fashion_kid_normal };
 
 	private static TransactionDetailInfo productTransactionDetailInfo = new TransactionDetailInfo();
 
@@ -83,7 +83,8 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 	 * @param productTransactionDetailInfo
 	 *            the productTransactionDetailInfo to set
 	 */
-	public static void setProductTransactionDetailInfo(TransactionDetailInfo productTransactionDetailInfo) {
+	public static void setProductTransactionDetailInfo(
+			TransactionDetailInfo productTransactionDetailInfo) {
 		StoreMainActivity.productTransactionDetailInfo = productTransactionDetailInfo;
 	}
 
@@ -103,7 +104,6 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 
 	private ArrayList<ProductInfo> listProduct;
 	private HashMap<String, Integer> hsProduct;
-	private TransactionDetailInfo transactionDetailInfo;
 	private FrameLayout storeProduct;
 	private FrameLayout storeProductDetail;
 
@@ -122,7 +122,6 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 		storeProductDetail.setVisibility(FrameLayout.GONE);
 		this.hsProduct = new HashMap<String, Integer>();
 		this.listProduct = new ArrayList<ProductInfo>();
-		this.transactionDetailInfo = new TransactionDetailInfo();
 		this.storeMainListViewProduct = (ListView) findViewById(R.id.storeMainListProduct);
 
 		menuStoreFashionManClick(null);
@@ -140,7 +139,7 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 					image.setImageResource(typeClick[resourceId]);
 					for (int i = 0; i < type.length; i++) {
 						final ImageView image = (ImageView) findViewById(type[i]);
-						if (i != resourceId){
+						if (i != resourceId) {
 							image.setImageResource(typeNormal[i]);
 						}
 					}
@@ -153,9 +152,9 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 
 	public void loadData(productCategory category, productSearchType searchType) {
 		Log.i("StoreMainActivity - loadData", "Start");
-		this.transactionDetailInfo.setCategoryId(category.getIntValue());
 		if (storeMainProductAdapter != null) {
-			this.storeMainProductAdapter = new StoreProductPageAdapter(this, new ArrayList<StoreProductPageInfo>());
+			this.storeMainProductAdapter = new StoreProductPageAdapter(this,
+					new ArrayList<StoreProductPageInfo>());
 			storeMainListViewProduct.setAdapter(storeMainProductAdapter);
 			storeMainProductAdapter.notifyDataSetChanged();
 		}
@@ -168,19 +167,21 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 	@Override
 	public void taskCompletionResult(JSONArray result) {
 		Log.i("StoreMainActivity - taskCompletionResult", "Start");
-		Log.i("StoreMainActivity - taskCompletionResult",
-				"JSONArray result: " + ((result == null) ? "null" : result.toString()));
+		Log.i("StoreMainActivity - taskCompletionResult", "JSONArray result: "
+				+ ((result == null) ? "null" : result.toString()));
 		if (result != null) {
 			this.listProduct.clear();
 			this.hsProduct.clear();
-			this.transactionDetailInfo.clear();
-			Log.i("StoreMainActivity - taskCompletionResult", "result's length: " + result.length());
+			Log.i("StoreMainActivity - taskCompletionResult",
+					"result's length: " + result.length());
 			for (int i = 0; i < result.length(); i++) {
 				try {
-					ProductInfo info = new Gson().fromJson(result.getString(i), ProductInfo.class);
+					ProductInfo info = new Gson().fromJson(result.getString(i),
+							ProductInfo.class);
 					// Get all image for product
 					for (ImageInfo imageInfo : info.getImageList()) {
-						new ImageLoadTask(imageInfo).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+						new ImageLoadTask(imageInfo)
+								.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 					}
 					this.listProduct.add(info);
 					this.hsProduct.put(info.getProductId(), i);
@@ -188,7 +189,8 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 					Log.e("StoreMainActivity - Get Product", e.getMessage());
 				}
 			}
-			Log.i("StoreMainActivity - taskCompletionResult", "size of listProduct: " + listProduct.size());
+			Log.i("StoreMainActivity - taskCompletionResult",
+					"size of listProduct: " + listProduct.size());
 		}
 		updateData();
 	}
@@ -196,10 +198,12 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 	private void updateData() {
 		Log.i("StoreMainActivity - updateData", "Start");
 		ArrayList<StoreProductPageInfo> fragments = getProductFragments();
-		this.storeMainProductAdapter = new StoreProductPageAdapter(this, fragments);
+		this.storeMainProductAdapter = new StoreProductPageAdapter(this,
+				fragments);
 		this.storeMainListViewProduct.setAdapter(storeMainProductAdapter);
 		this.storeMainListViewProduct.setDivider(null);
-		Log.i("StoreMainActivity - updateData", "Num of page: " + fragments.size());
+		Log.i("StoreMainActivity - updateData",
+				"Num of page: " + fragments.size());
 	}
 
 	private ArrayList<StoreProductPageInfo> getProductFragments() {
@@ -228,32 +232,39 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 			}
 		}
 
-		Log.i("StoreMainActivity - getFragments", "size of list fragment: " + fList.size());
+		Log.i("StoreMainActivity - getFragments", "size of list fragment: "
+				+ fList.size());
 		return fList;
 	}
 
 	public void menuStoreFashionManClick(View view) {
-		loadData(productCategory.cat_fashion_man, productSearchType.search_for_client);
+		loadData(productCategory.cat_fashion_man,
+				productSearchType.search_for_client);
 	}
 
 	public void menuStoreFashionWomanClick(View view) {
-		loadData(productCategory.cat_fashion_woman, productSearchType.search_for_client);
+		loadData(productCategory.cat_fashion_woman,
+				productSearchType.search_for_client);
 	}
 
 	public void menuStoreFashionKidClick(View view) {
-		loadData(productCategory.cat_fashion_kid, productSearchType.search_for_client);
+		loadData(productCategory.cat_fashion_kid,
+				productSearchType.search_for_client);
 	}
 
 	public void menuStoreCosmeticManClick(View view) {
-		loadData(productCategory.cat_cos_man, productSearchType.search_for_client);
+		loadData(productCategory.cat_cos_man,
+				productSearchType.search_for_client);
 	}
 
 	public void menuStoreCosmeticWomanClick(View view) {
-		loadData(productCategory.cat_cos_woman, productSearchType.search_for_client);
+		loadData(productCategory.cat_cos_woman,
+				productSearchType.search_for_client);
 	}
 
 	public void menuStoreLifeStyleClick(View view) {
-		loadData(productCategory.cat_lifeStyle, productSearchType.search_for_client);
+		loadData(productCategory.cat_lifeStyle,
+				productSearchType.search_for_client);
 	}
 
 	public void menuStoreFoodClick(View view) {
@@ -265,8 +276,19 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 	}
 
 	public void btnStoreCartClick(View view) {
-		Intent intent = new Intent(this, PreviewCartActivity.class);
-		startActivity(intent);
+
+		TransactionDetailDB db = new TransactionDetailDB(this);
+		try {
+			if (db.getTransactions().size() > 0) {
+				Intent intent = new Intent(this, PreviewCartActivity.class);
+				startActivity(intent);
+			} else {
+				Toast.makeText(this, "Không có sản phẩm trong giỏ hàng",
+						Toast.LENGTH_LONG).show();
+			}
+		} catch (ParseException e) {
+			Log.e("StoreMainActivity - btnStoreCartClick", e.getMessage());
+		}
 	}
 
 	public void btnStoreDetailBackClick(View view) {
@@ -275,7 +297,8 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 	}
 
 	public void btnStoreDetailEmailClick(View view) {
-		Emailplugin.SendEmailFromStoreView(this, listProduct.get(mPager.getCurrentItem()));
+		Emailplugin.SendEmailFromStoreView(this,
+				listProduct.get(mPager.getCurrentItem()));
 	}
 
 	public void btnStoreDetailFacebookClick(View view) {
@@ -284,13 +307,21 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 
 	public void btnAddToCartClick(View view) {
 		Log.i("StoreMainActivity - btnAddToCartClick", "Start");
-		this.transactionDetailInfo.setAddedDate(Calendar.getInstance().getTime());
-		TransactionDetailDB db = new TransactionDetailDB(this);
-		db.insert(this.transactionDetailInfo);
-		Toast.makeText(this, "Ä�Ã£ thÃªm vÃ o giá»� hÃ ng", Toast.LENGTH_LONG).show();
-		this.updateStoreCart();
-		this.storeProduct.setVisibility(FrameLayout.VISIBLE);
-		this.storeProductDetail.setVisibility(FrameLayout.GONE);
+		if (StoreMainActivity.productTransactionDetailInfo.getProductId() != null) {
+			StoreMainActivity.productTransactionDetailInfo
+					.setAddedDate(Calendar.getInstance().getTime());
+			TransactionDetailDB db = new TransactionDetailDB(this);
+			db.insert(StoreMainActivity.productTransactionDetailInfo);
+			Toast.makeText(this, "Đã thêm vào giỏ hàng", Toast.LENGTH_LONG)
+					.show();
+			this.updateStoreCart();
+			this.storeProduct.setVisibility(FrameLayout.VISIBLE);
+			this.storeProductDetail.setVisibility(FrameLayout.GONE);
+			StoreMainActivity.productTransactionDetailInfo = null;
+		} else {
+			Toast.makeText(this, "Xin vui lòng chọn sản phẩm", Toast.LENGTH_LONG)
+					.show();
+		}
 	}
 
 	public void storeProduct1Click(View view) {
@@ -349,14 +380,6 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 		Integer index = this.hsProduct.get(view.getText());
 		Log.i("StoreMainActivity - storeProductClick", "index: " + index);
 		this.updateDataDetail(index);
-		ProductInfo product = this.listProduct.get(index);
-		this.transactionDetailInfo.setProductId(product.getProductId());
-		this.transactionDetailInfo.setProductName(product.getName());
-		this.transactionDetailInfo.setQuantity(1);
-		if (product.getSizeQtyList().size() > 0) {
-			this.transactionDetailInfo.setSizeType(product.getSizeQtyList().get(3).getSizeType());
-		}
-		this.transactionDetailInfo.setUnitPrice(product.getUnitPrice());
 	}
 
 	private void updateDataDetail(Integer index) {
@@ -364,7 +387,8 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 		List<Fragment> fragments = this.getProductDetailFragments();
 		// Instantiate a ViewPager and a PagerAdapter.
 		mPager = (ViewPager) findViewById(R.id.storeDetailPager);
-		mPagerAdapter = new CustomPagerAdapter(getSupportFragmentManager(), fragments);
+		mPagerAdapter = new CustomPagerAdapter(getSupportFragmentManager(),
+				fragments);
 		mPager.setAdapter(mPagerAdapter);
 		mPagerAdapter.notifyDataSetChanged();
 		mPager.setCurrentItem(index);
@@ -386,7 +410,8 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 				Log.i("StoreMainActivity - onPageScrollStateChanged", "Start");
 				TextView tvPage = (TextView) findViewById(R.id.tvStoreDetailPage);
 				if (listProduct.size() > 0) {
-					String pageDisplay = mPager.getCurrentItem() + 1 + "/" + mPagerAdapter.getCount();
+					String pageDisplay = mPager.getCurrentItem() + 1 + "/"
+							+ mPagerAdapter.getCount();
 					tvPage.setText(pageDisplay);
 				}
 
@@ -397,7 +422,8 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 					if (mPager.getCurrentItem() == 0) {
 						btnPagePrevious.setImageAlpha(70);
 						btnPageNext.setImageAlpha(255);
-					} else if (mPager.getCurrentItem() == (mPagerAdapter.getCount() - 1)) {
+					} else if (mPager.getCurrentItem() == (mPagerAdapter
+							.getCount() - 1)) {
 						btnPageNext.setImageAlpha(70);
 						btnPagePrevious.setImageAlpha(255);
 					} else {
@@ -407,13 +433,7 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 					btnPageNext.setImageAlpha(70);
 					btnPagePrevious.setImageAlpha(70);
 				}
-
-				ProductInfo product = listProduct.get(mPager.getCurrentItem());
-				transactionDetailInfo.setProductId(product.getProductId());
-				transactionDetailInfo.setProductName(product.getName());
-				transactionDetailInfo.setQuantity(1);
-				//transactionDetailInfo.setSizeType(product.getSizeQtyList().get(3).getSizeType());
-				transactionDetailInfo.setUnitPrice(product.getUnitPrice());
+				StoreMainActivity.productTransactionDetailInfo = new TransactionDetailInfo();
 			}
 
 		});
@@ -429,33 +449,14 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 		return fList;
 	}
 
-	// public void disableAllSize() {
-	// ImageView sizeXXS = (ImageView)
-	// findViewById(R.id.storeDetailProductSizeXXS);
-	// ImageView sizeXS = (ImageView)
-	// findViewById(R.id.storeDetailProductSizeXS);
-	// ImageView sizeS = (ImageView) findViewById(R.id.storeDetailProductSizeS);
-	// ImageView sizeM = (ImageView) findViewById(R.id.storeDetailProductSizeM);
-	// ImageView sizeL = (ImageView) findViewById(R.id.storeDetailProductSizeL);
-	// ImageView sizeXL = (ImageView)
-	// findViewById(R.id.storeDetailProductSizeXL);
-	//
-	// sizeXXS.setImageAlpha(70);
-	// sizeXS.setImageAlpha(70);
-	// sizeS.setImageAlpha(70);
-	// sizeM.setImageAlpha(70);
-	// sizeL.setImageAlpha(70);
-	// sizeXL.setImageAlpha(70);
-	// }
-
 	public void storeDetailProductSizeClick(View view) {
 		Log.i("StoreMainActivity - storeDetailProductSizeClick", "Start");
 		ImageView sizeImage = (ImageView) view;
-		Integer sizeType = Integer.parseInt(sizeImage.getContentDescription().toString());
-		Log.i("StoreMainActivity - storeDetailProductSizeClick", "size type: " + sizeType.toString());
-		this.transactionDetailInfo.setSizeType(sizeType);
+		Integer sizeType = Integer.parseInt(sizeImage.getContentDescription()
+				.toString());
+		Log.i("StoreMainActivity - storeDetailProductSizeClick", "size type: "
+				+ sizeType.toString());
 		sizeImage.setImageAlpha(255);
-		// this.disableAllSize();
 	}
 
 	public void btnStoreDetailPreviousClick(View view) {
@@ -480,7 +481,8 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 		Log.i("StoreMainActivity - updatePageNumView", "Start");
 		TextView tvPage = (TextView) findViewById(R.id.tvStoreDetailPage);
 		if (this.listProduct.size() > 0) {
-			String pageDisplay = mPager.getCurrentItem() + 1 + "/" + mPagerAdapter.getCount();
+			String pageDisplay = mPager.getCurrentItem() + 1 + "/"
+					+ mPagerAdapter.getCount();
 			tvPage.setText(pageDisplay);
 		}
 
@@ -501,15 +503,8 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 			btnPageNext.setImageAlpha(70);
 			btnPagePrevious.setImageAlpha(70);
 		}
-
-		ProductInfo product = this.listProduct.get(mPager.getCurrentItem());
-		this.transactionDetailInfo.setProductId(product.getProductId());
-		this.transactionDetailInfo.setProductName(product.getName());
-		this.transactionDetailInfo.setQuantity(1);
-		if (product.getSizeQtyList().size() > 0) {
-			this.transactionDetailInfo.setSizeType(product.getSizeQtyList().get(3).getSizeType());
-		}
-		this.transactionDetailInfo.setUnitPrice(product.getUnitPrice());
+		
+		StoreMainActivity.productTransactionDetailInfo = new TransactionDetailInfo();
 	}
 
 	private void updateStoreCart() {

@@ -114,7 +114,7 @@
             android:gravity="center"
             android:text="@string/checkout_step3_name_title"
             android:textColor="@android:color/black"
-            android:textSize="7pt" />
+            android:textSize="7.5pt" />
 
         <TextView
             android:id="@+id/tvCheckoutStep3Name"
@@ -125,7 +125,7 @@
             android:gravity="center"
             android:text="name"
             android:textColor="@android:color/black"
-            android:textSize="7pt"
+            android:textSize="8pt"
             android:textStyle="bold" />
 
         <TextView
@@ -137,7 +137,7 @@
             android:gravity="center"
             android:text="@string/checkout_step3_address_title"
             android:textColor="@android:color/black"
-            android:textSize="7pt" />
+            android:textSize="7.5pt" />
 
         <TextView
             android:id="@+id/tvCheckoutStep3Address"
@@ -148,7 +148,7 @@
             android:gravity="center"
             android:text="address"
             android:textColor="@android:color/black"
-            android:textSize="7pt"
+            android:textSize="8pt"
             android:textStyle="bold" />
 
         <TextView
@@ -160,7 +160,7 @@
             android:gravity="center"
             android:text="@string/checkout_step3_phone_title"
             android:textColor="@android:color/black"
-            android:textSize="7pt" />
+            android:textSize="7.5pt" />
 
         <TextView
             android:id="@+id/tvCheckoutStep3Phone"
@@ -171,7 +171,7 @@
             android:gravity="center"
             android:text="phone"
             android:textColor="@android:color/black"
-            android:textSize="7pt"
+            android:textSize="8pt"
             android:textStyle="bold" />
 
         <TextView
@@ -183,7 +183,7 @@
             android:gravity="center"
             android:text="@string/checkout_step3_note_title"
             android:textColor="@android:color/black"
-            android:textSize="7pt" />
+            android:textSize="7.5pt" />
 
         <TextView
             android:id="@+id/tvCheckoutStep3Note"
@@ -194,7 +194,7 @@
             android:gravity="center"
             android:text="note"
             android:textColor="@android:color/black"
-            android:textSize="7pt"
+            android:textSize="8pt"
             android:textStyle="bold" />
 
         <TextView
@@ -206,7 +206,7 @@
             android:gravity="center"
             android:text="@string/checkout_step3_product_name_title"
             android:textColor="@android:color/black"
-            android:textSize="7pt"
+            android:textSize="7.5pt"
             android:textStyle="bold" />
 
         <TextView
@@ -218,7 +218,7 @@
             android:gravity="center"
             android:text="@string/checkout_step3_product_quantity_title"
             android:textColor="@android:color/black"
-            android:textSize="7pt"
+            android:textSize="7.5pt"
             android:textStyle="bold" />
 
         <TextView
@@ -230,7 +230,7 @@
             android:gravity="center"
             android:text="@string/checkout_step3_product_price_title"
             android:textColor="@android:color/black"
-            android:textSize="7pt"
+            android:textSize="7.5pt"
             android:textStyle="bold" />
 
         <TextView
@@ -242,13 +242,13 @@
             android:gravity="center"
             android:text="@string/checkout_step3_product_total_title"
             android:textColor="@android:color/black"
-            android:textSize="7pt"
+            android:textSize="7.5pt"
             android:textStyle="bold" />
 
         <ListView
             android:id="@+id/checkout3ListTransaction"
             android:layout_width="match_parent"
-            android:layout_height="121dp"
+            android:layout_height="121sp"
             android:layout_marginLeft="85sp"
             android:layout_marginTop="200sp"
             android:cacheColorHint="#00000000"
@@ -259,7 +259,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="85sp"
-            android:layout_marginTop="335sp"
+            android:layout_marginTop="325sp"
             android:gravity="center"
             android:text="@string/checkout_step3_payment_method_default"
             android:textColor="@android:color/black"
@@ -271,7 +271,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="350sp"
-            android:layout_marginTop="335sp"
+            android:layout_marginTop="325sp"
             android:gravity="center"
             android:text="@string/checkout_step3_payment_total_title"
             android:textColor="@color/red_dark"
@@ -283,7 +283,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="440sp"
-            android:layout_marginTop="335sp"
+            android:layout_marginTop="325sp"
             android:gravity="center"
             android:text="@string/checkout_step3_payment_total_default"
             android:textColor="@color/red_dark"

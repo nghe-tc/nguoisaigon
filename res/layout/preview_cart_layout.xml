@@ -87,7 +87,7 @@
             android:id="@+id/tvCartTotalTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="500sp"
+            android:layout_marginLeft="510sp"
             android:layout_marginTop="100sp"
             android:gravity="center"
             android:text="@string/cart_total_title"

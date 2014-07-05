@@ -80,7 +80,7 @@
             android:gravity="center_vertical"
             android:text="@string/cart_productname_default"
             android:textColor="@android:color/black"
-            android:textSize="6pt" />
+            android:textSize="6.5pt" />
 
         <TextView
             android:id="@+id/tvCartTransactionQuantity"
@@ -90,7 +90,7 @@
             android:gravity="center_vertical"
             android:text="@string/cart_quantity_default"
             android:textColor="@android:color/black"
-            android:textSize="6pt" />
+            android:textSize="6.5pt" />
 
         <TextView
             android:id="@+id/tvCartTransactionPrice"
@@ -100,7 +100,7 @@
             android:gravity="right|center_vertical"
             android:text="@string/cart_quantity_default"
             android:textColor="@android:color/black"
-            android:textSize="6pt" />
+            android:textSize="6.5pt" />
 
         <TextView
             android:id="@+id/tvCartTransactionTotal"
@@ -110,7 +110,7 @@
             android:gravity="right|center_vertical"
             android:text="@string/cart_total_default"
             android:textColor="@android:color/black"
-            android:textSize="6pt" />
+            android:textSize="6.5pt" />
     </FrameLayout>
 
 </LinearLayout>

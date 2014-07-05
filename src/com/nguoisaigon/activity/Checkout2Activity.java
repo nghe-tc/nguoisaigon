@@ -81,8 +81,7 @@ public class Checkout2Activity extends Activity {
 	}
 
 	public void btnCheckout2PreviousClick(View view) {
-		Intent intent = new Intent(this, Checkout1Activity.class);
-		startActivity(intent);
+		onBackPressed();
 	}
 
 	public void btnCheckout2Type1Click(View view) {

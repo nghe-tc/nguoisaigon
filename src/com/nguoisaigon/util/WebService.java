@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -16,7 +17,9 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ByteArrayEntity;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicHeader;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
@@ -392,16 +395,22 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 
 			HttpPost httppost = new HttpPost(url);
 
-			httppost.addHeader("User-Agent", STR_MAIN_USER_AGENT);
-			httppost.addHeader("Host", STR_MAIN_USER_AGENT);
-			httppost.addHeader("Content-Type", STR_MAIN_USER_AGENT);
-			httppost.addHeader("Content-Length", STR_MAIN_USER_AGENT);
+//			httppost.addHeader("User-Agent", STR_MAIN_USER_AGENT);
+//			httppost.addHeader("Host", STR_MAIN_USER_AGENT);
+//			httppost.addHeader("Content-Type", STR_MAIN_USER_AGENT);
+//			httppost.addHeader("Content-Length", STR_MAIN_USER_AGENT);
 
-			ByteArrayEntity entity;
+//			ByteArrayEntity entity;
+//
+//			entity = new ByteArrayEntity(params.toString().getBytes("UTF8"));
+//			httppost.setEntity(entity);
 
-			entity = new ByteArrayEntity(params.toString().getBytes("UTF8"));
-			httppost.setEntity(entity);
-
+			StringEntity se = new StringEntity(params.toString());
+			se.setContentEncoding(HTTP.UTF_8);
+			se.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+			httppost.setEntity(se);
+			httppost.setHeader(HTTP.USER_AGENT, STR_MAIN_USER_AGENT);
+			httppost.setHeader(HTTP.CONTENT_TYPE, "application/json");
 			HttpResponse response = httpclient.execute(httppost);
 			Log.i("WebService - response", response.toString());
 
