@@ -55,7 +55,8 @@ public class MainActivity extends Activity implements WebServiceDelegate {
 		loadingLabel = (TextView) findViewById(R.id.welcom_loadinglabel);
 
 		// Set indicator color
-		indicator.getIndeterminateDrawable().setColorFilter(R.color.welcome_loading_color,
+		indicator.getIndeterminateDrawable().setColorFilter(
+				R.color.welcome_loading_color,
 				android.graphics.PorterDuff.Mode.MULTIPLY);
 
 		// Start animations
@@ -92,10 +93,14 @@ public class MainActivity extends Activity implements WebServiceDelegate {
 				SettingInfo info = new SettingInfo();
 				if (info != null) {
 					try {
-						JSONObject object = (JSONObject) appSettingObject.get(0);
-						info.setAppLink(object.getString(this.getString(R.string.setting_applink)));
-						info.setParseAppId(object.getString(this.getString(R.string.setting_parseappid)));
-						info.setSettingId(object.getString(this.getString(R.string.setting_settingid)));
+						JSONObject object = (JSONObject) appSettingObject
+								.get(0);
+						info.setAppLink(object.getString(this
+								.getString(R.string.setting_applink)));
+						info.setParseAppId(object.getString(this
+								.getString(R.string.setting_parseappid)));
+						info.setSettingId(object.getString(this
+								.getString(R.string.setting_settingid)));
 						settingDB.insert(info);
 					} catch (JSONException e) {
 						e.printStackTrace();
@@ -111,7 +116,8 @@ public class MainActivity extends Activity implements WebServiceDelegate {
 			public void run() {
 				// Call the home page
 				indicator.setVisibility(View.GONE);
-				Intent intent = new Intent(MainActivity.this, HomeScreenActivity.class);
+				Intent intent = new Intent(MainActivity.this,
+						HomeScreenActivity.class);
 				startActivity(intent);
 			}
 		}, 3000);
@@ -126,7 +132,8 @@ public class MainActivity extends Activity implements WebServiceDelegate {
 	 * 
 	 */
 	void linkToFacebook() {
-		Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/Cafedansaigon"));
+		Intent browserIntent = new Intent(Intent.ACTION_VIEW,
+				Uri.parse("https://www.facebook.com/Cafedansaigon"));
 		startActivity(browserIntent);
 	}
 }

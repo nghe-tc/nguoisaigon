@@ -9,6 +9,7 @@ import org.json.JSONArray;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.gson.Gson;
@@ -109,6 +111,10 @@ public class StoreMainActivity extends FragmentActivity implements
 
 	private TextView tvStoreCart;
 
+	private TextView textLoading;
+	private ProgressBar downloading;
+	private TextView textNoItem;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		Log.i("StoreMainActivity - onCreate", "Start");
@@ -123,6 +129,14 @@ public class StoreMainActivity extends FragmentActivity implements
 		this.hsProduct = new HashMap<String, Integer>();
 		this.listProduct = new ArrayList<ProductInfo>();
 		this.storeMainListViewProduct = (ListView) findViewById(R.id.storeMainListProduct);
+
+		Typeface tf = Typeface.createFromAsset(getAssets(),
+				"fonts/noteworthy.ttc");
+		textLoading = (TextView) findViewById(R.id.tvLoading);
+		textLoading.setTypeface(tf);
+		downloading = (ProgressBar) findViewById(R.id.downloadIndicator);
+		textNoItem = (TextView) findViewById(R.id.tvNoItem);
+		textNoItem.setTypeface(tf);
 
 		menuStoreFashionManClick(null);
 		for (int i = 0; i < type.length; i++) {
@@ -150,7 +164,26 @@ public class StoreMainActivity extends FragmentActivity implements
 		this.updateStoreCart();
 	}
 
+	/**
+	 * Show downloading indicator
+	 */
+	private void showDownloadingIndicator() {
+		textLoading.setVisibility(View.VISIBLE);
+		downloading.setVisibility(View.VISIBLE);
+		textNoItem.setVisibility(View.GONE);
+	}
+
+	/**
+	 * Hide downloading indicator
+	 */
+	private void hideDownloadingIndicator() {
+		textLoading.setVisibility(View.GONE);
+		downloading.setVisibility(View.GONE);
+	}
+
 	public void loadData(productCategory category, productSearchType searchType) {
+		btnStoreDetailBackClick(null);
+		showDownloadingIndicator();
 		Log.i("StoreMainActivity - loadData", "Start");
 		if (storeMainProductAdapter != null) {
 			this.storeMainProductAdapter = new StoreProductPageAdapter(this,
@@ -188,6 +221,12 @@ public class StoreMainActivity extends FragmentActivity implements
 				} catch (Exception e) {
 					Log.e("StoreMainActivity - Get Product", e.getMessage());
 				}
+			}
+
+			if (result.length() == 0) {
+				hideDownloadingIndicator();
+				textNoItem.setVisibility(View.VISIBLE);
+				return;
 			}
 			Log.i("StoreMainActivity - taskCompletionResult",
 					"size of listProduct: " + listProduct.size());
@@ -319,13 +358,13 @@ public class StoreMainActivity extends FragmentActivity implements
 			this.storeProductDetail.setVisibility(FrameLayout.GONE);
 			StoreMainActivity.productTransactionDetailInfo = null;
 		} else {
-			Toast.makeText(this, "Xin vui lòng chọn sản phẩm", Toast.LENGTH_LONG)
-					.show();
+			Toast.makeText(this, "Xin vui lòng chọn sản phẩm",
+					Toast.LENGTH_LONG).show();
 		}
 	}
 
 	public void storeProduct1Click(View view) {
-		if (checkViewVisible(view.findViewById(R.id.musicIndicator1))) {
+		if (checkViewVisible(findViewById(R.id.downloadIndicator))) {
 			return;
 		}
 		Log.i("StoreMainActivity - storeProduct1Click", "start");
@@ -334,7 +373,7 @@ public class StoreMainActivity extends FragmentActivity implements
 	}
 
 	public void storeProduct2Click(View view) {
-		if (checkViewVisible(view.findViewById(R.id.musicIndicator2))) {
+		if (checkViewVisible(findViewById(R.id.downloadIndicator))) {
 			return;
 		}
 		Log.i("StoreMainActivity - storeProduct2Click", "start");
@@ -343,7 +382,7 @@ public class StoreMainActivity extends FragmentActivity implements
 	}
 
 	public void storeProduct3Click(View view) {
-		if (checkViewVisible(view.findViewById(R.id.musicIndicator3))) {
+		if (checkViewVisible(findViewById(R.id.downloadIndicator))) {
 			return;
 		}
 		Log.i("StoreMainActivity - storeProduct3Click", "start");
@@ -352,7 +391,7 @@ public class StoreMainActivity extends FragmentActivity implements
 	}
 
 	public void storeProduct4Click(View view) {
-		if (checkViewVisible(view.findViewById(R.id.musicIndicator4))) {
+		if (checkViewVisible(findViewById(R.id.downloadIndicator))) {
 			return;
 		}
 		Log.i("StoreMainActivity - storeProduct4Click", "start");
@@ -503,7 +542,7 @@ public class StoreMainActivity extends FragmentActivity implements
 			btnPageNext.setImageAlpha(70);
 			btnPagePrevious.setImageAlpha(70);
 		}
-		
+
 		StoreMainActivity.productTransactionDetailInfo = new TransactionDetailInfo();
 	}
 
