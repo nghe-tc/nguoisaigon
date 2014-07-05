@@ -8,6 +8,7 @@ import java.util.List;
 import org.json.JSONArray;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -117,9 +118,12 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 		this.transactionDetailInfo = new TransactionDetailInfo();
 		this.storeMainListViewProduct = (ListView) findViewById(R.id.storeMainListProduct);
 
+		Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/noteworthy.ttc");
 		textLoading = (TextView) findViewById(R.id.tvLoading);
+		textLoading.setTypeface(tf);
 		downloading = (ProgressBar) findViewById(R.id.downloadIndicator);
 		textNoItem = (TextView) findViewById(R.id.tvNoItem);
+		textNoItem.setTypeface(tf);
 
 		menuStoreFashionManClick(null);
 		for (int i = 0; i < type.length; i++) {

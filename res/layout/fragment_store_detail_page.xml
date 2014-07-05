@@ -27,7 +27,7 @@
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:scaleType="fitXY"
-            android:src="@drawable/productdetailframe" />
+            android:src="@drawable/productdefault" />
 
         <LinearLayout
             android:id="@+id/imageGroup"
