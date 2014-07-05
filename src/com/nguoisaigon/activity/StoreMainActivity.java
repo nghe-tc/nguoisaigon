@@ -99,6 +99,7 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 
 	private TextView textLoading;
 	private ProgressBar downloading;
+	private TextView textNoItem;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -118,6 +119,7 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 
 		textLoading = (TextView) findViewById(R.id.tvLoading);
 		downloading = (ProgressBar) findViewById(R.id.downloadIndicator);
+		textNoItem = (TextView) findViewById(R.id.tvNoItem);
 
 		menuStoreFashionManClick(null);
 		for (int i = 0; i < type.length; i++) {
@@ -146,16 +148,25 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 	}
 
 	/**
-	 * Show downloading.
+	 * Show downloading indicator
 	 */
-	private void showDownloading() {
+	private void showDownloadingIndicator() {
 		textLoading.setVisibility(View.VISIBLE);
 		downloading.setVisibility(View.VISIBLE);
+		textNoItem.setVisibility(View.GONE);
+	}
+
+	/**
+	 * Hide downloading indicator
+	 */
+	private void hideDownloadingIndicator() {
+		textLoading.setVisibility(View.GONE);
+		downloading.setVisibility(View.GONE);
 	}
 
 	public void loadData(productCategory category, productSearchType searchType) {
 		btnStoreDetailBackClick(null);
-		showDownloading();
+		showDownloadingIndicator();
 		Log.i("StoreMainActivity - loadData", "Start");
 		this.transactionDetailInfo.setCategoryId(category.getIntValue());
 		if (storeMainProductAdapter != null) {
@@ -191,6 +202,11 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 				} catch (Exception e) {
 					Log.e("StoreMainActivity - Get Product", e.getMessage());
 				}
+			}
+			if (result.length() == 0) {
+				hideDownloadingIndicator();
+				textNoItem.setVisibility(View.VISIBLE);
+				return;
 			}
 			Log.i("StoreMainActivity - taskCompletionResult", "size of listProduct: " + listProduct.size());
 		}

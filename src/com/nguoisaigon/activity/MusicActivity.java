@@ -23,6 +23,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import com.nguoisaigon.R;
 import com.nguoisaigon.entity.MusicInfo;
+import com.nguoisaigon.util.Emailplugin;
 import com.nguoisaigon.util.MusicManager;
 
 public class MusicActivity extends Activity {
@@ -105,7 +106,7 @@ public class MusicActivity extends Activity {
 	 * @param view
 	 */
 	public void btnEmailClick(View view) {
-
+		Emailplugin.SendEmailFromMusicView(this, songList.get(currentSong));
 	}
 
 	/**

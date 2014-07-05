@@ -117,5 +117,6 @@
     <string name="checkout_step3_payment_method_default">Thanh toán khi giao hàng</string>
     <string name="checkout_step3_payment_total_title">Tổng cộng:</string>
     <string name="checkout_step3_payment_total_default">0 đ</string>
+    <string name="no_item">Không có sản phẩm trong ngày hôm nay</string>
     
 </resources>
