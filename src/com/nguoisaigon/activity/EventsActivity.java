@@ -2,12 +2,12 @@ package com.nguoisaigon.activity;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -19,7 +19,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import com.google.gson.Gson;
 import com.nguoisaigon.R;
 import com.nguoisaigon.entity.EventsInfo;
@@ -29,6 +28,7 @@ import com.nguoisaigon.util.EventsPageFragment;
 import com.nguoisaigon.util.WebService;
 import com.nguoisaigon.util.WebService.WebServiceDelegate;
 
+@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
 @SuppressLint("SimpleDateFormat")
 public class EventsActivity extends FragmentActivity implements
 		WebServiceDelegate {
@@ -91,9 +91,16 @@ public class EventsActivity extends FragmentActivity implements
 	public void loadData() {
 		this.listEvents = new ArrayList<EventsInfo>();
 		// Download data
-		WebService ws = new WebService(this);
-		ws.setGettingEventsData();
-		ws.execute();
+		if (WebService.isNetworkAvailable(this)) {
+			WebService ws = new WebService(this);
+			ws.setGettingEventsData();
+			ws.execute();
+		} else {
+			ProgressBar indicator = (ProgressBar) findViewById(R.id.eventsIndicator);
+			indicator.setVisibility(ProgressBar.GONE);
+			TextView tvLoading = (TextView) findViewById(R.id.tvEventsLoading);
+			tvLoading.setVisibility(TextView.GONE);
+		}
 	}
 
 	public void updatePageNumView() {

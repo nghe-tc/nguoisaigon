@@ -84,16 +84,20 @@ public class MainActivity extends Activity implements WebServiceDelegate {
 		// Check for network connection
 		if (WebService.isNetworkAvailable(this)) {
 			// Download data
-			WebService appSettingWS = new WebService(this);
-			appSettingWS.setGettingAppSetting();
-			appSettingWS.execute();
+			if (WebService.isNetworkAvailable(this)) {
+				WebService appSettingWS = new WebService(this);
+				appSettingWS.setGettingAppSetting();
+				appSettingWS.execute();
+			}
 
 			// Download music
 			MusicManager musicManager = new MusicManager(
 					getApplicationContext());
 			musicManager.getMusicInfoList();
 		} else {
-			Toast.makeText(this, "Không tìm thấy kết nối Internet. Xin hãy thiết lập Internet và nhấn nút [Kiểm tra lại].",
+			Toast.makeText(
+					this,
+					"Không tìm thấy kết nối Internet. Xin hãy thiết lập Internet và nhấn nút [Kiểm tra lại].",
 					Toast.LENGTH_SHORT).show();
 			loadingLabel.setVisibility(View.INVISIBLE);
 			indicator.setVisibility(View.INVISIBLE);
@@ -163,18 +167,22 @@ public class MainActivity extends Activity implements WebServiceDelegate {
 			indicator.setVisibility(View.VISIBLE);
 
 			recheckLabel.setVisibility(View.INVISIBLE);
-			
+
 			// Download data
-			WebService appSettingWS = new WebService(this);
-			appSettingWS.setGettingAppSetting();
-			appSettingWS.execute();
+			if (WebService.isNetworkAvailable(this)) {
+				WebService appSettingWS = new WebService(this);
+				appSettingWS.setGettingAppSetting();
+				appSettingWS.execute();
+			}
 
 			// Download music
 			MusicManager musicManager = new MusicManager(
 					getApplicationContext());
 			musicManager.getMusicInfoList();
 		} else {
-			Toast.makeText(this, "Không tìm thấy kết nối Internet. Xin hãy thiết lập Internet và nhấn nút [Kiểm tra lại].",
+			Toast.makeText(
+					this,
+					"Không tìm thấy kết nối Internet. Xin hãy thiết lập Internet và nhấn nút [Kiểm tra lại].",
 					Toast.LENGTH_SHORT).show();
 		}
 	}

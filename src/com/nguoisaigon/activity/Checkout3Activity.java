@@ -173,9 +173,11 @@ public class Checkout3Activity extends Activity implements WebServiceDelegate {
 		TransactionPost transactionPost = new TransactionPost(
 				this.listTransaction, this.userInfo, this.paymentMethod,
 				this.totalAmount);
-		WebService ws = new WebService(this);
-		ws.setTransactionDetailRequest(transactionPost);
-		ws.execute();
+		if (WebService.isNetworkAvailable(this)) {
+			WebService ws = new WebService(this);
+			ws.setTransactionDetailRequest(transactionPost);
+			ws.execute();
+		}
 	}
 
 	public void btnCheckout3PreviousClick(View view) {
@@ -185,15 +187,17 @@ public class Checkout3Activity extends Activity implements WebServiceDelegate {
 	@Override
 	public void taskCompletionResult(JSONArray result) {
 		try {
-			if(result.getBoolean(0)) {
+			if (result.getBoolean(0)) {
 				Intent intent = new Intent(this, Checkout4Activity.class);
 				startActivity(intent);
-			}else {
-				Toast.makeText(this, "Lỗi kết nối mạng\nXin vui lòng kiểm tra lại.", Toast.LENGTH_SHORT).show();
+			} else {
+				Toast.makeText(this,
+						"Lỗi kết nối mạng\nXin vui lòng kiểm tra lại.",
+						Toast.LENGTH_SHORT).show();
 			}
 		} catch (JSONException e) {
 			Log.e("Checkout3Activity - taskCompletionResult", e.getMessage());
 		}
-		
+
 	}
 }

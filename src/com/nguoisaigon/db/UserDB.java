@@ -18,7 +18,7 @@ public class UserDB extends DBHelper {
 	}
 
 	public static final String TABLE_NAME = "user";
-	public static final String COLUMN_ID = "id";
+	public static final String COLUMN_ID = "serial";
 	public static final String COLUMN_USER_ID = "userid";
 	public static final String COLUMN_NAME = "name";
 	public static final String COLUMN_EMAIL = "email";
@@ -61,8 +61,8 @@ public class UserDB extends DBHelper {
 		values.put(COLUMN_ERNED_POINT, info.getErnedPoint());
 		values.put(COLUMN_NOTE, info.getNote());
 
-		String selection = COLUMN_USER_ID + " = ?";
-		String[] selectionArgs = { String.valueOf(info.getUserId()) };
+		String selection = COLUMN_ID + " = ?";
+		String[] selectionArgs = { String.valueOf(1) };
 
 		return sqlite.update(TABLE_NAME, values, selection, selectionArgs);
 	}

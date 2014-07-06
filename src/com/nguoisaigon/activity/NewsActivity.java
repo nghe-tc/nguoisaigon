@@ -5,12 +5,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -22,7 +22,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import com.nguoisaigon.R;
 import com.nguoisaigon.entity.NewsInfo;
 import com.nguoisaigon.util.CustomPagerAdapter;
@@ -31,6 +30,7 @@ import com.nguoisaigon.util.NewsPageFragment;
 import com.nguoisaigon.util.WebService;
 import com.nguoisaigon.util.WebService.WebServiceDelegate;
 
+@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
 @SuppressLint("SimpleDateFormat")
 public class NewsActivity extends FragmentActivity implements
 		WebServiceDelegate {
@@ -107,9 +107,16 @@ public class NewsActivity extends FragmentActivity implements
 	public void loadData() {
 		this.listNews = new ArrayList<NewsInfo>();
 		// Download data
-		WebService ws = new WebService(this);
-		ws.setGettingNewsData(this.currentDate.getTime());
-		ws.execute();
+		if (WebService.isNetworkAvailable(this)) {
+			WebService ws = new WebService(this);
+			ws.setGettingNewsData(this.currentDate.getTime());
+			ws.execute();
+		} else {
+			ProgressBar indicator = (ProgressBar) findViewById(R.id.newsIndicator);
+			indicator.setVisibility(ProgressBar.GONE);
+			TextView tvLoading = (TextView) findViewById(R.id.tvNewsLoading);
+			tvLoading.setVisibility(TextView.GONE);
+		}
 	}
 
 	public void updatePageNumView() {

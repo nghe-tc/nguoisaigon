@@ -107,7 +107,7 @@ public class Checkout1Activity extends Activity implements WebServiceDelegate {
 				ws.setUserInfoRequest(userInfo);
 				ws.execute();
 			} else {
-				if (checkUpdateUserInfo()) {
+				if (!checkUpdateUserInfo()) {
 					final Context context = this;
 					AlertDialog.Builder dlgAlert = new AlertDialog.Builder(this);
 					dlgAlert.setMessage("Thông tin liên lạc của bạn đã thay đổi?\nBạn có muốn chúng tôi lưu lại không?");
@@ -116,8 +116,10 @@ public class Checkout1Activity extends Activity implements WebServiceDelegate {
 
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-							ws.setEdittingUserInfoRequest(userInfo);
-							ws.execute();
+							if (WebService.isNetworkAvailable(context)) {
+								ws.setEdittingUserInfoRequest(userInfo);
+								ws.execute();
+							}
 						}
 					});
 					dlgAlert.setNegativeButton("Không cần",
@@ -147,12 +149,12 @@ public class Checkout1Activity extends Activity implements WebServiceDelegate {
 	private Boolean checkUpdateUserInfo() {
 		UserDB db = new UserDB(this);
 		UserInfo oldUserInfo = db.getUser();
+		oldUserInfo.setNote(userInfo.getNote());
 		String oldUser = new Gson().toJson(oldUserInfo);
 		String newUser = new Gson().toJson(userInfo);
-		if (oldUser.equals(newUser)) {
-			return false;
-		}
-		return true;
+		Log.i("Checkout1Activity - checkUpdateUserInfo", "oldUser: " + oldUser);
+		Log.i("Checkout1Activity - checkUpdateUserInfo", "newUser: " + newUser);
+		return oldUser.equals(newUser);
 	}
 
 	private Boolean checkInput() {
@@ -206,18 +208,20 @@ public class Checkout1Activity extends Activity implements WebServiceDelegate {
 			UserDB db = new UserDB(this);
 			if (isNewUser) {
 				db.insert(userInfo);
-				Toast.makeText(this, "Thông tin người dùng đã được đăng ký mới",
+				Toast.makeText(this,
+						"Thông tin người dùng đã được đăng ký mới",
 						Toast.LENGTH_SHORT).show();
 			} else {
 				db.update(userInfo);
-				Toast.makeText(this, "Thông tin người dùng đã được cập nhật mới",
+				Toast.makeText(this,
+						"Thông tin người dùng đã được cập nhật mới",
 						Toast.LENGTH_SHORT).show();
 			}
 
 			Intent intent = new Intent(this, Checkout2Activity.class);
 			startActivity(intent);
 		} else {
-			
+
 		}
 	}
 }

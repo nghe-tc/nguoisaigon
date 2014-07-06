@@ -10,10 +10,7 @@ import org.json.JSONArray;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.DialogInterface.OnClickListener;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -203,10 +200,7 @@ public class StoreMainActivity extends FragmentActivity implements
 			ws.setGettingProducts(category, searchType);
 			ws.execute();
 		} else {
-			AlertDialog.Builder dlgAlert = new AlertDialog.Builder(this);
-			dlgAlert.setMessage("Không kết nối được với server\nXin vui lòng kiểm tra lại mạng.");
-			dlgAlert.setTitle("Thông báo");
-			dlgAlert.setPositiveButton("Đồng ý", null);
+			hideDownloadingIndicator();
 		}
 	}
 
@@ -609,6 +603,7 @@ public class StoreMainActivity extends FragmentActivity implements
 		}
 		tvStoreCart.setText(listTransactionDetail.size() + "");
 	}
+
 	@Override
 	protected void onResume() {
 		super.onResume();

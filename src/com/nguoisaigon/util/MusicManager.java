@@ -6,9 +6,11 @@ package com.nguoisaigon.util;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
+
 import com.nguoisaigon.entity.MusicInfo;
 import com.nguoisaigon.util.WebService.WebServiceDelegate;
 
@@ -41,7 +43,7 @@ public class MusicManager implements WebServiceDelegate {
 	 */
 	public MusicManager(Context context) {
 		this.context = context;
-		
+
 	}
 
 	/**
@@ -50,9 +52,11 @@ public class MusicManager implements WebServiceDelegate {
 	 * @return the music info list
 	 */
 	public void getMusicInfoList() {
-		WebService musicWS = new WebService(this);
-		musicWS.setGettingMusic();
-		musicWS.execute();
+		if (WebService.isNetworkAvailable(context)) {
+			WebService musicWS = new WebService(this);
+			musicWS.setGettingMusic();
+			musicWS.execute();
+		}
 	}
 
 	/**
@@ -65,20 +69,27 @@ public class MusicManager implements WebServiceDelegate {
 		if (result != null) {
 			Log.i(TAG, result.toString());
 			if (!isDownloadingMusic) {
-				saveDataToSharedPreference(context, MUSIC_DATA, result.toString());
+				saveDataToSharedPreference(context, MUSIC_DATA,
+						result.toString());
 				try {
 					for (int i = 0; i < result.length(); i++) {
 						JSONObject musicJSON = result.getJSONObject(i);
 						MusicInfo musicInfo = new MusicInfo();
-						musicInfo.setOwnerInfo(musicJSON.getString("ownerInfo"));
-						musicInfo.setPlayListId(musicJSON.getString("playListId"));
+						musicInfo
+								.setOwnerInfo(musicJSON.getString("ownerInfo"));
+						musicInfo.setPlayListId(musicJSON
+								.getString("playListId"));
 						musicInfo.setPlayUrl(musicJSON.getString("playUrl"));
 						musicInfo.setSinger(musicJSON.getString("singer"));
 						musicInfo.setTitle(musicJSON.getString("title"));
 						isDownloadingMusic = true;
-						WebService musicWS = new WebService(this);
-						musicWS.setDownloadingMusicRequest(musicInfo.getPlayUrl(), musicInfo.getPlayListId());
-						musicWS.execute();
+						if (WebService.isNetworkAvailable(context)) {
+							WebService musicWS = new WebService(this);
+							musicWS.setDownloadingMusicRequest(
+									musicInfo.getPlayUrl(),
+									musicInfo.getPlayListId());
+							musicWS.execute();
+						}
 					}
 				} catch (Exception e) {
 					Log.e(TAG, e.getMessage(), e);
@@ -88,7 +99,8 @@ public class MusicManager implements WebServiceDelegate {
 				try {
 					if (result.length() == 1) {
 						JSONObject musicJSON = result.getJSONObject(0);
-						Log.i(TAG, "Save id: " + musicJSON.getString("playListId"));
+						Log.i(TAG,
+								"Save id: " + musicJSON.getString("playListId"));
 					}
 				} catch (JSONException e) {
 					Log.e(TAG, e.getMessage(), e);
@@ -108,8 +120,10 @@ public class MusicManager implements WebServiceDelegate {
 	 *            the value
 	 * @return true, if successful
 	 */
-	public static boolean saveDataToSharedPreference(Context context, String key, String value) {
-		SharedPreferences settings = context.getSharedPreferences(MUSIC_DATA, 0);
+	public static boolean saveDataToSharedPreference(Context context,
+			String key, String value) {
+		SharedPreferences settings = context
+				.getSharedPreferences(MUSIC_DATA, 0);
 		SharedPreferences.Editor editor = settings.edit();
 		editor.putString(key, value);
 		return editor.commit();
@@ -125,7 +139,8 @@ public class MusicManager implements WebServiceDelegate {
 	 * @return the data from shared preference
 	 */
 	public static String getDataFromSharedPreference(Context context, String key) {
-		SharedPreferences settings = context.getSharedPreferences(MUSIC_DATA, 0);
+		SharedPreferences settings = context
+				.getSharedPreferences(MUSIC_DATA, 0);
 		return settings.getString(key, "");
 	}
 }

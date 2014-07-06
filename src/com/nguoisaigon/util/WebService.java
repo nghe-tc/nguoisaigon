@@ -5,7 +5,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -22,19 +24,21 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Log;
+
 import com.nguoisaigon.entity.TransactionDetailInfo;
 import com.nguoisaigon.entity.TransactionPost;
 import com.nguoisaigon.entity.UserInfo;
 
+@SuppressLint("SimpleDateFormat")
 public class WebService extends AsyncTask<String, Void, JSONArray> {
 	public interface WebServiceDelegate {
 		public void taskCompletionResult(JSONArray result);
@@ -204,6 +208,7 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 				transDetail.put("categoryID", transaction.getCategoryId());
 				transDetail.put("productId", transaction.getProductId());
 				transDetail.put("productName", transaction.getProductName());
+				transDetail.put("quantity", transaction.getQuantity());
 				transDetail.put("sizeType", transaction.getSizeType());
 				transDetail.put("transDetailId", "");
 				transDetail.put("transactionId", "");
@@ -215,7 +220,11 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 			JSONObject transList = new JSONObject();
 			transList.put("address", userInfo.getAddress());
 			transList.put("contactPhone", userInfo.getContactPhone());
-			transList.put("createDate", "");
+			SimpleDateFormat formater = new SimpleDateFormat(
+					"yyyy-MM-dd'T'HH:mm:ss");
+			String createDate = formater.format(Calendar.getInstance()
+					.getTime());
+			transList.put("createDate", createDate);
 			transList.put("note", userInfo.getNote());
 			transList.put("ownerInfo", "");
 			transList.put("paymentMethod", info.getPaymentMethod());
@@ -469,6 +478,7 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 
 			// check 200 OK for success
 			final int statusCode = response.getStatusLine().getStatusCode();
+			Log.i("WebService postDataToServer", "statusCode" + statusCode);
 			JSONArray result = new JSONArray();
 
 			if (isPutUserInfoUpdate) {
@@ -494,7 +504,7 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Send a HTML request to server (PUT)
 	 */
@@ -631,33 +641,16 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 	}
 
 	static public boolean isNetworkAvailable(Context context) {
-//		try {
-//			ConnectivityManager connectivity = (ConnectivityManager) context
-//					.getSystemService(Context.CONNECTIVITY_SERVICE);
-//			if (connectivity != null) {
-//				NetworkInfo[] info = connectivity.getAllNetworkInfo();
-//				if (info != null)
-//					for (int i = 0; i < info.length; i++)
-//						if (info[i].getState() == NetworkInfo.State.CONNECTED) {
-//							return true;
-//						}
-//
-//			}
-//			return false;
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return false;
-//		}
-		ConnectivityManager connMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-
-		NetworkInfo info = connMgr.getActiveNetworkInfo();
-		if (info == null) {
+		WIFIInternetConnectionDetector cd = new WIFIInternetConnectionDetector(
+				context);
+		if (!cd.checkMobileInternetConn()) {
+			AlertDialog.Builder dlgAlert = new AlertDialog.Builder(context);
+			dlgAlert.setMessage("Không kết nối được với server\nXin vui lòng kiểm tra lại mạng.");
+			dlgAlert.setTitle("Thông báo");
+			dlgAlert.setPositiveButton("Close", null);
+			dlgAlert.create().show();
 			return false;
-		} else if (info.getType() == ConnectivityManager.TYPE_WIFI) {
-			return info.isAvailable();
-		} else {
-			// when type_ethernet, info#isAvailable returns false. Why?
-			return true;
 		}
+		return true;
 	}
 }

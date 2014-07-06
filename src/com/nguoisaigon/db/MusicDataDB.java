@@ -21,7 +21,7 @@ public class MusicDataDB extends DBHelper {
 	}
 
 	public static final String TABLE_NAME = "musicdata";
-	public static final String COLUMN_ID = "id";
+	public static final String COLUMN_ID = "serial";
 	public static final String COLUMN_PLAYLIST_ID = "playlistid";
 	public static final String COLUMN_MUSIC_DATA = "musicdata";
 

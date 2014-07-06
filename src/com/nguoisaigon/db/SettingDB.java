@@ -12,7 +12,7 @@ public class SettingDB extends DBHelper {
 	}
 
 	public static final String TABLE_NAME = "setting";
-	public static final String COLUMN_ID = "id";
+	public static final String COLUMN_ID = "serial";
 	public static final String COLUMN_APP_LINK = "applink";
 	public static final String COLUMN_PARSE_APP_ID = "parseappid";
 	public static final String COLUMN_SETTING_ID = "settingid";
