@@ -208,21 +208,21 @@
                 android:id="@+id/homeContactCafe"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="155sp"
+                android:layout_marginLeft="165sp"
                 android:layout_marginTop="154sp"
                 android:text="@string/contact_cafe"
                 android:textColor="@color/black_color"
-                android:textSize="24sp" />
+                android:textSize="22sp" />
 
             <TextView
                 android:id="@+id/homeContactNguoiSaiGon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="220sp"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="154sp"
                 android:text="@string/contact_nguoisaigon"
                 android:textColor="@color/black_color"
-                android:textSize="24sp"
+                android:textSize="22sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -233,7 +233,7 @@
                 android:layout_marginTop="184sp"
                 android:text="@string/contact_address1"
                 android:textColor="@color/black_color"
-                android:textSize="24sp" />
+                android:textSize="22sp" />
 
             <TextView
                 android:id="@+id/homeContactAddress2"
@@ -243,7 +243,7 @@
                 android:layout_marginTop="214sp"
                 android:text="@string/contact_address2"
                 android:textColor="@color/black_color"
-                android:textSize="24sp" />
+                android:textSize="22sp" />
 
             <TextView
                 android:id="@+id/homeContactEmail"
@@ -262,31 +262,31 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="180sp"
-                android:layout_marginTop="284sp"
+                android:layout_marginTop="274sp"
                 android:clickable="true"
                 android:onClick="phone1OnClick"
                 android:text="@string/contact_phone1"
                 android:textColor="@color/contact_blue_color"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/homeContactphone2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="180sp"
-                android:layout_marginTop="310sp"
+                android:layout_marginTop="300sp"
                 android:clickable="true"
                 android:onClick="phone2OnClick"
                 android:text="@string/contact_phone2"
                 android:textColor="@color/contact_blue_color"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/homeContactFacebook"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="370sp"
-                android:layout_marginTop="315sp"
+                android:layout_marginTop="305sp"
                 android:clickable="true"
                 android:onClick="facebookOnClick"
                 android:text="@string/contact_facebook"
