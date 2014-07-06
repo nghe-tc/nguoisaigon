@@ -17,8 +17,6 @@ import android.widget.TextView;
 
 import com.nguoisaigon.R;
 import com.nguoisaigon.db.DBHelper;
-import com.nguoisaigon.db.SettingDB;
-import com.nguoisaigon.entity.SettingInfo;
 import com.nguoisaigon.util.Emailplugin;
 
 public class HomeScreenActivity extends Activity {
@@ -186,8 +184,6 @@ public class HomeScreenActivity extends Activity {
 
 	public void btnfacebook_click(View view) {
 		btnhomefacebook.setImageResource(R.drawable.fbboard_normal);
-		SettingDB settingDB = new SettingDB(this);
-		SettingInfo info = settingDB.getSetting();
 	}
 
 	public void btnphone_click(View view) {

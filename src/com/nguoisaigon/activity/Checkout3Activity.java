@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -186,13 +187,16 @@ public class Checkout3Activity extends Activity implements WebServiceDelegate {
 
 	@Override
 	public void taskCompletionResult(JSONArray result) {
+		Log.i("Checkout3Activity - taskCompletionResult", result.toString());
 		try {
-			if (result.getBoolean(0)) {
+			JSONObject json = result.getJSONObject(0);
+			if (json.getInt("returnCode") == 0) {
+				TransactionDetailDB db = new TransactionDetailDB(this);
+				db.deleteAll();
 				Intent intent = new Intent(this, Checkout4Activity.class);
 				startActivity(intent);
 			} else {
-				Toast.makeText(this,
-						"Lỗi kết nối mạng\nXin vui lòng kiểm tra lại.",
+				Toast.makeText(this, json.getString("message"),
 						Toast.LENGTH_SHORT).show();
 			}
 		} catch (JSONException e) {

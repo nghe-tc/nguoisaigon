@@ -1,14 +1,13 @@
 package com.nguoisaigon.activity;
 
-import com.nguoisaigon.R;
-import com.nguoisaigon.db.UserDB;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+
+import com.nguoisaigon.R;
 
 public class Checkout4Activity extends Activity {
 	private TextView tvCheckoutStep1Title;

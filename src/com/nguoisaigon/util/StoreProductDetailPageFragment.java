@@ -1,10 +1,8 @@
 package com.nguoisaigon.util;
 
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Typeface;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -14,10 +12,10 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.Toast;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nguoisaigon.R;
 import com.nguoisaigon.activity.StoreMainActivity;
@@ -26,7 +24,6 @@ import com.nguoisaigon.entity.ImageInfo;
 import com.nguoisaigon.entity.ProductInfo;
 import com.nguoisaigon.entity.TransactionDetailInfo;
 
-@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
 @SuppressLint({ "SimpleDateFormat", "ValidFragment" })
 public class StoreProductDetailPageFragment extends Fragment {
 

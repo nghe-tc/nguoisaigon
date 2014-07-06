@@ -1,13 +1,10 @@
 package com.nguoisaigon.db;
 
-import java.util.ArrayList;
-
-import com.nguoisaigon.entity.MusicDataInfo;
-import com.nguoisaigon.entity.MusicInfo;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+
+import com.nguoisaigon.entity.MusicDataInfo;
 
 public class MusicDataDB extends DBHelper {
 

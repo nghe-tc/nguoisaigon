@@ -143,4 +143,8 @@ public class TransactionDetailDB extends DBHelper {
 		}
 		return listTrans;
 	}
+	
+	public Integer deleteAll() {
+		return sqlite.delete(TABLE_NAME, null, null);
+	}
 }

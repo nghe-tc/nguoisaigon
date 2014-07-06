@@ -458,23 +458,18 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 
 			HttpPost httppost = new HttpPost(url);
 
-			// httppost.addHeader("User-Agent", STR_MAIN_USER_AGENT);
-			// httppost.addHeader("Host", STR_MAIN_USER_AGENT);
-			// httppost.addHeader("Content-Type", STR_MAIN_USER_AGENT);
-			// httppost.addHeader("Content-Length", STR_MAIN_USER_AGENT);
-
-			// ByteArrayEntity entity;
-			//
-			// entity = new ByteArrayEntity(params.toString().getBytes("UTF8"));
-			// httppost.setEntity(entity);
-
 			StringEntity se = new StringEntity(params.toString());
 			se.setContentEncoding(HTTP.UTF_8);
 			se.setContentType(new BasicHeader(HTTP.CONTENT_TYPE,
 					"application/json"));
 			httppost.setEntity(se);
 			httppost.setHeader(HTTP.USER_AGENT, STR_MAIN_USER_AGENT);
-			httppost.setHeader(HTTP.CONTENT_TYPE, "application/json");
+			if (isPutUserInfoUpdate) {
+				httppost.setHeader(HTTP.CONTENT_TYPE, "application/json");
+			} else {
+				httppost.setHeader(HTTP.CONTENT_TYPE,
+						"application/x-www-form-urlencoded");
+			}
 			HttpResponse response = httpclient.execute(httppost);
 			Log.i("WebService - response", response.toString());
 
@@ -483,21 +478,12 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 			Log.i("WebService postDataToServer", "statusCode" + statusCode);
 			JSONArray result = new JSONArray();
 
-			if (isPutUserInfoUpdate) {
-				String jsonText = EntityUtils.toString(response.getEntity(),
-						HTTP.UTF_8);
-				Log.i("WebService", "WebService: response " + jsonText);
+			String jsonText = EntityUtils.toString(response.getEntity(),
+					HTTP.UTF_8);
+			Log.i("WebService", "WebService: response " + jsonText);
 
-				JSONObject userData = new JSONObject(jsonText);
-				result.put(userData);
-			} else {
-				if (statusCode != HttpStatus.SC_OK) {
-					result.put(false);
-					return result;
-				}
-
-				result.put(true);
-			}
+			JSONObject userData = new JSONObject(jsonText);
+			result.put(userData);
 
 			return result;
 
@@ -615,8 +601,7 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 			if (this.isPutUserInfoUpdate) {
 				if (this.isPostRequest) {
 					return postDataToServer();
-				}
-				else {
+				} else {
 					return putDataToServer();
 				}
 			} else if (this.isPostRequest) {

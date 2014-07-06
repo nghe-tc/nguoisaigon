@@ -28,7 +28,6 @@ import com.nguoisaigon.util.EventsPageFragment;
 import com.nguoisaigon.util.WebService;
 import com.nguoisaigon.util.WebService.WebServiceDelegate;
 
-@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
 @SuppressLint("SimpleDateFormat")
 public class EventsActivity extends FragmentActivity implements
 		WebServiceDelegate {
