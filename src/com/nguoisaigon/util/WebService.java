@@ -14,6 +14,7 @@ import org.apache.http.StatusLine;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicHeader;
@@ -108,7 +109,6 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 	private String url;
 	private WebServiceDelegate delegate;
 	private String musicId;
-	Boolean isUserInfoUpdate = false;
 
 	protected JSONObject params;
 
@@ -117,6 +117,7 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 	 * false.
 	 */
 	public Boolean isPostRequest = false;
+	public Boolean isPutUserInfoUpdate = false;
 	private boolean isDwonloadImageRequest = false;
 	private boolean isDwonloadMusicRequest = false;
 
@@ -233,7 +234,6 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 
 			Log.i("WebService - setTransactionDetailRequest", "params: "
 					+ params.toString());
-			this.isPostRequest = true;
 		} catch (JSONException e) {
 			Log.e("WebService", e.getMessage());
 		}
@@ -249,7 +249,7 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 		// http://rest.itsleek.vn/api/TransactionDetail
 		try {
 			url = SERVER_URL + "/api/User";
-			isUserInfoUpdate = true;
+			isPutUserInfoUpdate = true;
 			params = new JSONObject();
 
 			params.put("address", info.getAddress());
@@ -261,7 +261,6 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 
 			Log.i("WebService - setTransactionDetailRequest", "params: "
 					+ params.toString());
-			this.isPostRequest = true;
 		} catch (JSONException e) {
 			Log.e("WebService", e.getMessage());
 		}
@@ -277,7 +276,7 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 		// http://rest.itsleek.vn/api/TransactionDetail
 		try {
 			url = SERVER_URL + "/api/User";
-			isUserInfoUpdate = true;
+			isPutUserInfoUpdate = true;
 			params = new JSONObject();
 
 			params.put("address", info.getAddress());
@@ -475,7 +474,66 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 			final int statusCode = response.getStatusLine().getStatusCode();
 			JSONArray result = new JSONArray();
 
-			if (isUserInfoUpdate) {
+			if (isPutUserInfoUpdate) {
+				String jsonText = EntityUtils.toString(response.getEntity(),
+						HTTP.UTF_8);
+				Log.i("WebService", "WebService: response " + jsonText);
+
+				JSONObject userData = new JSONObject(jsonText);
+				result.put(userData);
+			} else {
+				if (statusCode != HttpStatus.SC_OK) {
+					result.put(false);
+					return result;
+				}
+
+				result.put(true);
+			}
+
+			return result;
+
+		} catch (Exception e) {
+			Log.e("WebService - postDataToServer", e.getMessage());
+		}
+		return null;
+	}
+	
+	/**
+	 * Send a HTML request to server (PUT)
+	 */
+	private JSONArray putDataToServer() {
+		Log.i("WebService", "WebService: postDataToServer " + url);
+
+		try {
+			DefaultHttpClient httpclient = new DefaultHttpClient();
+
+			HttpPut httpput = new HttpPut(url);
+
+			// httppost.addHeader("User-Agent", STR_MAIN_USER_AGENT);
+			// httppost.addHeader("Host", STR_MAIN_USER_AGENT);
+			// httppost.addHeader("Content-Type", STR_MAIN_USER_AGENT);
+			// httppost.addHeader("Content-Length", STR_MAIN_USER_AGENT);
+
+			// ByteArrayEntity entity;
+			//
+			// entity = new ByteArrayEntity(params.toString().getBytes("UTF8"));
+			// httppost.setEntity(entity);
+
+			StringEntity se = new StringEntity(params.toString());
+			se.setContentEncoding(HTTP.UTF_8);
+			se.setContentType(new BasicHeader(HTTP.CONTENT_TYPE,
+					"application/json"));
+			httpput.setEntity(se);
+			httpput.setHeader(HTTP.USER_AGENT, STR_MAIN_USER_AGENT);
+			httpput.setHeader(HTTP.CONTENT_TYPE, "application/json");
+			HttpResponse response = httpclient.execute(httpput);
+			Log.i("WebService - response", response.toString());
+
+			// check 200 OK for success
+			final int statusCode = response.getStatusLine().getStatusCode();
+			JSONArray result = new JSONArray();
+
+			if (isPutUserInfoUpdate) {
 				String jsonText = EntityUtils.toString(response.getEntity(),
 						HTTP.UTF_8);
 				Log.i("WebService", "WebService: response " + jsonText);
@@ -545,7 +603,9 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 	@Override
 	protected JSONArray doInBackground(String... arg0) {
 		if (url != null) {
-			if (this.isPostRequest) {
+			if (this.isPutUserInfoUpdate) {
+				return putDataToServer();
+			} else if (this.isPostRequest) {
 				return postDataToServer();
 			} else if (this.isDwonloadImageRequest) {
 				return downloadBitmap();
