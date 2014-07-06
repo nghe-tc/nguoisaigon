@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -22,7 +21,6 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -32,7 +30,6 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Log;
-
 import com.nguoisaigon.entity.TransactionDetailInfo;
 import com.nguoisaigon.entity.TransactionPost;
 import com.nguoisaigon.entity.UserInfo;
@@ -574,23 +571,33 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 	}
 
 	static public boolean isNetworkAvailable(Context context) {
-		try {
-			ConnectivityManager connectivity = (ConnectivityManager) context
-					.getSystemService(Context.CONNECTIVITY_SERVICE);
-			if (connectivity != null) {
-				NetworkInfo[] info = connectivity.getAllNetworkInfo();
-				if (info != null)
-					for (int i = 0; i < info.length; i++)
-						if (info[i].getState() == NetworkInfo.State.CONNECTED) {
-							return true;
-						}
+//		try {
+//			ConnectivityManager connectivity = (ConnectivityManager) context
+//					.getSystemService(Context.CONNECTIVITY_SERVICE);
+//			if (connectivity != null) {
+//				NetworkInfo[] info = connectivity.getAllNetworkInfo();
+//				if (info != null)
+//					for (int i = 0; i < info.length; i++)
+//						if (info[i].getState() == NetworkInfo.State.CONNECTED) {
+//							return true;
+//						}
+//
+//			}
+//			return false;
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			return false;
+//		}
+		ConnectivityManager connMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
-			}
+		NetworkInfo info = connMgr.getActiveNetworkInfo();
+		if (info == null) {
 			return false;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
+		} else if (info.getType() == ConnectivityManager.TYPE_WIFI) {
+			return info.isAvailable();
+		} else {
+			// when type_ethernet, info#isAvailable returns false. Why?
+			return true;
 		}
-
 	}
 }
