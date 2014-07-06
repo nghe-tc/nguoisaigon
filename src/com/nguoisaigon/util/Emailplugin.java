@@ -101,6 +101,10 @@ public class Emailplugin {
 			    
 			    i.putExtra(Intent.EXTRA_STREAM, attactmentUri);
 			}
+			else
+			{
+				i.setType("message/rfc822"); 
+			}
 			
 			context.startActivity(Intent.createChooser(i, "Send Mail Using :"));
 		} catch (android.content.ActivityNotFoundException ex) {
