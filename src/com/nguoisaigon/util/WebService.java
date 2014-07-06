@@ -635,7 +635,7 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 	static public boolean isNetworkAvailable(Context context) {
 		WIFIInternetConnectionDetector cd = new WIFIInternetConnectionDetector(
 				context);
-		if (!cd.checkMobileInternetConn()) {
+		if (!cd.checkMobileInternetConn() && !cd.checkWifiInternetConn()) {
 			AlertDialog.Builder dlgAlert = new AlertDialog.Builder(context);
 			dlgAlert.setMessage("Không kết nối được với server\nXin vui lòng kiểm tra lại mạng.");
 			dlgAlert.setTitle("Thông báo");
