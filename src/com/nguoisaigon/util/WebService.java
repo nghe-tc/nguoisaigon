@@ -248,6 +248,7 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 		try {
 			url = SERVER_URL + "/api/User";
 			isPutUserInfoUpdate = true;
+			isPostRequest = false;
 			params = new JSONObject();
 
 			params.put("address", info.getAddress());
@@ -275,6 +276,7 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 		try {
 			url = SERVER_URL + "/api/User";
 			isPutUserInfoUpdate = true;
+			isPostRequest = true;
 			params = new JSONObject();
 
 			params.put("address", info.getAddress());
@@ -601,7 +603,12 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 	protected JSONArray doInBackground(String... arg0) {
 		if (url != null) {
 			if (this.isPutUserInfoUpdate) {
-				return putDataToServer();
+				if (this.isPostRequest) {
+					return postDataToServer();
+				}
+				else {
+					return putDataToServer();
+				}
 			} else if (this.isPostRequest) {
 				return postDataToServer();
 			} else if (this.isDwonloadImageRequest) {
