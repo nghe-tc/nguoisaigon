@@ -202,7 +202,7 @@ public class StoreProductDetailPageFragment extends Fragment {
 						String message = "Không đáp ứng đủ số lượng yêu cầu.\nChúng tôi chỉ còn ["
 								+ product.getQuantity()
 								+ "] sản phẩm trong kho";
-						Toast.makeText(context, message, Toast.LENGTH_LONG)
+						Toast.makeText(context, message, Toast.LENGTH_SHORT)
 								.show();
 					}
 					StoreMainActivity

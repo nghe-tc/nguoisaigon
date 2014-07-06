@@ -120,18 +120,21 @@ public class Checkout1Activity extends Activity implements WebServiceDelegate {
 							ws.execute();
 						}
 					});
-					dlgAlert.setNegativeButton("Không cần", new OnClickListener() {
-						
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							Intent intent = new Intent(context, Checkout2Activity.class);
-							startActivity(intent);							
-						}
-					});
+					dlgAlert.setNegativeButton("Không cần",
+							new OnClickListener() {
+
+								@Override
+								public void onClick(DialogInterface dialog,
+										int which) {
+									Intent intent = new Intent(context,
+											Checkout2Activity.class);
+									startActivity(intent);
+								}
+							});
 					dlgAlert.create().show();
 				} else {
 					Intent intent = new Intent(this, Checkout2Activity.class);
-					startActivity(intent);	
+					startActivity(intent);
 				}
 			}
 		}
@@ -161,21 +164,21 @@ public class Checkout1Activity extends Activity implements WebServiceDelegate {
 
 		if (name.isEmpty()) {
 			Toast.makeText(this, "Xin vui lòng nhập tên người dùng",
-					Toast.LENGTH_LONG).show();
+					Toast.LENGTH_SHORT).show();
 			txtCheckoutName.requestFocus();
 			return false;
 		}
 
 		if (phone.isEmpty()) {
 			Toast.makeText(this, "Xin vui lòng nhập số điện thoại",
-					Toast.LENGTH_LONG).show();
+					Toast.LENGTH_SHORT).show();
 			txtCheckoutPhone.requestFocus();
 			return false;
 		}
 
 		if (address.isEmpty()) {
 			Toast.makeText(this, "Xin vui lòng nhập địa chỉ giao hàng",
-					Toast.LENGTH_LONG).show();
+					Toast.LENGTH_SHORT).show();
 			txtCheckoutAddress.requestFocus();
 			return false;
 		}
@@ -199,14 +202,22 @@ public class Checkout1Activity extends Activity implements WebServiceDelegate {
 			Log.e("Checkout1Activity - taskCompletionResult", e.getMessage());
 		}
 
-		UserDB db = new UserDB(this);
-		if (isNewUser) {
-			db.insert(userInfo);
+		if (!userInfo.getName().isEmpty()) {
+			UserDB db = new UserDB(this);
+			if (isNewUser) {
+				db.insert(userInfo);
+				Toast.makeText(this, "Thông tin người dùng đã được đăng ký mới",
+						Toast.LENGTH_SHORT).show();
+			} else {
+				db.update(userInfo);
+				Toast.makeText(this, "Thông tin người dùng đã được cập nhật mới",
+						Toast.LENGTH_SHORT).show();
+			}
+
+			Intent intent = new Intent(this, Checkout2Activity.class);
+			startActivity(intent);
 		} else {
-			db.update(userInfo);
+			
 		}
-		
-		Intent intent = new Intent(this, Checkout2Activity.class);
-		startActivity(intent);
 	}
 }

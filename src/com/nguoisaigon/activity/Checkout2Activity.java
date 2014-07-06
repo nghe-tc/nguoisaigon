@@ -76,7 +76,7 @@ public class Checkout2Activity extends Activity {
 			startActivity(intent);
 		} else {
 			Toast.makeText(this, "Xin vui lòng chọn hình thức thanh toán",
-					Toast.LENGTH_LONG).show();
+					Toast.LENGTH_SHORT).show();
 		}
 	}
 

@@ -94,7 +94,7 @@ public class MainActivity extends Activity implements WebServiceDelegate {
 			musicManager.getMusicInfoList();
 		} else {
 			Toast.makeText(this, "Không tìm thấy kết nối Internet. Xin hãy thiết lập Internet và nhấn nút [Kiểm tra lại].",
-					Toast.LENGTH_LONG).show();
+					Toast.LENGTH_SHORT).show();
 			loadingLabel.setVisibility(View.INVISIBLE);
 			indicator.setVisibility(View.INVISIBLE);
 
@@ -175,7 +175,7 @@ public class MainActivity extends Activity implements WebServiceDelegate {
 			musicManager.getMusicInfoList();
 		} else {
 			Toast.makeText(this, "Không tìm thấy kết nối Internet. Xin hãy thiết lập Internet và nhấn nút [Kiểm tra lại].",
-					Toast.LENGTH_LONG).show();
+					Toast.LENGTH_SHORT).show();
 		}
 	}
 }

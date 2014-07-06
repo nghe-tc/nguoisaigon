@@ -189,7 +189,7 @@ public class Checkout3Activity extends Activity implements WebServiceDelegate {
 				Intent intent = new Intent(this, Checkout4Activity.class);
 				startActivity(intent);
 			}else {
-				Toast.makeText(this, "Lỗi kết nối mạng\nXin vui lòng kiểm tra lại.", Toast.LENGTH_LONG).show();
+				Toast.makeText(this, "Lỗi kết nối mạng\nXin vui lòng kiểm tra lại.", Toast.LENGTH_SHORT).show();
 			}
 		} catch (JSONException e) {
 			Log.e("Checkout3Activity - taskCompletionResult", e.getMessage());

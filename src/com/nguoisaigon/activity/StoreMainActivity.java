@@ -10,7 +10,10 @@ import org.json.JSONArray;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.DialogInterface.OnClickListener;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -195,9 +198,16 @@ public class StoreMainActivity extends FragmentActivity implements
 			storeMainProductAdapter.notifyDataSetChanged();
 		}
 		// Download data
-		WebService ws = new WebService(this);
-		ws.setGettingProducts(category, searchType);
-		ws.execute();
+		if (WebService.isNetworkAvailable(this)) {
+			WebService ws = new WebService(this);
+			ws.setGettingProducts(category, searchType);
+			ws.execute();
+		} else {
+			AlertDialog.Builder dlgAlert = new AlertDialog.Builder(this);
+			dlgAlert.setMessage("Không kết nối được với server\nXin vui lòng kiểm tra lại mạng.");
+			dlgAlert.setTitle("Thông báo");
+			dlgAlert.setPositiveButton("Đồng ý", null);
+		}
 	}
 
 	@Override
@@ -326,7 +336,7 @@ public class StoreMainActivity extends FragmentActivity implements
 				startActivity(intent);
 			} else {
 				Toast.makeText(this, "Không có sản phẩm trong giỏ hàng",
-						Toast.LENGTH_LONG).show();
+						Toast.LENGTH_SHORT).show();
 			}
 		} catch (ParseException e) {
 			Log.e("StoreMainActivity - btnStoreCartClick", e.getMessage());
@@ -354,10 +364,10 @@ public class StoreMainActivity extends FragmentActivity implements
 			if (transaction.getCategoryId() < 5
 					&& transaction.getSizeType() == null) {
 				Toast.makeText(this, "Xin vui lòng chọn size sản phẩm",
-						Toast.LENGTH_LONG).show();
+						Toast.LENGTH_SHORT).show();
 				return;
 			}
-			
+
 			TransactionDetailDB db = new TransactionDetailDB(this);
 			ArrayList<TransactionDetailInfo> transactions = db
 					.getTransactions();
@@ -367,7 +377,7 @@ public class StoreMainActivity extends FragmentActivity implements
 					Toast.makeText(
 							this,
 							"Sản phẩm này đã có trong giỏ hàng.\nVui lòng xem giỏ hàng để biết chi tiết.",
-							Toast.LENGTH_LONG).show();
+							Toast.LENGTH_SHORT).show();
 					return;
 				}
 			}
@@ -375,7 +385,7 @@ public class StoreMainActivity extends FragmentActivity implements
 			StoreMainActivity.productTransactionDetailInfo
 					.setAddedDate(Calendar.getInstance().getTime());
 			db.insert(StoreMainActivity.productTransactionDetailInfo);
-			Toast.makeText(this, "Đã thêm vào giỏ hàng", Toast.LENGTH_LONG)
+			Toast.makeText(this, "Đã thêm vào giỏ hàng", Toast.LENGTH_SHORT)
 					.show();
 			this.updateStoreCart();
 			this.storeProduct.setVisibility(FrameLayout.VISIBLE);
@@ -598,5 +608,10 @@ public class StoreMainActivity extends FragmentActivity implements
 			Log.e("StoreMainActivity - updateStoreCart", e.getMessage());
 		}
 		tvStoreCart.setText(listTransactionDetail.size() + "");
+	}
+	@Override
+	protected void onResume() {
+		super.onResume();
+		updateStoreCart();
 	}
 }
