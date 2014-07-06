@@ -231,6 +231,7 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 
 			Log.i("WebService - setTransactionDetailRequest", "params: "
 					+ params.toString());
+			this.isPostRequest = true;
 		} catch (JSONException e) {
 			Log.e("WebService", e.getMessage());
 		}
@@ -285,7 +286,6 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 
 			Log.i("WebService - setTransactionDetailRequest", "params: "
 					+ params.toString());
-			this.isPostRequest = true;
 		} catch (JSONException e) {
 			Log.e("WebService", e.getMessage());
 		}
