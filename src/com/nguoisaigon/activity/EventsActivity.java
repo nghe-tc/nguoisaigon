@@ -5,9 +5,7 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.graphics.Typeface;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -25,6 +23,7 @@ import com.nguoisaigon.entity.EventsInfo;
 import com.nguoisaigon.util.CustomPagerAdapter;
 import com.nguoisaigon.util.Emailplugin;
 import com.nguoisaigon.util.EventsPageFragment;
+import com.nguoisaigon.util.Utils;
 import com.nguoisaigon.util.WebService;
 import com.nguoisaigon.util.WebService.WebServiceDelegate;
 
@@ -260,4 +259,12 @@ public class EventsActivity extends FragmentActivity implements
 			}
 		});
 	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		Utils.unbindDrawables(findViewById(R.id.container));
+		System.gc();
+	}
+
 }

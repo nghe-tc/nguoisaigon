@@ -14,7 +14,6 @@ import android.view.View.OnTouchListener;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.nguoisaigon.R;
 import com.nguoisaigon.db.DBHelper;
 import com.nguoisaigon.util.Emailplugin;
@@ -85,36 +84,49 @@ public class HomeScreenActivity extends Activity {
 		
 		setupContactView();
 
-		ImageView tvImage = (ImageView) findViewById(R.id.homeTVAnimation);
-		tvImage.setBackgroundResource(R.drawable.tvanimation);
-		AnimationDrawable tvAnimation = (AnimationDrawable) tvImage
-				.getBackground();
-		tvAnimation.start();
-
-		ImageView tvLight = (ImageView) findViewById(R.id.homeTVLight);
-		tvLight.setBackgroundResource(R.drawable.tvlightanimation);
-		AnimationDrawable tvLightAnimation = (AnimationDrawable) tvLight
-				.getBackground();
-		tvLightAnimation.start();
-
-		ImageView musicImage = (ImageView) findViewById(R.id.homeMusic);
-		musicImage.setBackgroundResource(R.drawable.musicanimation);
-		AnimationDrawable musicAnimation = (AnimationDrawable) musicImage
-				.getBackground();
-		musicAnimation.start();
-
-		ImageView phoneImage = (ImageView) findViewById(R.id.homePhone);
-		phoneImage.setBackgroundResource(R.drawable.phoneanimation);
-		AnimationDrawable phoneAnimation = (AnimationDrawable) phoneImage
-				.getBackground();
-		phoneAnimation.start();
 		// setDatahelper(new DBHelper(this));
 
 		this.showHelp();
 
 		this.setOntouchListener();
 	}
+
+	private ImageView tvImage, tvLight, musicImage, phoneImage;
 	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		tvImage = (ImageView) findViewById(R.id.homeTVAnimation);
+		tvImage.setBackgroundResource(R.drawable.tvanimation);
+		AnimationDrawable tvAnimation = (AnimationDrawable) tvImage
+				.getBackground();
+		tvAnimation.start();
+
+		tvLight = (ImageView) findViewById(R.id.homeTVLight);
+		tvLight.setBackgroundResource(R.drawable.tvlightanimation);
+		AnimationDrawable tvLightAnimation = (AnimationDrawable) tvLight
+				.getBackground();
+		tvLightAnimation.start();
+
+		musicImage = (ImageView) findViewById(R.id.homeMusic);
+		musicImage.setBackgroundResource(R.drawable.musicanimation);
+		AnimationDrawable musicAnimation = (AnimationDrawable) musicImage
+				.getBackground();
+		musicAnimation.start();
+
+		phoneImage = (ImageView) findViewById(R.id.homePhone);
+		phoneImage.setBackgroundResource(R.drawable.phoneanimation);
+		AnimationDrawable phoneAnimation = (AnimationDrawable) phoneImage
+				.getBackground();
+		phoneAnimation.start();
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		System.gc();
+	}
+
 	void setupContactView()
 	{
 		Typeface tf = Typeface.createFromAsset(getAssets(),

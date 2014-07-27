@@ -1,11 +1,9 @@
 package com.nguoisaigon.activity;
 
 import java.util.ArrayList;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -18,13 +16,13 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.nguoisaigon.R;
 import com.nguoisaigon.db.SettingDB;
 import com.nguoisaigon.entity.MusicInfo;
 import com.nguoisaigon.entity.SettingInfo;
 import com.nguoisaigon.util.MusicManager;
 import com.nguoisaigon.util.SystemUiHider;
+import com.nguoisaigon.util.Utils;
 import com.nguoisaigon.util.WebService;
 import com.nguoisaigon.util.WebService.WebServiceDelegate;
 
@@ -36,7 +34,6 @@ import com.nguoisaigon.util.WebService.WebServiceDelegate;
  */
 public class MainActivity extends Activity implements WebServiceDelegate {
 
-	private AnimationDrawable animation;
 	private ProgressBar indicator;
 	TextView loadingLabel;
 	TextView recheckLabel;
@@ -53,9 +50,6 @@ public class MainActivity extends Activity implements WebServiceDelegate {
 
 		setContentView(R.layout.activity_main);
 
-		// Setup UI view
-		ImageView welcomeIcon = (ImageView) findViewById(R.id.welcomeicon);
-		welcomeIcon.setBackgroundResource(R.drawable.welcomeiconani);
 		indicator = (ProgressBar) findViewById(R.id.welcome_indicator);
 		loadingLabel = (TextView) findViewById(R.id.welcome_loadinglabel);
 		recheckLabel = (TextView) findViewById(R.id.welcome_recheckNetwork);
@@ -74,12 +68,6 @@ public class MainActivity extends Activity implements WebServiceDelegate {
 		indicator.getIndeterminateDrawable().setColorFilter(
 				R.color.welcome_loading_color,
 				android.graphics.PorterDuff.Mode.MULTIPLY);
-
-		// Start animations
-		if (animation == null) {
-			animation = (AnimationDrawable) welcomeIcon.getBackground();
-			animation.start();
-		}
 
 		// Check for network connection
 		if (WebService.isNetworkAvailable(this)) {
@@ -104,6 +92,24 @@ public class MainActivity extends Activity implements WebServiceDelegate {
 
 			recheckLabel.setVisibility(View.VISIBLE);
 		}
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		// Setup UI view
+		ImageView welcomeIcon = (ImageView) findViewById(R.id.welcomeicon);
+		welcomeIcon.setBackgroundResource(R.drawable.welcomeiconani);
+		// Start animations
+		AnimationDrawable animation = (AnimationDrawable) welcomeIcon.getBackground();
+		animation.start();
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		Utils.unbindDrawables(findViewById(R.id.container));
+		System.gc();
 	}
 
 	@Override

@@ -25,6 +25,7 @@ import com.nguoisaigon.R;
 import com.nguoisaigon.entity.MusicInfo;
 import com.nguoisaigon.util.Emailplugin;
 import com.nguoisaigon.util.MusicManager;
+import com.nguoisaigon.util.Utils;
 
 public class MusicActivity extends Activity {
 
@@ -301,5 +302,8 @@ public class MusicActivity extends Activity {
 			player.stop();
 			player.release();
 		}
+		player = null;
+		Utils.unbindDrawables(findViewById(R.id.container));
+		System.gc();
 	}
 }

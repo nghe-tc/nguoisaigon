@@ -5,9 +5,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
-
 import org.json.JSONArray;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -27,7 +25,6 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.gson.Gson;
 import com.nguoisaigon.R;
 import com.nguoisaigon.db.TransactionDetailDB;
@@ -41,6 +38,7 @@ import com.nguoisaigon.util.Emailplugin;
 import com.nguoisaigon.util.ImageLoadTask;
 import com.nguoisaigon.util.StoreProductDetailPageFragment;
 import com.nguoisaigon.util.StoreProductPageAdapter;
+import com.nguoisaigon.util.Utils;
 import com.nguoisaigon.util.WebService;
 import com.nguoisaigon.util.WebService.WebServiceDelegate;
 import com.nguoisaigon.util.WebService.productCategory;
@@ -605,5 +603,12 @@ public class StoreMainActivity extends FragmentActivity implements
 	protected void onResume() {
 		super.onResume();
 		updateStoreCart();
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		Utils.unbindDrawables(findViewById(R.id.container));
+		System.gc();
 	}
 }
