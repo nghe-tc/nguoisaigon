@@ -142,7 +142,9 @@ public class NewsActivity extends FragmentActivity implements WebServiceDelegate
 		TextView tvDate = (TextView) findViewById(R.id.tvNewsDate);
 		SimpleDateFormat formater = new SimpleDateFormat("MM/yyyy");
 		String dateDisplay = formater.format(currentDate.getTime());
-		tvDate.setText(dateDisplay);
+		if (tvDate != null) {
+			tvDate.setText(dateDisplay);
+		}
 
 		List<Fragment> fragments = getFragments();
 		// Instantiate a ViewPager and a PagerAdapter.

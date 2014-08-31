@@ -65,6 +65,20 @@ public class MainActivity extends Activity implements WebServiceDelegate {
 		indicator.getIndeterminateDrawable().setColorFilter(R.color.welcome_loading_color,
 				android.graphics.PorterDuff.Mode.MULTIPLY);
 
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		// Setup UI view
+		ImageView welcomeIcon = (ImageView) findViewById(R.id.welcomeicon);
+		if (welcomeIcon != null) {
+			welcomeIcon.setBackgroundResource(R.drawable.welcomeiconani);
+		}
+		// Start animations
+		AnimationDrawable animation = (AnimationDrawable) welcomeIcon.getBackground();
+		animation.start();
+
 		// Check for network connection
 		if (WebService.isNetworkAvailable(this)) {
 			// Download data
@@ -86,17 +100,6 @@ public class MainActivity extends Activity implements WebServiceDelegate {
 
 			recheckLabel.setVisibility(View.VISIBLE);
 		}
-	}
-
-	@Override
-	protected void onResume() {
-		super.onResume();
-		// Setup UI view
-		ImageView welcomeIcon = (ImageView) findViewById(R.id.welcomeicon);
-		welcomeIcon.setBackgroundResource(R.drawable.welcomeiconani);
-		// Start animations
-		AnimationDrawable animation = (AnimationDrawable) welcomeIcon.getBackground();
-		animation.start();
 	}
 
 	@Override
@@ -179,5 +182,5 @@ public class MainActivity extends Activity implements WebServiceDelegate {
 					Toast.LENGTH_SHORT).show();
 		}
 	}
-	
+
 }

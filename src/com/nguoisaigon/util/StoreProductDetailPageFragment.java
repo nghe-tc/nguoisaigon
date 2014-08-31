@@ -1,6 +1,5 @@
 package com.nguoisaigon.util;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -23,7 +22,6 @@ import com.nguoisaigon.entity.ProductInfo;
 import com.nguoisaigon.entity.SizeInfo;
 import com.nguoisaigon.entity.TransactionDetailInfo;
 
-@SuppressLint({ "SimpleDateFormat", "ValidFragment" })
 public class StoreProductDetailPageFragment extends Fragment {
 
 	private int[] size = { R.id.storeDetailProductSizeXXS, R.id.storeDetailProductSizeXS, R.id.storeDetailProductSizeS,

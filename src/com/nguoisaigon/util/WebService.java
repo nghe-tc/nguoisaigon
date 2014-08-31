@@ -4,10 +4,10 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -24,7 +24,6 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -33,7 +32,6 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Log;
-
 import com.nguoisaigon.entity.TransactionDetailInfo;
 import com.nguoisaigon.entity.TransactionPost;
 import com.nguoisaigon.entity.UserInfo;
@@ -45,9 +43,8 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 	}
 
 	public enum productCategory {
-		cat_fashion_man("cat_fashion_man", 0), cat_fashion_woman(
-				"cat_fashion_woman", 1), cat_fashion_kid("cat_fashion_kid", 2), cat_cos_man(
-				"cat_cos_man", 3), cat_cos_woman("cat_cos_woman", 4), cat_food(
+		cat_fashion_man("cat_fashion_man", 0), cat_fashion_woman("cat_fashion_woman", 1), cat_fashion_kid(
+				"cat_fashion_kid", 2), cat_cos_man("cat_cos_man", 3), cat_cos_woman("cat_cos_woman", 4), cat_food(
 				"cat_food", 5), cat_lifeStyle("cat_lifeStyle", 6);
 
 		private String name;
@@ -76,8 +73,7 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 	}
 
 	public enum productSearchType {
-		search_for_client("search_for_client", 0), search_for_admin(
-				"search_for_admin", 1);
+		search_for_client("search_for_client", 0), search_for_admin("search_for_admin", 1);
 
 		private String name;
 		private int value;
@@ -108,7 +104,7 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 	private final String STR_MAIN_USER_AGENT = "Fiddler";
 	private final String STR_MAIN_HOST_INFO = "rest.itsleek.vn";
 	private String url;
-	private WebServiceDelegate delegate;
+	private WeakReference<WebServiceDelegate> activityWeakRef;
 	private String musicId;
 
 	protected JSONObject params;
@@ -126,7 +122,7 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 	 * Constructor with delegate
 	 */
 	public WebService(WebServiceDelegate vdelegate) {
-		setDelegate(vdelegate);
+		activityWeakRef = new WeakReference<WebService.WebServiceDelegate>(vdelegate);
 	}
 
 	/**
@@ -182,11 +178,9 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 	 *            Type of user
 	 * @return JSONObject This object contains all keys/values of event.
 	 * */
-	public void setGettingProducts(productCategory category,
-			productSearchType searchType) {
+	public void setGettingProducts(productCategory category, productSearchType searchType) {
 		// http://rest.itsleek.vn/api/product?catId=%i&search_type=%i
-		url = SERVER_URL + "/api/product?catId=" + category.getIntValue()
-				+ "&search_type=" + searchType.getIntValue();
+		url = SERVER_URL + "/api/product?catId=" + category.getIntValue() + "&search_type=" + searchType.getIntValue();
 		this.isPostRequest = false;
 	}
 
@@ -220,10 +214,8 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 			JSONObject transList = new JSONObject();
 			transList.put("address", userInfo.getAddress());
 			transList.put("contactPhone", userInfo.getContactPhone());
-			SimpleDateFormat formater = new SimpleDateFormat(
-					"yyyy-MM-dd'T'HH:mm:ss");
-			String createDate = formater.format(Calendar.getInstance()
-					.getTime());
+			SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+			String createDate = formater.format(Calendar.getInstance().getTime());
 			transList.put("createDate", createDate);
 			transList.put("note", userInfo.getNote());
 			transList.put("ownerInfo", "");
@@ -238,8 +230,7 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 			params.put("transDetailList", transDetailList);
 			params.put("transList", transList);
 
-			Log.i("WebService - setTransactionDetailRequest", "params: "
-					+ params.toString());
+			Log.i("WebService - setTransactionDetailRequest", "params: " + params.toString());
 			this.isPostRequest = true;
 		} catch (JSONException e) {
 			Log.e("WebService", e.getMessage());
@@ -267,8 +258,7 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 			params.put("name", info.getName());
 			params.put("userId", "");
 
-			Log.i("WebService - setTransactionDetailRequest", "params: "
-					+ params.toString());
+			Log.i("WebService - setTransactionDetailRequest", "params: " + params.toString());
 		} catch (JSONException e) {
 			Log.e("WebService", e.getMessage());
 		}
@@ -295,8 +285,7 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 			params.put("name", info.getName());
 			params.put("userId", info.getUserId());
 
-			Log.i("WebService - setTransactionDetailRequest", "params: "
-					+ params.toString());
+			Log.i("WebService - setTransactionDetailRequest", "params: " + params.toString());
 		} catch (JSONException e) {
 			Log.e("WebService", e.getMessage());
 		}
@@ -345,8 +334,7 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 			final int statusCode = response.getStatusLine().getStatusCode();
 
 			if (statusCode != HttpStatus.SC_OK) {
-				Log.w("ImageDownloader", "Error " + statusCode
-						+ " while retrieving bitmap from " + url);
+				Log.w("ImageDownloader", "Error " + statusCode + " while retrieving bitmap from " + url);
 				return null;
 
 			}
@@ -360,8 +348,7 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 
 					// decoding stream data back into image Bitmap that android
 					// understands
-					final Bitmap bitmap = BitmapFactory
-							.decodeStream(inputStream);
+					final Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
 
 					if (bitmap != null)
 						responseString.put(bitmap);
@@ -376,16 +363,14 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 		} catch (Exception e) {
 			// You Could provide a more explicit error message for IOException
 			getRequest.abort();
-			Log.e("ImageDownloader", "Something went wrong while"
-					+ " retrieving bitmap from " + url + e.toString());
+			Log.e("ImageDownloader", "Something went wrong while" + " retrieving bitmap from " + url + e.toString());
 		}
 
 		return null;
 	}
 
 	public static final String PREFIX_DOWNLOAD = "/.nguoisaigon/";
-	private String path = Environment.getExternalStorageDirectory()
-			+ PREFIX_DOWNLOAD;
+	private String path = Environment.getExternalStorageDirectory() + PREFIX_DOWNLOAD;
 
 	/**
 	 * Download music.
@@ -395,8 +380,7 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 	private JSONArray downloadMusic() {
 		File file = new File(path);
 		if (!file.mkdirs()) {
-			Log.i("WebService",
-					"Make directories failure because it already existed.");
+			Log.i("WebService", "Make directories failure because it already existed.");
 		}
 		File musicFile = new File(file, musicId);
 		if (musicFile.exists()) {
@@ -416,8 +400,7 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 			final int statusCode = response.getStatusLine().getStatusCode();
 
 			if (statusCode != HttpStatus.SC_OK) {
-				Log.w("downloadMusic", "Error " + statusCode
-						+ " while retrieving music from " + url);
+				Log.w("downloadMusic", "Error " + statusCode + " while retrieving music from " + url);
 				return null;
 			}
 
@@ -440,8 +423,7 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 		} catch (Exception e) {
 			// You Could provide a more explicit error message for IOException
 			getRequest.abort();
-			Log.e("downloadMusic", "Something went wrong while"
-					+ " retrieving music from " + url + e.toString());
+			Log.e("downloadMusic", "Something went wrong while" + " retrieving music from " + url + e.toString());
 		}
 
 		return null;
@@ -460,15 +442,13 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 
 			StringEntity se = new StringEntity(params.toString());
 			se.setContentEncoding(HTTP.UTF_8);
-			se.setContentType(new BasicHeader(HTTP.CONTENT_TYPE,
-					"application/json"));
+			se.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
 			httppost.setEntity(se);
 			httppost.setHeader(HTTP.USER_AGENT, STR_MAIN_USER_AGENT);
 			if (isPutUserInfoUpdate) {
 				httppost.setHeader(HTTP.CONTENT_TYPE, "application/json");
 			} else {
-				httppost.setHeader(HTTP.CONTENT_TYPE,
-						"application/x-www-form-urlencoded");
+				httppost.setHeader(HTTP.CONTENT_TYPE, "application/x-www-form-urlencoded");
 			}
 			HttpResponse response = httpclient.execute(httppost);
 			Log.i("WebService - response", response.toString());
@@ -478,8 +458,7 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 			Log.i("WebService postDataToServer", "statusCode" + statusCode);
 			JSONArray result = new JSONArray();
 
-			String jsonText = EntityUtils.toString(response.getEntity(),
-					HTTP.UTF_8);
+			String jsonText = EntityUtils.toString(response.getEntity(), HTTP.UTF_8);
 			Log.i("WebService", "WebService: response " + jsonText);
 
 			JSONObject userData = new JSONObject(jsonText);
@@ -516,8 +495,7 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 
 			StringEntity se = new StringEntity(params.toString());
 			se.setContentEncoding(HTTP.UTF_8);
-			se.setContentType(new BasicHeader(HTTP.CONTENT_TYPE,
-					"application/json"));
+			se.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
 			httpput.setEntity(se);
 			httpput.setHeader(HTTP.USER_AGENT, STR_MAIN_USER_AGENT);
 			httpput.setHeader(HTTP.CONTENT_TYPE, "application/json");
@@ -529,8 +507,7 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 			JSONArray result = new JSONArray();
 
 			if (isPutUserInfoUpdate) {
-				String jsonText = EntityUtils.toString(response.getEntity(),
-						HTTP.UTF_8);
+				String jsonText = EntityUtils.toString(response.getEntity(), HTTP.UTF_8);
 				Log.i("WebService", "WebService: response " + jsonText);
 
 				JSONObject userData = new JSONObject(jsonText);
@@ -563,11 +540,9 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 			HttpResponse response;
 			response = httpclient.execute(new HttpGet(url));
 			StatusLine statusLine = response.getStatusLine();
-			Log.i("WebService",
-					"WebService: getDataFromUrl " + response.getStatusLine());
+			Log.i("WebService", "WebService: getDataFromUrl " + response.getStatusLine());
 			if (statusLine.getStatusCode() == HttpStatus.SC_ACCEPTED) {
-				String jsonText = EntityUtils.toString(response.getEntity(),
-						HTTP.UTF_8);
+				String jsonText = EntityUtils.toString(response.getEntity(), HTTP.UTF_8);
 				Log.i("WebService", "WebService: response " + jsonText);
 				if (jsonText.startsWith("{")) {
 					JSONObject jsonObject = new JSONObject(jsonText);
@@ -620,21 +595,22 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 	@Override
 	protected void onPostExecute(JSONArray result) {
 		super.onPostExecute(result);
+
+		if (activityWeakRef == null || activityWeakRef.get() == null) {
+			return;
+		}
+
+		WebServiceDelegate serviceDelegate = activityWeakRef.get();
+		if (serviceDelegate == null) {
+			return;
+		}
+
 		Log.i("onPostExecute", "onPostExecute" + result);
-		delegate.taskCompletionResult(result);
-	}
-
-	public WebServiceDelegate getDelegate() {
-		return delegate;
-	}
-
-	public void setDelegate(WebServiceDelegate delegate) {
-		this.delegate = delegate;
+		serviceDelegate.taskCompletionResult(result);
 	}
 
 	static public boolean isNetworkAvailable(Context context) {
-		WIFIInternetConnectionDetector cd = new WIFIInternetConnectionDetector(
-				context);
+		WIFIInternetConnectionDetector cd = new WIFIInternetConnectionDetector(context);
 		if (!cd.checkMobileInternetConn() && !cd.checkWifiInternetConn()) {
 			AlertDialog.Builder dlgAlert = new AlertDialog.Builder(context);
 			dlgAlert.setMessage("Không kết nối được với server\nXin vui lòng kiểm tra lại mạng.");

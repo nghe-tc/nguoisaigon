@@ -182,6 +182,7 @@ public class HomeScreenActivity extends Activity {
 	public void btnstore_click(View view) {
 		btnhomestore.setImageResource(R.drawable.store_normal);
 		Intent intent = new Intent(this, StoreMainActivity.class);
+		intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 		startActivity(intent);
 	}
 

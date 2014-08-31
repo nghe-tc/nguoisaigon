@@ -121,31 +121,6 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 		downloading = (ProgressBar) findViewById(R.id.downloadIndicator);
 		textNoItem = (TextView) findViewById(R.id.tvNoItem);
 		textNoItem.setTypeface(Utils.tf);
-
-		menuStoreFashionManClick(null);
-		for (int i = 0; i < type.length; i++) {
-			final ImageView image = (ImageView) findViewById(type[i]);
-			if (i == 0) {
-				image.setImageResource(typeClick[i]);
-			}
-			final int resourceId = i;
-			image.setOnTouchListener(new View.OnTouchListener() {
-
-				@Override
-				public boolean onTouch(View v, MotionEvent arg1) {
-					System.out.println("========== " + resourceId);
-					image.setImageResource(typeClick[resourceId]);
-					for (int i = 0; i < type.length; i++) {
-						final ImageView image = (ImageView) findViewById(type[i]);
-						if (i != resourceId) {
-							image.setImageResource(typeNormal[i]);
-						}
-					}
-					return false;
-				}
-			});
-		}
-		this.updateStoreCart();
 	}
 
 	/**
@@ -285,7 +260,9 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 	}
 
 	public void btnCloseClick(View view) {
-		this.finish();
+		Intent intent = new Intent(this, HomeScreenActivity.class);
+		intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+		startActivity(intent);
 	}
 
 	public void btnStoreCartClick(View view) {
@@ -551,16 +528,29 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 	@Override
 	protected void onResume() {
 		super.onResume();
-		Utils.isUnbindDrawables = true;
-		updateStoreCart();
-	}
+		menuStoreFashionManClick(null);
+		for (int i = 0; i < type.length; i++) {
+			final ImageView image = (ImageView) findViewById(type[i]);
+			if (i == 0) {
+				image.setImageResource(typeClick[i]);
+			}
+			final int resourceId = i;
+			image.setOnTouchListener(new View.OnTouchListener() {
 
-	@Override
-	protected void onPause() {
-		super.onPause();
-		if (Utils.isUnbindDrawables) {
-			Utils.unbindDrawables(findViewById(R.id.container));
+				@Override
+				public boolean onTouch(View v, MotionEvent arg1) {
+					System.out.println("========== " + resourceId);
+					image.setImageResource(typeClick[resourceId]);
+					for (int i = 0; i < type.length; i++) {
+						final ImageView image = (ImageView) findViewById(type[i]);
+						if (i != resourceId) {
+							image.setImageResource(typeNormal[i]);
+						}
+					}
+					return false;
+				}
+			});
 		}
-		System.gc();
+		updateStoreCart();
 	}
 }
