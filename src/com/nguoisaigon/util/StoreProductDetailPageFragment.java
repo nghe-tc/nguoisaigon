@@ -162,22 +162,24 @@ public class StoreProductDetailPageFragment extends Fragment {
 				@Override
 				public void onClick(View v) {
 					TransactionDetailInfo transaction = StoreMainActivity.getProductTransactionDetailInfo();
-					if (transaction.getQuantity() < product.getQuantity()) {
-						transaction.setQuantity(transaction.getQuantity() + 1);
-					} else {
-						String message = "Không đáp ứng đủ số lượng yêu cầu.\nChúng tôi chỉ còn ["
-								+ product.getQuantity() + "] sản phẩm trong kho";
-						Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+					if (transaction != null) {
+						if (transaction.getQuantity() < product.getQuantity()) {
+							transaction.setQuantity(transaction.getQuantity() + 1);
+						} else {
+							String message = "Không đáp ứng đủ số lượng yêu cầu.\nChúng tôi chỉ còn ["
+									+ product.getQuantity() + "] sản phẩm trong kho";
+							Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+						}
+						StoreMainActivity.setProductTransactionDetailInfo(transaction);
+						System.out.println("-----------------------------");
+						System.out.println(transaction.getProductId());
+						System.out.println(transaction.getProductName());
+						System.out.println(transaction.getCategoryId());
+						System.out.println(transaction.getQuantity());
+						System.out.println(transaction.getSizeType());
+						System.out.println("-----------------------------");
+						quantity.setText(transaction.getQuantity() + "");
 					}
-					StoreMainActivity.setProductTransactionDetailInfo(transaction);
-					System.out.println("-----------------------------");
-					System.out.println(transaction.getProductId());
-					System.out.println(transaction.getProductName());
-					System.out.println(transaction.getCategoryId());
-					System.out.println(transaction.getQuantity());
-					System.out.println(transaction.getSizeType());
-					System.out.println("-----------------------------");
-					quantity.setText(transaction.getQuantity() + "");
 				}
 			});
 
@@ -185,22 +187,24 @@ public class StoreProductDetailPageFragment extends Fragment {
 				@Override
 				public void onClick(View v) {
 					TransactionDetailInfo transaction = StoreMainActivity.getProductTransactionDetailInfo();
-					if (transaction.getQuantity() > 1) {
-						transaction.setQuantity(transaction.getQuantity() - 1);
+					if (transaction != null) {
+						if (transaction.getQuantity() > 1) {
+							transaction.setQuantity(transaction.getQuantity() - 1);
+						}
+						transaction.setCategoryId(product.getCategoryId());
+						transaction.setProductId(product.getProductId());
+						transaction.setProductName(product.getName());
+						transaction.setUnitPrice(product.getUnitPrice());
+						StoreMainActivity.setProductTransactionDetailInfo(transaction);
+						System.out.println("-----------------------------");
+						System.out.println(transaction.getProductId());
+						System.out.println(transaction.getProductName());
+						System.out.println(transaction.getCategoryId());
+						System.out.println(transaction.getQuantity());
+						System.out.println(transaction.getSizeType());
+						System.out.println("-----------------------------");
+						quantity.setText(transaction.getQuantity() + "");
 					}
-					transaction.setCategoryId(product.getCategoryId());
-					transaction.setProductId(product.getProductId());
-					transaction.setProductName(product.getName());
-					transaction.setUnitPrice(product.getUnitPrice());
-					StoreMainActivity.setProductTransactionDetailInfo(transaction);
-					System.out.println("-----------------------------");
-					System.out.println(transaction.getProductId());
-					System.out.println(transaction.getProductName());
-					System.out.println(transaction.getCategoryId());
-					System.out.println(transaction.getQuantity());
-					System.out.println(transaction.getSizeType());
-					System.out.println("-----------------------------");
-					quantity.setText(transaction.getQuantity() + "");
 				}
 			});
 		}

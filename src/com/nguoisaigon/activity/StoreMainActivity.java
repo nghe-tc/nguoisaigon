@@ -405,6 +405,14 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 		Integer index = this.hsProduct.get(view.getText());
 		Log.i("StoreMainActivity - storeProductClick", "index: " + index);
 		this.updateDataDetail(index);
+		ProductInfo product = listProduct.get(index);
+		if (productTransactionDetailInfo == null) {
+			productTransactionDetailInfo = new TransactionDetailInfo();
+		}
+		productTransactionDetailInfo.setCategoryId(product.getCategoryId());
+		productTransactionDetailInfo.setProductId(product.getProductId());
+		productTransactionDetailInfo.setProductName(product.getName());
+		productTransactionDetailInfo.setUnitPrice(product.getUnitPrice());
 	}
 
 	private void updateDataDetail(Integer index) {
@@ -455,6 +463,15 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 					btnPageNext.setImageAlpha(70);
 					btnPagePrevious.setImageAlpha(70);
 				}
+
+				ProductInfo product = listProduct.get(mPager.getCurrentItem());
+				if (productTransactionDetailInfo == null) {
+					productTransactionDetailInfo = new TransactionDetailInfo();
+				}
+				productTransactionDetailInfo.setCategoryId(product.getCategoryId());
+				productTransactionDetailInfo.setProductId(product.getProductId());
+				productTransactionDetailInfo.setProductName(product.getName());
+				productTransactionDetailInfo.setUnitPrice(product.getUnitPrice());
 			}
 
 		});
