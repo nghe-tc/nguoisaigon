@@ -51,7 +51,6 @@ public class PreviewCartActivity extends Activity {
 		tvCartTotalText.setTypeface(Utils.tf);
 		tvCartTotal.setTypeface(Utils.tf);
 
-		db = new TransactionDetailDB(this);
 		loadData();
 	}
 
@@ -59,6 +58,7 @@ public class PreviewCartActivity extends Activity {
 		Log.i("PreviewCartActivity - loadData", "Start");
 		listTransaction.clear();
 		try {
+			db = new TransactionDetailDB(this);
 			listTransaction = db.getTransactions();
 			Log.i("PreviewCartActivity - loadData", "num of transaction: " + listTransaction.size());
 			adapter = new CartTransactionAdapter(this, listTransaction);

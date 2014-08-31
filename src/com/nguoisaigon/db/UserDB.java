@@ -3,7 +3,7 @@ package com.nguoisaigon.db;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-
+import android.util.Log;
 import com.nguoisaigon.entity.UserInfo;
 
 public class UserDB extends DBHelper {
@@ -34,15 +34,26 @@ public class UserDB extends DBHelper {
 	 * @return
 	 */
 	public Long insert(UserInfo info) {
-		ContentValues values = new ContentValues();
-		values.put(COLUMN_USER_ID, info.getUserId());
-		values.put(COLUMN_NAME, info.getName());
-		values.put(COLUMN_EMAIL, info.getEmail());
-		values.put(COLUMN_CONTACT_PHONE, info.getContactPhone());
-		values.put(COLUMN_ADDRESS, info.getAddress());
-		values.put(COLUMN_ERNED_POINT, info.getErnedPoint());
-		values.put(COLUMN_NOTE, info.getNote());
-		return sqlite.insert(TABLE_NAME, null, values);
+		Long result = 0L;
+		try {
+			openDb();
+			ContentValues values = new ContentValues();
+			values.put(COLUMN_USER_ID, info.getUserId());
+			values.put(COLUMN_NAME, info.getName());
+			values.put(COLUMN_EMAIL, info.getEmail());
+			values.put(COLUMN_CONTACT_PHONE, info.getContactPhone());
+			values.put(COLUMN_ADDRESS, info.getAddress());
+			values.put(COLUMN_ERNED_POINT, info.getErnedPoint());
+			values.put(COLUMN_NOTE, info.getNote());
+
+			result = sqlite.insert(TABLE_NAME, null, values);
+		} catch (Exception e) {
+			Log.e("UserDB", "insert", e);
+		} finally {
+			closeDatabase();
+		}
+
+		return result;
 	}
 
 	/**
@@ -52,19 +63,29 @@ public class UserDB extends DBHelper {
 	 * @return
 	 */
 	public Integer update(UserInfo info) {
-		ContentValues values = new ContentValues();
-		values.put(COLUMN_USER_ID, info.getUserId());
-		values.put(COLUMN_NAME, info.getName());
-		values.put(COLUMN_EMAIL, info.getEmail());
-		values.put(COLUMN_CONTACT_PHONE, info.getContactPhone());
-		values.put(COLUMN_ADDRESS, info.getAddress());
-		values.put(COLUMN_ERNED_POINT, info.getErnedPoint());
-		values.put(COLUMN_NOTE, info.getNote());
+		int result = -1;
+		try {
+			openDb();
+			ContentValues values = new ContentValues();
+			values.put(COLUMN_USER_ID, info.getUserId());
+			values.put(COLUMN_NAME, info.getName());
+			values.put(COLUMN_EMAIL, info.getEmail());
+			values.put(COLUMN_CONTACT_PHONE, info.getContactPhone());
+			values.put(COLUMN_ADDRESS, info.getAddress());
+			values.put(COLUMN_ERNED_POINT, info.getErnedPoint());
+			values.put(COLUMN_NOTE, info.getNote());
 
-		String selection = COLUMN_ID + " = ?";
-		String[] selectionArgs = { String.valueOf(1) };
+			String selection = COLUMN_ID + " = ?";
+			String[] selectionArgs = { String.valueOf(1) };
 
-		return sqlite.update(TABLE_NAME, values, selection, selectionArgs);
+			result = sqlite.update(TABLE_NAME, values, selection, selectionArgs);
+		} catch (Exception e) {
+			Log.e("UserDB", "update", e);
+		} finally {
+			closeDatabase();
+		}
+
+		return result;
 	}
 
 	/**
@@ -74,9 +95,19 @@ public class UserDB extends DBHelper {
 	 * @return
 	 */
 	public Integer delete(Integer id) {
-		String selection = COLUMN_USER_ID + " = ?";
-		String[] selectionArgs = { String.valueOf(id) };
-		return sqlite.delete(TABLE_NAME, selection, selectionArgs);
+		int result = -1;
+		try {
+			openDb();
+			String selection = COLUMN_USER_ID + " = ?";
+			String[] selectionArgs = { String.valueOf(id) };
+			result = sqlite.delete(TABLE_NAME, selection, selectionArgs);
+		} catch (Exception e) {
+			Log.e("UserDB", "delete", e);
+		} finally {
+			closeDatabase();
+		}
+
+		return result;
 	}
 
 	/**
@@ -85,21 +116,32 @@ public class UserDB extends DBHelper {
 	 * @return
 	 */
 	public UserInfo getUser() {
-		String[] projection = { COLUMN_USER_ID, COLUMN_NAME, COLUMN_EMAIL,
-				COLUMN_CONTACT_PHONE, COLUMN_ADDRESS, COLUMN_ERNED_POINT, COLUMN_NOTE };
+		String[] projection = { COLUMN_USER_ID, COLUMN_NAME, COLUMN_EMAIL, COLUMN_CONTACT_PHONE, COLUMN_ADDRESS,
+				COLUMN_ERNED_POINT, COLUMN_NOTE };
 
-		Cursor c = sqlite.query(TABLE_NAME, projection, null, null, null, null,
-				null);
-		if (c.moveToFirst()) {
-			UserInfo user = new UserInfo();
-			user.setUserId(c.getString(0));
-			user.setName(c.getString(1));
-			user.setEmail(c.getString(2));
-			user.setContactPhone(c.getString(3));
-			user.setAddress(c.getString(4));
-			user.setErnedPoint(c.getDouble(5));
-			user.setNote(c.getString(6));
-			return user;
+		Cursor c = null;
+		try {
+			openDb();
+			c = sqlite.query(TABLE_NAME, projection, null, null, null, null, null);
+			if (c.moveToFirst()) {
+				UserInfo user = new UserInfo();
+				user.setUserId(c.getString(0));
+				user.setName(c.getString(1));
+				user.setEmail(c.getString(2));
+				user.setContactPhone(c.getString(3));
+				user.setAddress(c.getString(4));
+				user.setErnedPoint(c.getDouble(5));
+				user.setNote(c.getString(6));
+				return user;
+			}
+
+		} catch (Exception e) {
+			Log.e("UserDB", "getUser", e);
+		} finally {
+			if (c != null && !c.isClosed()) {
+				c.close();
+			}
+			closeDatabase();
 		}
 		return null;
 	}

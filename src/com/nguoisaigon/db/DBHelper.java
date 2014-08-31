@@ -32,8 +32,8 @@ public class DBHelper {
 				throw new RuntimeException("Error creating source database", e);
 			}
 		}
-		return SQLiteDatabase.openDatabase(dbFile.getPath(), null,
-				SQLiteDatabase.OPEN_READWRITE);
+		sqlite = SQLiteDatabase.openDatabase(dbFile.getPath(), null, SQLiteDatabase.OPEN_READWRITE);
+		return sqlite;
 	}
 
 	/**
@@ -45,7 +45,7 @@ public class DBHelper {
 		if (!dbPath.exists()) {
 			dbPath.mkdirs();
 		}
-		
+
 		// Copy database file
 		InputStream is = context.getAssets().open(DB_NAME);
 		OutputStream os = new FileOutputStream(dbFile);
@@ -65,5 +65,11 @@ public class DBHelper {
 	 */
 	public void closeDatabase() {
 		sqlite.close();
+	}
+
+	public void openDb() {
+		if (!sqlite.isOpen()) {
+			openDatabase();
+		}
 	}
 }
