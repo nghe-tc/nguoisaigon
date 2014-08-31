@@ -8,7 +8,6 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import android.annotation.SuppressLint;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -30,8 +29,7 @@ import com.nguoisaigon.util.WebService;
 import com.nguoisaigon.util.WebService.WebServiceDelegate;
 
 @SuppressLint("SimpleDateFormat")
-public class NewsActivity extends FragmentActivity implements
-		WebServiceDelegate {
+public class NewsActivity extends FragmentActivity implements WebServiceDelegate {
 
 	/**
 	 * The pager widget, which handles animation and allows swiping horizontally
@@ -44,7 +42,7 @@ public class NewsActivity extends FragmentActivity implements
 	 */
 	private PagerAdapter mPagerAdapter;
 
-	private ArrayList<NewsInfo> listNews;
+	private ArrayList<NewsInfo> listNews = new ArrayList<NewsInfo>();
 
 	private Calendar currentDate;
 
@@ -54,23 +52,21 @@ public class NewsActivity extends FragmentActivity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.news_layout);
 
-		this.currentDate = Calendar.getInstance();
-		Typeface tf = Typeface.createFromAsset(getAssets(),
-				"fonts/noteworthy.ttc");
+		currentDate = Calendar.getInstance();
 		TextView tvPage = (TextView) findViewById(R.id.tvNewsPage);
 		TextView tvMonth = (TextView) findViewById(R.id.tvNewsMonth);
 		TextView tvDate = (TextView) findViewById(R.id.tvNewsDate);
 		TextView tvLoading = (TextView) findViewById(R.id.tvNewsLoading);
 		TextView tvNoNews = (TextView) findViewById(R.id.noNews);
-		this.mPager = (ViewPager) findViewById(R.id.newsPager);
+		mPager = (ViewPager) findViewById(R.id.newsPager);
 
-		tvPage.setTypeface(tf);
-		tvMonth.setTypeface(tf);
-		tvDate.setTypeface(tf);
-		tvLoading.setTypeface(tf);
-		tvNoNews.setTypeface(tf);
-		this.loadData();
-		this.setNewsPageChageLisener();
+		tvPage.setTypeface(Utils.tf);
+		tvMonth.setTypeface(Utils.tf);
+		tvDate.setTypeface(Utils.tf);
+		tvLoading.setTypeface(Utils.tf);
+		tvNoNews.setTypeface(Utils.tf);
+		loadData();
+		setNewsPageChageLisener();
 	}
 
 	@Override
@@ -78,12 +74,12 @@ public class NewsActivity extends FragmentActivity implements
 		Log.i("NewsActivity", (result == null) ? "null" : result.toString());
 		if (result != null) {
 			try {
+				listNews.clear();
 				for (int i = 0; i < result.length(); i++) {
 					JSONObject newsJSON = result.getJSONObject(i);
 					NewsInfo news = new NewsInfo();
 					String strDate = newsJSON.getString("createDate");
-					SimpleDateFormat formater = new SimpleDateFormat(
-							"yyyy-MM-dd'T'HH:mm:ss");
+					SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 					Date createDate;
 					createDate = formater.parse(strDate);
 					news.setCreateDate(createDate);
@@ -91,9 +87,8 @@ public class NewsActivity extends FragmentActivity implements
 					news.setNewsId(newsJSON.getString("newsId"));
 					news.setOwnerInfo(newsJSON.getString("ownerInfo"));
 					news.setTitle(newsJSON.getString("title"));
-					this.listNews.add(news);
-					Log.i("NewsActivity - this.listNews.size()",
-							this.listNews.size() + "");
+					listNews.add(news);
+					Log.i("NewsActivity - listNews.size()", listNews.size() + "");
 				}
 			} catch (Exception e) {
 				Log.i("NewsActivity", e.getMessage());
@@ -103,11 +98,10 @@ public class NewsActivity extends FragmentActivity implements
 	}
 
 	public void loadData() {
-		this.listNews = new ArrayList<NewsInfo>();
 		// Download data
 		if (WebService.isNetworkAvailable(this)) {
 			WebService ws = new WebService(this);
-			ws.setGettingNewsData(this.currentDate.getTime());
+			ws.setGettingNewsData(currentDate.getTime());
 			ws.execute();
 		} else {
 			ProgressBar indicator = (ProgressBar) findViewById(R.id.newsIndicator);
@@ -119,9 +113,8 @@ public class NewsActivity extends FragmentActivity implements
 
 	public void updatePageNumView() {
 		TextView tvPage = (TextView) findViewById(R.id.tvNewsPage);
-		if (this.listNews.size() > 0) {
-			String pageDisplay = mPager.getCurrentItem() + 1 + "/"
-					+ mPagerAdapter.getCount();
+		if (listNews.size() > 0) {
+			String pageDisplay = mPager.getCurrentItem() + 1 + "/" + mPagerAdapter.getCount();
 			tvPage.setText(pageDisplay);
 		}
 
@@ -153,10 +146,9 @@ public class NewsActivity extends FragmentActivity implements
 
 		List<Fragment> fragments = getFragments();
 		// Instantiate a ViewPager and a PagerAdapter.
-		mPagerAdapter = new CustomPagerAdapter(getSupportFragmentManager(),
-				fragments);
+		mPagerAdapter = new CustomPagerAdapter(getSupportFragmentManager(), fragments);
 		mPager.setAdapter(mPagerAdapter);
-		this.updatePageNumView();
+		updatePageNumView();
 
 		TextView tvNoNews = (TextView) findViewById(R.id.noNews);
 		if (mPagerAdapter.getCount() < 1) {
@@ -170,12 +162,18 @@ public class NewsActivity extends FragmentActivity implements
 		TextView tvLoading = (TextView) findViewById(R.id.tvNewsLoading);
 		tvLoading.setVisibility(TextView.GONE);
 
+		ImageView email = (ImageView) findViewById(R.id.btnNewsEmail);
+		if (listNews.size() == 0) {
+			email.setImageAlpha(70);
+		} else {
+			email.setImageAlpha(255);
+		}
 	}
 
 	private List<Fragment> getFragments() {
-		Log.i("NewsActivity - getFragments", this.listNews.size() + "");
+		Log.i("NewsActivity - getFragments", listNews.size() + "");
 		List<Fragment> fList = new ArrayList<Fragment>();
-		for (NewsInfo news : this.listNews) {
+		for (NewsInfo news : listNews) {
 			fList.add(NewsPageFragment.newInstance(news));
 		}
 		return fList;
@@ -187,7 +185,7 @@ public class NewsActivity extends FragmentActivity implements
 	 * @param view
 	 */
 	public void btnCloseClick(View view) {
-		this.finish();
+		finish();
 	}
 
 	/**
@@ -196,7 +194,7 @@ public class NewsActivity extends FragmentActivity implements
 	 * @param view
 	 */
 	public void btnFacebookClick(View view) {
-
+		Utils.isUnbindDrawables = false;
 	}
 
 	/**
@@ -205,8 +203,10 @@ public class NewsActivity extends FragmentActivity implements
 	 * @param view
 	 */
 	public void btnEmailClick(View view) {
-		Emailplugin.SendEmailFromNewsView(this,
-				this.listNews.get(this.mPager.getCurrentItem()));
+		Utils.isUnbindDrawables = false;
+		if (listNews.size() > 0) {
+			Emailplugin.SendEmailFromNewsView(this, listNews.get(mPager.getCurrentItem()));
+		}
 	}
 
 	/**
@@ -218,7 +218,7 @@ public class NewsActivity extends FragmentActivity implements
 		int currentItem = mPager.getCurrentItem();
 		if (currentItem < mPager.getAdapter().getCount()) {
 			mPager.setCurrentItem(mPager.getCurrentItem() + 1, true);
-			this.updatePageNumView();
+			updatePageNumView();
 		}
 	}
 
@@ -231,7 +231,7 @@ public class NewsActivity extends FragmentActivity implements
 		int currentItem = mPager.getCurrentItem();
 		if (currentItem > 0) {
 			mPager.setCurrentItem(mPager.getCurrentItem() - 1, true);
-			this.updatePageNumView();
+			updatePageNumView();
 		}
 	}
 
@@ -241,12 +241,12 @@ public class NewsActivity extends FragmentActivity implements
 	 * @param view
 	 */
 	public void btnDateNextClick(View view) {
-		this.currentDate.add(Calendar.MONTH, 1);
+		currentDate.add(Calendar.MONTH, 1);
 		ProgressBar indicator = (ProgressBar) findViewById(R.id.newsIndicator);
 		indicator.setVisibility(ProgressBar.VISIBLE);
 		TextView tvLoading = (TextView) findViewById(R.id.tvNewsLoading);
 		tvLoading.setVisibility(TextView.VISIBLE);
-		this.loadData();
+		loadData();
 	}
 
 	/**
@@ -255,16 +255,16 @@ public class NewsActivity extends FragmentActivity implements
 	 * @param view
 	 */
 	public void btnDatePreviousClick(View view) {
-		this.currentDate.add(Calendar.MONTH, -1);
+		currentDate.add(Calendar.MONTH, -1);
 		ProgressBar indicator = (ProgressBar) findViewById(R.id.newsIndicator);
 		indicator.setVisibility(ProgressBar.VISIBLE);
 		TextView tvLoading = (TextView) findViewById(R.id.tvNewsLoading);
 		tvLoading.setVisibility(TextView.VISIBLE);
-		this.loadData();
+		loadData();
 	}
 
 	void setNewsPageChageLisener() {
-		this.mPager.setOnPageChangeListener(new OnPageChangeListener() {
+		mPager.setOnPageChangeListener(new OnPageChangeListener() {
 
 			@Override
 			public void onPageSelected(int arg0) {
@@ -281,8 +281,7 @@ public class NewsActivity extends FragmentActivity implements
 				Log.i("NewsActivity - onPageScrollStateChanged", "Start");
 				TextView tvPage = (TextView) findViewById(R.id.tvNewsPage);
 				if (listNews.size() > 0) {
-					String pageDisplay = mPager.getCurrentItem() + 1 + "/"
-							+ mPagerAdapter.getCount();
+					String pageDisplay = mPager.getCurrentItem() + 1 + "/" + mPagerAdapter.getCount();
 					tvPage.setText(pageDisplay);
 				}
 
@@ -293,8 +292,7 @@ public class NewsActivity extends FragmentActivity implements
 					if (mPager.getCurrentItem() == 0) {
 						btnPagePrevious.setImageAlpha(70);
 						btnPageNext.setImageAlpha(255);
-					} else if (mPager.getCurrentItem() == (mPagerAdapter
-							.getCount() - 1)) {
+					} else if (mPager.getCurrentItem() == (mPagerAdapter.getCount() - 1)) {
 						btnPageNext.setImageAlpha(70);
 						btnPagePrevious.setImageAlpha(255);
 					} else {
@@ -310,9 +308,17 @@ public class NewsActivity extends FragmentActivity implements
 	}
 
 	@Override
+	protected void onResume() {
+		super.onResume();
+		Utils.isUnbindDrawables = true;
+	}
+
+	@Override
 	protected void onPause() {
 		super.onPause();
-		Utils.unbindDrawables(findViewById(R.id.container));
+		if (Utils.isUnbindDrawables) {
+			Utils.unbindDrawables(findViewById(R.id.container));
+		}
 		System.gc();
 	}
 }

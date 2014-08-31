@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.nguoisaigon.R;
 import com.nguoisaigon.db.DBHelper;
 import com.nguoisaigon.util.Emailplugin;
+import com.nguoisaigon.util.Utils;
 
 public class HomeScreenActivity extends Activity {
 	private DBHelper datahelper;
@@ -33,7 +34,7 @@ public class HomeScreenActivity extends Activity {
 	private ImageView btnhometv;
 	private ImageView btnhomeevents;
 	Handler handler = new Handler();
-	
+
 	private FrameLayout contactView;
 	private TextView homeContactCafe;
 	private TextView homeContactNguoiSaiGon;
@@ -59,6 +60,9 @@ public class HomeScreenActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.homescreen);
+
+		Utils.tf = Typeface.createFromAsset(getAssets(), "fonts/noteworthy.ttc");
+
 		storeHelp = (ImageView) findViewById(R.id.homeStoreHelp);
 		eventHelp = (ImageView) findViewById(R.id.homeCalendarHelp);
 		newsHelp = (ImageView) findViewById(R.id.homeNewsHelp);
@@ -71,7 +75,7 @@ public class HomeScreenActivity extends Activity {
 		btnhomemusic = (ImageView) findViewById(R.id.btnhomemusic);
 		btnhometv = (ImageView) findViewById(R.id.btnhometv);
 		btnhomeevents = (ImageView) findViewById(R.id.btnhomeevents);
-		
+
 		contactView = (FrameLayout) findViewById(R.id.homeContactView);
 		homeContactCafe = (TextView) findViewById(R.id.homeContactCafe);
 		homeContactNguoiSaiGon = (TextView) findViewById(R.id.homeContactNguoiSaiGon);
@@ -81,7 +85,7 @@ public class HomeScreenActivity extends Activity {
 		homeContactphone1 = (TextView) findViewById(R.id.homeContactphone1);
 		homeContactphone2 = (TextView) findViewById(R.id.homeContactphone2);
 		homeContactFacebook = (TextView) findViewById(R.id.homeContactFacebook);
-		
+
 		setupContactView();
 
 		// setDatahelper(new DBHelper(this));
@@ -92,32 +96,28 @@ public class HomeScreenActivity extends Activity {
 	}
 
 	private ImageView tvImage, tvLight, musicImage, phoneImage;
-	
+
 	@Override
 	protected void onResume() {
 		super.onResume();
 		tvImage = (ImageView) findViewById(R.id.homeTVAnimation);
 		tvImage.setBackgroundResource(R.drawable.tvanimation);
-		AnimationDrawable tvAnimation = (AnimationDrawable) tvImage
-				.getBackground();
+		AnimationDrawable tvAnimation = (AnimationDrawable) tvImage.getBackground();
 		tvAnimation.start();
 
 		tvLight = (ImageView) findViewById(R.id.homeTVLight);
 		tvLight.setBackgroundResource(R.drawable.tvlightanimation);
-		AnimationDrawable tvLightAnimation = (AnimationDrawable) tvLight
-				.getBackground();
+		AnimationDrawable tvLightAnimation = (AnimationDrawable) tvLight.getBackground();
 		tvLightAnimation.start();
 
 		musicImage = (ImageView) findViewById(R.id.homeMusic);
 		musicImage.setBackgroundResource(R.drawable.musicanimation);
-		AnimationDrawable musicAnimation = (AnimationDrawable) musicImage
-				.getBackground();
+		AnimationDrawable musicAnimation = (AnimationDrawable) musicImage.getBackground();
 		musicAnimation.start();
 
 		phoneImage = (ImageView) findViewById(R.id.homePhone);
 		phoneImage.setBackgroundResource(R.drawable.phoneanimation);
-		AnimationDrawable phoneAnimation = (AnimationDrawable) phoneImage
-				.getBackground();
+		AnimationDrawable phoneAnimation = (AnimationDrawable) phoneImage.getBackground();
 		phoneAnimation.start();
 	}
 
@@ -127,20 +127,17 @@ public class HomeScreenActivity extends Activity {
 		System.gc();
 	}
 
-	void setupContactView()
-	{
-		Typeface tf = Typeface.createFromAsset(getAssets(),
-				"fonts/noteworthy.ttc");
-		homeContactCafe.setTypeface(tf);
-		homeContactNguoiSaiGon.setTypeface(tf);
-		homeContactAddress1.setTypeface(tf);
-		homeContactAddress2.setTypeface(tf);
-		homeContactEmail.setTypeface(tf);
-		homeContactphone1.setTypeface(tf);
-		homeContactphone2.setTypeface(tf);
-		homeContactFacebook.setTypeface(tf);
+	void setupContactView() {
+		homeContactCafe.setTypeface(Utils.tf);
+		homeContactNguoiSaiGon.setTypeface(Utils.tf);
+		homeContactAddress1.setTypeface(Utils.tf);
+		homeContactAddress2.setTypeface(Utils.tf);
+		homeContactEmail.setTypeface(Utils.tf);
+		homeContactphone1.setTypeface(Utils.tf);
+		homeContactphone2.setTypeface(Utils.tf);
+		homeContactFacebook.setTypeface(Utils.tf);
 	}
-	
+
 	public void emailOnClick(View view) {
 		try {
 			Emailplugin.SendEmailFromHomeView(this);
@@ -148,37 +145,36 @@ public class HomeScreenActivity extends Activity {
 			Log.e("HomeScreen", "emailOnClick: " + e.getMessage());
 		}
 	}
-	
+
 	public void phone2OnClick(View view) {
 		try {
 			String number = "tel:" + "0932113183";
-	        Intent callIntent = new Intent(Intent.ACTION_CALL, Uri.parse(number)); 
-	        startActivity(callIntent);
+			Intent callIntent = new Intent(Intent.ACTION_CALL, Uri.parse(number));
+			startActivity(callIntent);
 		} catch (Exception e) {
 			Log.e("HomeScreen", "phone2OnClick: " + e.getMessage());
 		}
 	}
-	
+
 	public void phone1OnClick(View view) {
 		try {
 			String number = "tel:" + "0932113103";
-	        Intent callIntent = new Intent(Intent.ACTION_CALL, Uri.parse(number)); 
-	        startActivity(callIntent);
+			Intent callIntent = new Intent(Intent.ACTION_CALL, Uri.parse(number));
+			startActivity(callIntent);
 		} catch (Exception e) {
 			Log.e("HomeScreen", "phone1OnClick: " + e.getMessage());
 		}
 	}
-	
+
 	public void facebookOnClick(View view) {
 		try {
-			Intent browserIntent = new Intent(Intent.ACTION_VIEW,
-					Uri.parse("https://www.facebook.com/Cafedansaigon"));
+			Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/Cafedansaigon"));
 			startActivity(browserIntent);
 		} catch (Exception e) {
 			Log.e("HomeScreen", "facebookOnClick: " + e.getMessage());
 		}
 	}
-	
+
 	public void hideContactOnClick(View view) {
 		contactView.setVisibility(View.INVISIBLE);
 	}

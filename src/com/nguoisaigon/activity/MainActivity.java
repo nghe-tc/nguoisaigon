@@ -6,7 +6,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -57,16 +56,13 @@ public class MainActivity extends Activity implements WebServiceDelegate {
 		indicator.setVisibility(View.VISIBLE);
 
 		// Setup loading label
-		Typeface tf = Typeface.createFromAsset(getAssets(),
-				"fonts/noteworthy.ttc");
-		loadingLabel.setTypeface(tf);
+		loadingLabel.setTypeface(Utils.tf);
 		loadingLabel.setVisibility(View.VISIBLE);
-		recheckLabel.setTypeface(tf);
+		recheckLabel.setTypeface(Utils.tf);
 		recheckLabel.setVisibility(View.INVISIBLE);
 
 		// Set indicator color
-		indicator.getIndeterminateDrawable().setColorFilter(
-				R.color.welcome_loading_color,
+		indicator.getIndeterminateDrawable().setColorFilter(R.color.welcome_loading_color,
 				android.graphics.PorterDuff.Mode.MULTIPLY);
 
 		// Check for network connection
@@ -79,12 +75,10 @@ public class MainActivity extends Activity implements WebServiceDelegate {
 			}
 
 			// Download music
-			MusicManager musicManager = new MusicManager(
-					getApplicationContext());
+			MusicManager musicManager = new MusicManager(getApplicationContext());
 			musicManager.getMusicInfoList();
 		} else {
-			Toast.makeText(
-					this,
+			Toast.makeText(this,
 					"Không tìm thấy kết nối Internet. Xin hãy thiết lập Internet và nhấn nút [Kiểm tra lại].",
 					Toast.LENGTH_SHORT).show();
 			loadingLabel.setVisibility(View.INVISIBLE);
@@ -122,14 +116,10 @@ public class MainActivity extends Activity implements WebServiceDelegate {
 				SettingInfo info = new SettingInfo();
 				if (info != null) {
 					try {
-						JSONObject object = (JSONObject) appSettingObject
-								.get(0);
-						info.setAppLink(object.getString(this
-								.getString(R.string.setting_applink)));
-						info.setParseAppId(object.getString(this
-								.getString(R.string.setting_parseappid)));
-						info.setSettingId(object.getString(this
-								.getString(R.string.setting_settingid)));
+						JSONObject object = (JSONObject) appSettingObject.get(0);
+						info.setAppLink(object.getString(this.getString(R.string.setting_applink)));
+						info.setParseAppId(object.getString(this.getString(R.string.setting_parseappid)));
+						info.setSettingId(object.getString(this.getString(R.string.setting_settingid)));
 						settingDB.insert(info);
 					} catch (JSONException e) {
 						e.printStackTrace();
@@ -145,8 +135,8 @@ public class MainActivity extends Activity implements WebServiceDelegate {
 			public void run() {
 				// Call the home page
 				indicator.setVisibility(View.GONE);
-				Intent intent = new Intent(MainActivity.this,
-						HomeScreenActivity.class);
+				Intent intent = new Intent(MainActivity.this, HomeScreenActivity.class);
+				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 				startActivity(intent);
 			}
 		}, 3000);
@@ -161,8 +151,7 @@ public class MainActivity extends Activity implements WebServiceDelegate {
 	 * 
 	 */
 	void linkToFacebook() {
-		Intent browserIntent = new Intent(Intent.ACTION_VIEW,
-				Uri.parse("https://www.facebook.com/Cafedansaigon"));
+		Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/Cafedansaigon"));
 		startActivity(browserIntent);
 	}
 
@@ -182,14 +171,13 @@ public class MainActivity extends Activity implements WebServiceDelegate {
 			}
 
 			// Download music
-			MusicManager musicManager = new MusicManager(
-					getApplicationContext());
+			MusicManager musicManager = new MusicManager(getApplicationContext());
 			musicManager.getMusicInfoList();
 		} else {
-			Toast.makeText(
-					this,
+			Toast.makeText(this,
 					"Không tìm thấy kết nối Internet. Xin hãy thiết lập Internet và nhấn nút [Kiểm tra lại].",
 					Toast.LENGTH_SHORT).show();
 		}
 	}
+	
 }

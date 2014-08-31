@@ -8,7 +8,6 @@ import java.util.List;
 import org.json.JSONArray;
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -45,30 +44,20 @@ import com.nguoisaigon.util.WebService.productCategory;
 import com.nguoisaigon.util.WebService.productSearchType;
 
 @SuppressLint("UseSparseArrays")
-public class StoreMainActivity extends FragmentActivity implements
-		WebServiceDelegate {
-	private static final int[] type = { R.id.menuStoreFashionMan,
-			R.id.menuStoreLifeStyle, R.id.menuStoreFood,
-			R.id.menuStoreCosmeticMan, R.id.menuStoreCosmeticWoman,
-			R.id.menuStoreFashionWoman, R.id.menuStoreFashionKid };
+public class StoreMainActivity extends FragmentActivity implements WebServiceDelegate {
+	private static final int[] type = { R.id.menuStoreFashionMan, R.id.menuStoreLifeStyle, R.id.menuStoreFood,
+			R.id.menuStoreCosmeticMan, R.id.menuStoreCosmeticWoman, R.id.menuStoreFashionWoman,
+			R.id.menuStoreFashionKid };
 
-	private static final int[] typeClick = {
-			R.drawable.storemenu_fashion_man_clicked,
-			R.drawable.storemenu_lifestyle_clicked,
-			R.drawable.storemenu_food_clicked,
-			R.drawable.storemenu_cosmetic_man_clicked,
-			R.drawable.storemenu_cosmetic_woman_clicked,
-			R.drawable.storemenu_fashion_woman_clicked,
-			R.drawable.storemenu_fashion_kid_clicked };
+	private static final int[] typeClick = { R.drawable.storemenu_fashion_man_clicked,
+			R.drawable.storemenu_lifestyle_clicked, R.drawable.storemenu_food_clicked,
+			R.drawable.storemenu_cosmetic_man_clicked, R.drawable.storemenu_cosmetic_woman_clicked,
+			R.drawable.storemenu_fashion_woman_clicked, R.drawable.storemenu_fashion_kid_clicked };
 
-	private static final int[] typeNormal = {
-			R.drawable.storemenu_fashion_man_normal,
-			R.drawable.storemenu_lifestyle_normal,
-			R.drawable.storemenu_food_normal,
-			R.drawable.storemenu_cosmetic_man_normal,
-			R.drawable.storemenu_cosmetic_woman_normal,
-			R.drawable.storemenu_fashion_woman_normal,
-			R.drawable.storemenu_fashion_kid_normal };
+	private static final int[] typeNormal = { R.drawable.storemenu_fashion_man_normal,
+			R.drawable.storemenu_lifestyle_normal, R.drawable.storemenu_food_normal,
+			R.drawable.storemenu_cosmetic_man_normal, R.drawable.storemenu_cosmetic_woman_normal,
+			R.drawable.storemenu_fashion_woman_normal, R.drawable.storemenu_fashion_kid_normal };
 
 	private static TransactionDetailInfo productTransactionDetailInfo = new TransactionDetailInfo();
 
@@ -83,8 +72,7 @@ public class StoreMainActivity extends FragmentActivity implements
 	 * @param productTransactionDetailInfo
 	 *            the productTransactionDetailInfo to set
 	 */
-	public static void setProductTransactionDetailInfo(
-			TransactionDetailInfo productTransactionDetailInfo) {
+	public static void setProductTransactionDetailInfo(TransactionDetailInfo productTransactionDetailInfo) {
 		StoreMainActivity.productTransactionDetailInfo = productTransactionDetailInfo;
 	}
 
@@ -128,13 +116,11 @@ public class StoreMainActivity extends FragmentActivity implements
 		this.listProduct = new ArrayList<ProductInfo>();
 		this.storeMainListViewProduct = (ListView) findViewById(R.id.storeMainListProduct);
 
-		Typeface tf = Typeface.createFromAsset(getAssets(),
-				"fonts/noteworthy.ttc");
 		textLoading = (TextView) findViewById(R.id.tvLoading);
-		textLoading.setTypeface(tf);
+		textLoading.setTypeface(Utils.tf);
 		downloading = (ProgressBar) findViewById(R.id.downloadIndicator);
 		textNoItem = (TextView) findViewById(R.id.tvNoItem);
-		textNoItem.setTypeface(tf);
+		textNoItem.setTypeface(Utils.tf);
 
 		menuStoreFashionManClick(null);
 		for (int i = 0; i < type.length; i++) {
@@ -184,8 +170,7 @@ public class StoreMainActivity extends FragmentActivity implements
 		showDownloadingIndicator();
 		Log.i("StoreMainActivity - loadData", "Start");
 		if (storeMainProductAdapter != null) {
-			this.storeMainProductAdapter = new StoreProductPageAdapter(this,
-					new ArrayList<StoreProductPageInfo>());
+			this.storeMainProductAdapter = new StoreProductPageAdapter(this, new ArrayList<StoreProductPageInfo>());
 			storeMainListViewProduct.setAdapter(storeMainProductAdapter);
 			storeMainProductAdapter.notifyDataSetChanged();
 		}
@@ -202,21 +187,18 @@ public class StoreMainActivity extends FragmentActivity implements
 	@Override
 	public void taskCompletionResult(JSONArray result) {
 		Log.i("StoreMainActivity - taskCompletionResult", "Start");
-		Log.i("StoreMainActivity - taskCompletionResult", "JSONArray result: "
-				+ ((result == null) ? "null" : result.toString()));
+		Log.i("StoreMainActivity - taskCompletionResult",
+				"JSONArray result: " + ((result == null) ? "null" : result.toString()));
 		if (result != null) {
 			this.listProduct.clear();
 			this.hsProduct.clear();
-			Log.i("StoreMainActivity - taskCompletionResult",
-					"result's length: " + result.length());
+			Log.i("StoreMainActivity - taskCompletionResult", "result's length: " + result.length());
 			for (int i = 0; i < result.length(); i++) {
 				try {
-					ProductInfo info = new Gson().fromJson(result.getString(i),
-							ProductInfo.class);
+					ProductInfo info = new Gson().fromJson(result.getString(i), ProductInfo.class);
 					// Get all image for product
 					for (ImageInfo imageInfo : info.getImageList()) {
-						new ImageLoadTask(imageInfo)
-								.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+						new ImageLoadTask(imageInfo).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 					}
 					this.listProduct.add(info);
 					this.hsProduct.put(info.getProductId(), i);
@@ -230,8 +212,7 @@ public class StoreMainActivity extends FragmentActivity implements
 				textNoItem.setVisibility(View.VISIBLE);
 				return;
 			}
-			Log.i("StoreMainActivity - taskCompletionResult",
-					"size of listProduct: " + listProduct.size());
+			Log.i("StoreMainActivity - taskCompletionResult", "size of listProduct: " + listProduct.size());
 		}
 		updateData();
 	}
@@ -239,12 +220,10 @@ public class StoreMainActivity extends FragmentActivity implements
 	private void updateData() {
 		Log.i("StoreMainActivity - updateData", "Start");
 		ArrayList<StoreProductPageInfo> fragments = getProductFragments();
-		this.storeMainProductAdapter = new StoreProductPageAdapter(this,
-				fragments);
+		this.storeMainProductAdapter = new StoreProductPageAdapter(this, fragments);
 		this.storeMainListViewProduct.setAdapter(storeMainProductAdapter);
 		this.storeMainListViewProduct.setDivider(null);
-		Log.i("StoreMainActivity - updateData",
-				"Num of page: " + fragments.size());
+		Log.i("StoreMainActivity - updateData", "Num of page: " + fragments.size());
 	}
 
 	private ArrayList<StoreProductPageInfo> getProductFragments() {
@@ -273,39 +252,32 @@ public class StoreMainActivity extends FragmentActivity implements
 			}
 		}
 
-		Log.i("StoreMainActivity - getFragments", "size of list fragment: "
-				+ fList.size());
+		Log.i("StoreMainActivity - getFragments", "size of list fragment: " + fList.size());
 		return fList;
 	}
 
 	public void menuStoreFashionManClick(View view) {
-		loadData(productCategory.cat_fashion_man,
-				productSearchType.search_for_client);
+		loadData(productCategory.cat_fashion_man, productSearchType.search_for_client);
 	}
 
 	public void menuStoreFashionWomanClick(View view) {
-		loadData(productCategory.cat_fashion_woman,
-				productSearchType.search_for_client);
+		loadData(productCategory.cat_fashion_woman, productSearchType.search_for_client);
 	}
 
 	public void menuStoreFashionKidClick(View view) {
-		loadData(productCategory.cat_fashion_kid,
-				productSearchType.search_for_client);
+		loadData(productCategory.cat_fashion_kid, productSearchType.search_for_client);
 	}
 
 	public void menuStoreCosmeticManClick(View view) {
-		loadData(productCategory.cat_cos_man,
-				productSearchType.search_for_client);
+		loadData(productCategory.cat_cos_man, productSearchType.search_for_client);
 	}
 
 	public void menuStoreCosmeticWomanClick(View view) {
-		loadData(productCategory.cat_cos_woman,
-				productSearchType.search_for_client);
+		loadData(productCategory.cat_cos_woman, productSearchType.search_for_client);
 	}
 
 	public void menuStoreLifeStyleClick(View view) {
-		loadData(productCategory.cat_lifeStyle,
-				productSearchType.search_for_client);
+		loadData(productCategory.cat_lifeStyle, productSearchType.search_for_client);
 	}
 
 	public void menuStoreFoodClick(View view) {
@@ -317,15 +289,14 @@ public class StoreMainActivity extends FragmentActivity implements
 	}
 
 	public void btnStoreCartClick(View view) {
-
+		Utils.isUnbindDrawables = false;
 		TransactionDetailDB db = new TransactionDetailDB(this);
 		try {
 			if (db.getTransactions().size() > 0) {
 				Intent intent = new Intent(this, PreviewCartActivity.class);
 				startActivity(intent);
 			} else {
-				Toast.makeText(this, "Không có sản phẩm trong giỏ hàng",
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(this, "Không có sản phẩm trong giỏ hàng", Toast.LENGTH_SHORT).show();
 			}
 		} catch (ParseException e) {
 			Log.e("StoreMainActivity - btnStoreCartClick", e.getMessage());
@@ -338,44 +309,36 @@ public class StoreMainActivity extends FragmentActivity implements
 	}
 
 	public void btnStoreDetailEmailClick(View view) {
-		Emailplugin.SendEmailFromStoreView(this,
-				listProduct.get(mPager.getCurrentItem()));
+		Utils.isUnbindDrawables = false;
+		Emailplugin.SendEmailFromStoreView(this, listProduct.get(mPager.getCurrentItem()));
 	}
 
 	public void btnStoreDetailFacebookClick(View view) {
-
+		Utils.isUnbindDrawables = false;
 	}
 
 	public void btnAddToCartClick(View view) {
 		Log.i("StoreMainActivity - btnAddToCartClick", "Start");
 		try {
 			TransactionDetailInfo transaction = StoreMainActivity.productTransactionDetailInfo;
-			if (transaction.getCategoryId() < 5
-					&& transaction.getSizeType() == null) {
-				Toast.makeText(this, "Xin vui lòng chọn size sản phẩm",
-						Toast.LENGTH_SHORT).show();
+			if (transaction.getCategoryId() < 5 && transaction.getSizeType() == null) {
+				Toast.makeText(this, "Xin vui lòng chọn size sản phẩm", Toast.LENGTH_SHORT).show();
 				return;
 			}
 
 			TransactionDetailDB db = new TransactionDetailDB(this);
-			ArrayList<TransactionDetailInfo> transactions = db
-					.getTransactions();
+			ArrayList<TransactionDetailInfo> transactions = db.getTransactions();
 			for (TransactionDetailInfo transactionDetailInfo : transactions) {
-				if (transaction.getProductId().equals(
-						transactionDetailInfo.getProductId())) {
-					Toast.makeText(
-							this,
-							"Sản phẩm này đã có trong giỏ hàng.\nVui lòng xem giỏ hàng để biết chi tiết.",
+				if (transaction.getProductId().equals(transactionDetailInfo.getProductId())) {
+					Toast.makeText(this, "Sản phẩm này đã có trong giỏ hàng.\nVui lòng xem giỏ hàng để biết chi tiết.",
 							Toast.LENGTH_SHORT).show();
 					return;
 				}
 			}
 
-			StoreMainActivity.productTransactionDetailInfo
-					.setAddedDate(Calendar.getInstance().getTime());
+			StoreMainActivity.productTransactionDetailInfo.setAddedDate(Calendar.getInstance().getTime());
 			db.insert(StoreMainActivity.productTransactionDetailInfo);
-			Toast.makeText(this, "Đã thêm vào giỏ hàng", Toast.LENGTH_SHORT)
-					.show();
+			Toast.makeText(this, "Đã thêm vào giỏ hàng", Toast.LENGTH_SHORT).show();
 			this.updateStoreCart();
 			this.storeProduct.setVisibility(FrameLayout.VISIBLE);
 			this.storeProductDetail.setVisibility(FrameLayout.GONE);
@@ -443,14 +406,10 @@ public class StoreMainActivity extends FragmentActivity implements
 		Log.i("StoreMainActivity - storeProductClick", "index: " + index);
 		this.updateDataDetail(index);
 		ProductInfo product = listProduct.get(index);
-		StoreMainActivity.productTransactionDetailInfo.setCategoryId(product
-				.getCategoryId());
-		StoreMainActivity.productTransactionDetailInfo.setProductId(product
-				.getProductId());
-		StoreMainActivity.productTransactionDetailInfo.setProductName(product
-				.getName());
-		StoreMainActivity.productTransactionDetailInfo.setUnitPrice(product
-				.getUnitPrice());
+		StoreMainActivity.productTransactionDetailInfo.setCategoryId(product.getCategoryId());
+		StoreMainActivity.productTransactionDetailInfo.setProductId(product.getProductId());
+		StoreMainActivity.productTransactionDetailInfo.setProductName(product.getName());
+		StoreMainActivity.productTransactionDetailInfo.setUnitPrice(product.getUnitPrice());
 	}
 
 	private void updateDataDetail(Integer index) {
@@ -458,8 +417,7 @@ public class StoreMainActivity extends FragmentActivity implements
 		List<Fragment> fragments = this.getProductDetailFragments();
 		// Instantiate a ViewPager and a PagerAdapter.
 		mPager = (ViewPager) findViewById(R.id.storeDetailPager);
-		mPagerAdapter = new CustomPagerAdapter(getSupportFragmentManager(),
-				fragments);
+		mPagerAdapter = new CustomPagerAdapter(getSupportFragmentManager(), fragments);
 		mPager.setAdapter(mPagerAdapter);
 		mPagerAdapter.notifyDataSetChanged();
 		mPager.setCurrentItem(index);
@@ -481,8 +439,7 @@ public class StoreMainActivity extends FragmentActivity implements
 				Log.i("StoreMainActivity - onPageScrollStateChanged", "Start");
 				TextView tvPage = (TextView) findViewById(R.id.tvStoreDetailPage);
 				if (listProduct.size() > 0) {
-					String pageDisplay = mPager.getCurrentItem() + 1 + "/"
-							+ mPagerAdapter.getCount();
+					String pageDisplay = mPager.getCurrentItem() + 1 + "/" + mPagerAdapter.getCount();
 					tvPage.setText(pageDisplay);
 				}
 
@@ -493,8 +450,7 @@ public class StoreMainActivity extends FragmentActivity implements
 					if (mPager.getCurrentItem() == 0) {
 						btnPagePrevious.setImageAlpha(70);
 						btnPageNext.setImageAlpha(255);
-					} else if (mPager.getCurrentItem() == (mPagerAdapter
-							.getCount() - 1)) {
+					} else if (mPager.getCurrentItem() == (mPagerAdapter.getCount() - 1)) {
 						btnPageNext.setImageAlpha(70);
 						btnPagePrevious.setImageAlpha(255);
 					} else {
@@ -506,14 +462,10 @@ public class StoreMainActivity extends FragmentActivity implements
 				}
 
 				ProductInfo product = listProduct.get(mPager.getCurrentItem());
-				StoreMainActivity.productTransactionDetailInfo
-						.setCategoryId(product.getCategoryId());
-				StoreMainActivity.productTransactionDetailInfo
-						.setProductId(product.getProductId());
-				StoreMainActivity.productTransactionDetailInfo
-						.setProductName(product.getName());
-				StoreMainActivity.productTransactionDetailInfo
-						.setUnitPrice(product.getUnitPrice());
+				StoreMainActivity.productTransactionDetailInfo.setCategoryId(product.getCategoryId());
+				StoreMainActivity.productTransactionDetailInfo.setProductId(product.getProductId());
+				StoreMainActivity.productTransactionDetailInfo.setProductName(product.getName());
+				StoreMainActivity.productTransactionDetailInfo.setUnitPrice(product.getUnitPrice());
 			}
 
 		});
@@ -532,10 +484,8 @@ public class StoreMainActivity extends FragmentActivity implements
 	public void storeDetailProductSizeClick(View view) {
 		Log.i("StoreMainActivity - storeDetailProductSizeClick", "Start");
 		ImageView sizeImage = (ImageView) view;
-		Integer sizeType = Integer.parseInt(sizeImage.getContentDescription()
-				.toString());
-		Log.i("StoreMainActivity - storeDetailProductSizeClick", "size type: "
-				+ sizeType.toString());
+		Integer sizeType = Integer.parseInt(sizeImage.getContentDescription().toString());
+		Log.i("StoreMainActivity - storeDetailProductSizeClick", "size type: " + sizeType.toString());
 		sizeImage.setImageAlpha(255);
 	}
 
@@ -561,8 +511,7 @@ public class StoreMainActivity extends FragmentActivity implements
 		Log.i("StoreMainActivity - updatePageNumView", "Start");
 		TextView tvPage = (TextView) findViewById(R.id.tvStoreDetailPage);
 		if (this.listProduct.size() > 0) {
-			String pageDisplay = mPager.getCurrentItem() + 1 + "/"
-					+ mPagerAdapter.getCount();
+			String pageDisplay = mPager.getCurrentItem() + 1 + "/" + mPagerAdapter.getCount();
 			tvPage.setText(pageDisplay);
 		}
 
@@ -596,19 +545,24 @@ public class StoreMainActivity extends FragmentActivity implements
 		} catch (ParseException e) {
 			Log.e("StoreMainActivity - updateStoreCart", e.getMessage());
 		}
-		tvStoreCart.setText(listTransactionDetail.size() + "");
+		if (tvStoreCart != null) {
+			tvStoreCart.setText(listTransactionDetail.size() + "");
+		}
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
+		Utils.isUnbindDrawables = true;
 		updateStoreCart();
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
-		Utils.unbindDrawables(findViewById(R.id.container));
+		if (Utils.isUnbindDrawables) {
+			Utils.unbindDrawables(findViewById(R.id.container));
+		}
 		System.gc();
 	}
 }

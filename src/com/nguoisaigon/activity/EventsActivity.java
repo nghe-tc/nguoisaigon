@@ -5,7 +5,6 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import android.annotation.SuppressLint;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -28,8 +27,7 @@ import com.nguoisaigon.util.WebService;
 import com.nguoisaigon.util.WebService.WebServiceDelegate;
 
 @SuppressLint("SimpleDateFormat")
-public class EventsActivity extends FragmentActivity implements
-		WebServiceDelegate {
+public class EventsActivity extends FragmentActivity implements WebServiceDelegate {
 
 	/**
 	 * The pager widget, which handles animation and allows swiping horizontally
@@ -42,26 +40,24 @@ public class EventsActivity extends FragmentActivity implements
 	 */
 	private PagerAdapter mPagerAdapter;
 
-	private ArrayList<EventsInfo> listEvents;
+	private ArrayList<EventsInfo> listEvents = new ArrayList<EventsInfo>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.events_layout);
 
-		Typeface tf = Typeface.createFromAsset(getAssets(),
-				"fonts/noteworthy.ttc");
 		TextView tvPage = (TextView) findViewById(R.id.tvEventsPage);
 		TextView tvLoading = (TextView) findViewById(R.id.tvEventsLoading);
 		TextView tvNoEvent = (TextView) findViewById(R.id.noEvent);
-		this.mPager = (ViewPager) findViewById(R.id.eventsPager);
+		mPager = (ViewPager) findViewById(R.id.eventsPager);
 
-		tvPage.setTypeface(tf);
-		tvLoading.setTypeface(tf);
-		tvNoEvent.setTypeface(tf);
+		tvPage.setTypeface(Utils.tf);
+		tvLoading.setTypeface(Utils.tf);
+		tvNoEvent.setTypeface(Utils.tf);
 
-		this.loadData();
-		this.setEventsPageChageLisener();
+		loadData();
+		setEventsPageChageLisener();
 	}
 
 	@Override
@@ -69,25 +65,24 @@ public class EventsActivity extends FragmentActivity implements
 		Log.i("EventsActivity", (result == null) ? "null" : result.toString());
 		if (result != null) {
 			try {
+				listEvents.clear();
 				for (int i = 0; i < result.length(); i++) {
 					JSONObject eventJSON = result.getJSONObject(i);
-					EventsInfo event = new Gson().fromJson(
-							eventJSON.toString(), EventsInfo.class);
+					EventsInfo event = new Gson().fromJson(eventJSON.toString(), EventsInfo.class);
 					// event.setEventId(eventJSON.getString("eventId"));
 					// event.setEventContent(eventJSON.getString("eventContent"));
 					// event.setTitle(eventJSON.getString("title"));
-					this.listEvents.add(event);
+					listEvents.add(event);
 				}
 			} catch (Exception e) {
 				Log.i("EventsActivity", e.getMessage());
 			}
-			Log.i("EventsActivity - total event", this.listEvents.size() + "");
+			Log.i("EventsActivity - total event", listEvents.size() + "");
 		}
 		updateData();
 	}
 
 	public void loadData() {
-		this.listEvents = new ArrayList<EventsInfo>();
 		// Download data
 		if (WebService.isNetworkAvailable(this)) {
 			WebService ws = new WebService(this);
@@ -103,9 +98,8 @@ public class EventsActivity extends FragmentActivity implements
 
 	public void updatePageNumView() {
 		TextView tvPage = (TextView) findViewById(R.id.tvEventsPage);
-		if (this.listEvents.size() > 0) {
-			String pageDisplay = mPager.getCurrentItem() + 1 + "/"
-					+ mPagerAdapter.getCount();
+		if (listEvents.size() > 0) {
+			String pageDisplay = mPager.getCurrentItem() + 1 + "/" + mPagerAdapter.getCount();
 			tvPage.setText(pageDisplay);
 		}
 
@@ -132,11 +126,10 @@ public class EventsActivity extends FragmentActivity implements
 
 		List<Fragment> fragments = getFragments();
 		// Instantiate a ViewPager and a PagerAdapter.
-		mPagerAdapter = new CustomPagerAdapter(getSupportFragmentManager(),
-				fragments);
-		this.mPager = (ViewPager) findViewById(R.id.eventsPager);
+		mPagerAdapter = new CustomPagerAdapter(getSupportFragmentManager(), fragments);
+		mPager = (ViewPager) findViewById(R.id.eventsPager);
 		mPager.setAdapter(mPagerAdapter);
-		this.updatePageNumView();
+		updatePageNumView();
 
 		TextView tvNoEvent = (TextView) findViewById(R.id.noEvent);
 		if (mPagerAdapter.getCount() < 1) {
@@ -150,12 +143,18 @@ public class EventsActivity extends FragmentActivity implements
 		TextView tvLoading = (TextView) findViewById(R.id.tvEventsLoading);
 		tvLoading.setVisibility(TextView.GONE);
 
+		ImageView email = (ImageView) findViewById(R.id.btnEventsEmail);
+		if (listEvents.size() == 0) {
+			email.setImageAlpha(70);
+		} else {
+			email.setImageAlpha(255);
+		}
 	}
 
 	private List<Fragment> getFragments() {
-		Log.i("EventsActivity - getFragments", this.listEvents.size() + "");
+		Log.i("EventsActivity - getFragments", listEvents.size() + "");
 		List<Fragment> fList = new ArrayList<Fragment>();
-		for (EventsInfo event : this.listEvents) {
+		for (EventsInfo event : listEvents) {
 			fList.add(EventsPageFragment.newInstance(event));
 		}
 		return fList;
@@ -167,7 +166,7 @@ public class EventsActivity extends FragmentActivity implements
 	 * @param view
 	 */
 	public void btnCloseClick(View view) {
-		this.finish();
+		finish();
 	}
 
 	/**
@@ -176,7 +175,7 @@ public class EventsActivity extends FragmentActivity implements
 	 * @param view
 	 */
 	public void btnFacebookClick(View view) {
-
+		Utils.isUnbindDrawables = false;
 	}
 
 	/**
@@ -185,8 +184,10 @@ public class EventsActivity extends FragmentActivity implements
 	 * @param view
 	 */
 	public void btnEmailClick(View view) {
-		Emailplugin.SendEmailFromEventView(this,
-				this.listEvents.get(this.mPager.getCurrentItem()));
+		Utils.isUnbindDrawables = false;
+		if (listEvents.size() > 0) {
+			Emailplugin.SendEmailFromEventView(this, listEvents.get(mPager.getCurrentItem()));
+		}
 	}
 
 	/**
@@ -198,7 +199,7 @@ public class EventsActivity extends FragmentActivity implements
 		int currentItem = mPager.getCurrentItem();
 		if (currentItem < mPager.getAdapter().getCount()) {
 			mPager.setCurrentItem(mPager.getCurrentItem() + 1, true);
-			this.updatePageNumView();
+			updatePageNumView();
 		}
 	}
 
@@ -211,12 +212,12 @@ public class EventsActivity extends FragmentActivity implements
 		int currentItem = mPager.getCurrentItem();
 		if (currentItem > 0) {
 			mPager.setCurrentItem(mPager.getCurrentItem() - 1, true);
-			this.updatePageNumView();
+			updatePageNumView();
 		}
 	}
 
 	void setEventsPageChageLisener() {
-		this.mPager.setOnPageChangeListener(new OnPageChangeListener() {
+		mPager.setOnPageChangeListener(new OnPageChangeListener() {
 
 			@Override
 			public void onPageSelected(int arg0) {
@@ -233,8 +234,7 @@ public class EventsActivity extends FragmentActivity implements
 				Log.i("EventsActivity - onPageScrollStateChanged", "Start");
 				TextView tvPage = (TextView) findViewById(R.id.tvEventsPage);
 				if (listEvents.size() > 0) {
-					String pageDisplay = mPager.getCurrentItem() + 1 + "/"
-							+ mPagerAdapter.getCount();
+					String pageDisplay = mPager.getCurrentItem() + 1 + "/" + mPagerAdapter.getCount();
 					tvPage.setText(pageDisplay);
 				}
 
@@ -245,8 +245,7 @@ public class EventsActivity extends FragmentActivity implements
 					if (mPager.getCurrentItem() == 0) {
 						btnPagePrevious.setImageAlpha(70);
 						btnPageNext.setImageAlpha(255);
-					} else if (mPager.getCurrentItem() == (mPagerAdapter
-							.getCount() - 1)) {
+					} else if (mPager.getCurrentItem() == (mPagerAdapter.getCount() - 1)) {
 						btnPageNext.setImageAlpha(70);
 						btnPagePrevious.setImageAlpha(255);
 					} else {
@@ -261,10 +260,17 @@ public class EventsActivity extends FragmentActivity implements
 	}
 
 	@Override
-	protected void onPause() {
-		super.onPause();
-		Utils.unbindDrawables(findViewById(R.id.container));
-		System.gc();
+	protected void onResume() {
+		super.onResume();
+		Utils.isUnbindDrawables = true;
 	}
 
+	@Override
+	protected void onPause() {
+		super.onPause();
+		if (Utils.isUnbindDrawables) {
+			Utils.unbindDrawables(findViewById(R.id.container));
+		}
+		System.gc();
+	}
 }

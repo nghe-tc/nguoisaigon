@@ -1,25 +1,23 @@
 package com.nguoisaigon.activity;
 
 import org.json.JSONArray;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.gson.Gson;
 import com.nguoisaigon.R;
 import com.nguoisaigon.db.UserDB;
 import com.nguoisaigon.entity.UserInfo;
+import com.nguoisaigon.util.Utils;
 import com.nguoisaigon.util.WebService;
 import com.nguoisaigon.util.WebService.WebServiceDelegate;
 
@@ -67,20 +65,17 @@ public class Checkout1Activity extends Activity implements WebServiceDelegate {
 		txtCheckoutAddress = (EditText) findViewById(R.id.txtCheckoutAddress);
 		txtCheckoutNote = (EditText) findViewById(R.id.txtCheckoutNote);
 
-		Typeface tf = Typeface.createFromAsset(getAssets(),
-				"fonts/noteworthy.ttc");
-
-		tvCheckoutStep1Title.setTypeface(tf);
-		tvCheckoutStep2Title.setTypeface(tf);
-		tvCheckoutStep3Title.setTypeface(tf);
-		tvCheckoutStep4Title.setTypeface(tf);
-		tvCheckoutStep1MainTitle.setTypeface(tf);
-		tvCheckoutNameTitle.setTypeface(tf);
-		tvCheckoutEmailTitle.setTypeface(tf);
-		tvCheckoutPhoneTitle.setTypeface(tf);
-		tvCheckoutAddressTitle.setTypeface(tf);
-		tvCheckoutNoteTitle.setTypeface(tf);
-		tvCheckoutDetailTitle.setTypeface(tf);
+		tvCheckoutStep1Title.setTypeface(Utils.tf);
+		tvCheckoutStep2Title.setTypeface(Utils.tf);
+		tvCheckoutStep3Title.setTypeface(Utils.tf);
+		tvCheckoutStep4Title.setTypeface(Utils.tf);
+		tvCheckoutStep1MainTitle.setTypeface(Utils.tf);
+		tvCheckoutNameTitle.setTypeface(Utils.tf);
+		tvCheckoutEmailTitle.setTypeface(Utils.tf);
+		tvCheckoutPhoneTitle.setTypeface(Utils.tf);
+		tvCheckoutAddressTitle.setTypeface(Utils.tf);
+		tvCheckoutNoteTitle.setTypeface(Utils.tf);
+		tvCheckoutDetailTitle.setTypeface(Utils.tf);
 		tvCheckoutStep1MainTitle.setText(mainTitle);
 
 		loadData();
@@ -122,19 +117,18 @@ public class Checkout1Activity extends Activity implements WebServiceDelegate {
 							}
 						}
 					});
-					dlgAlert.setNegativeButton("Không cần",
-							new OnClickListener() {
+					dlgAlert.setNegativeButton("Không cần", new OnClickListener() {
 
-								@Override
-								public void onClick(DialogInterface dialog,
-										int which) {
-									Intent intent = new Intent(context,
-											Checkout2Activity.class);
-									startActivity(intent);
-								}
-							});
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							Utils.isUnbindDrawables = false;
+							Intent intent = new Intent(context, Checkout2Activity.class);
+							startActivity(intent);
+						}
+					});
 					dlgAlert.create().show();
 				} else {
+					Utils.isUnbindDrawables = false;
 					Intent intent = new Intent(this, Checkout2Activity.class);
 					startActivity(intent);
 				}
@@ -143,7 +137,7 @@ public class Checkout1Activity extends Activity implements WebServiceDelegate {
 	}
 
 	public void btnBackClick(View view) {
-		onBackPressed();
+		finish();
 	}
 
 	private Boolean checkUpdateUserInfo() {
@@ -165,22 +159,19 @@ public class Checkout1Activity extends Activity implements WebServiceDelegate {
 		String note = txtCheckoutNote.getText().toString();
 
 		if (name.isEmpty()) {
-			Toast.makeText(this, "Xin vui lòng nhập tên người dùng",
-					Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "Xin vui lòng nhập tên người dùng", Toast.LENGTH_SHORT).show();
 			txtCheckoutName.requestFocus();
 			return false;
 		}
 
 		if (phone.isEmpty()) {
-			Toast.makeText(this, "Xin vui lòng nhập số điện thoại",
-					Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "Xin vui lòng nhập số điện thoại", Toast.LENGTH_SHORT).show();
 			txtCheckoutPhone.requestFocus();
 			return false;
 		}
 
 		if (address.isEmpty()) {
-			Toast.makeText(this, "Xin vui lòng nhập địa chỉ giao hàng",
-					Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "Xin vui lòng nhập địa chỉ giao hàng", Toast.LENGTH_SHORT).show();
 			txtCheckoutAddress.requestFocus();
 			return false;
 		}
@@ -198,8 +189,7 @@ public class Checkout1Activity extends Activity implements WebServiceDelegate {
 	public void taskCompletionResult(JSONArray result) {
 		Log.i("Checkout1Activity - taskCompletionResult", result.toString());
 		try {
-			userInfo = new Gson().fromJson(result.get(0).toString(),
-					UserInfo.class);
+			userInfo = new Gson().fromJson(result.get(0).toString(), UserInfo.class);
 		} catch (Exception e) {
 			Log.e("Checkout1Activity - taskCompletionResult", e.getMessage());
 		}
@@ -208,20 +198,32 @@ public class Checkout1Activity extends Activity implements WebServiceDelegate {
 			UserDB db = new UserDB(this);
 			if (isNewUser) {
 				db.insert(userInfo);
-				Toast.makeText(this,
-						"Thông tin người dùng đã được đăng ký mới",
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(this, "Thông tin người dùng đã được đăng ký mới", Toast.LENGTH_SHORT).show();
 			} else {
 				db.update(userInfo);
-				Toast.makeText(this,
-						"Thông tin người dùng đã được cập nhật mới",
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(this, "Thông tin người dùng đã được cập nhật mới", Toast.LENGTH_SHORT).show();
 			}
 
+			Utils.isUnbindDrawables = false;
 			Intent intent = new Intent(this, Checkout2Activity.class);
 			startActivity(intent);
 		} else {
 
 		}
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		Utils.isUnbindDrawables = true;
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		if (Utils.isUnbindDrawables) {
+			Utils.unbindDrawables(findViewById(R.id.container));
+		}
+		System.gc();
 	}
 }

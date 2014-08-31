@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
@@ -208,10 +209,11 @@
             android:layout_height="35sp"
             android:layout_marginLeft="250sp"
             android:layout_marginTop="80sp"
-            android:ems="5" 
-            android:inputType="text"
+            android:ems="5"
             android:hint="Chúng tôi sẽ liên lạc với bạn bằng tên này"
-            android:textSize="7pt">
+            android:inputType="text"
+            android:textSize="7pt" >
+
             <requestFocus />
         </EditText>
 
@@ -222,9 +224,9 @@
             android:layout_marginLeft="250sp"
             android:layout_marginTop="125sp"
             android:ems="5"
-            android:inputType="textEmailAddress" 
             android:hint="Địa chỉ email"
-            android:textSize="7pt"/>
+            android:inputType="textEmailAddress"
+            android:textSize="7pt" />
 
         <EditText
             android:id="@+id/txtCheckoutPhone"
@@ -233,9 +235,9 @@
             android:layout_marginLeft="250sp"
             android:layout_marginTop="170sp"
             android:ems="5"
-            android:inputType="phone" 
             android:hint="Chúng tôi sẽ liên lạc với bạn bằng số này"
-            android:textSize="7pt"/>
+            android:inputType="phone"
+            android:textSize="7pt" />
 
         <EditText
             android:id="@+id/txtCheckoutAddress"
@@ -244,9 +246,9 @@
             android:layout_marginLeft="250sp"
             android:layout_marginTop="225sp"
             android:ems="5"
-            android:inputType="text" 
             android:hint="Chúng tôi sẽ giao hàng đến địa chỉ này"
-            android:textSize="7pt"/>
+            android:inputType="text"
+            android:textSize="7pt" />
 
         <EditText
             android:id="@+id/txtCheckoutNote"
@@ -255,10 +257,10 @@
             android:layout_marginLeft="250sp"
             android:layout_marginTop="275sp"
             android:ems="5"
-            android:inputType="text" 
             android:hint="Ghi chú kèm theo nếu có"
-            android:textSize="7pt"/>
-        
+            android:inputType="text"
+            android:textSize="7pt" />
+
         <ImageView
             android:id="@+id/btnCheckout1Next"
             android:layout_width="80sp"
@@ -267,8 +269,8 @@
             android:layout_marginTop="30sp"
             android:contentDescription="@string/welcomebg"
             android:onClick="btnCheckout1NextClick"
-            android:src="@drawable/nexttextbutton"
-            android:scaleType="fitXY" />
+            android:scaleType="fitXY"
+            android:src="@drawable/nexttextbutton" />
     </FrameLayout>
 
 </LinearLayout>

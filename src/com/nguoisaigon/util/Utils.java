@@ -1,11 +1,16 @@
 package com.nguoisaigon.util;
 
+import android.graphics.Typeface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 
 public class Utils {
+
+	public static Typeface tf;
+	
+	public static boolean isUnbindDrawables = true;
 
 	public static void unbindDrawables(View view) {
 		if (view.getBackground() != null) {

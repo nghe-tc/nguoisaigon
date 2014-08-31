@@ -2,12 +2,11 @@ package com.nguoisaigon.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-
 import com.nguoisaigon.R;
+import com.nguoisaigon.util.Utils;
 
 public class Checkout4Activity extends Activity {
 	private TextView tvCheckoutStep1Title;
@@ -25,43 +24,51 @@ public class Checkout4Activity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.checkout4_layout);
 
-		this.tvCheckoutStep1Title = (TextView) findViewById(R.id.tvCheckoutStep1Title);
-		this.tvCheckoutStep2Title = (TextView) findViewById(R.id.tvCheckoutStep2Title);
-		this.tvCheckoutStep3Title = (TextView) findViewById(R.id.tvCheckoutStep3Title);
-		this.tvCheckoutStep4Title = (TextView) findViewById(R.id.tvCheckoutStep4Title);
-		this.tvCheckoutStep4MainTitle = (TextView) findViewById(R.id.tvCheckoutStep4MainTitle);
-		this.tvCheckoutStep4Detail = (TextView) findViewById(R.id.tvCheckoutStep4Detail);
-		this.tvCheckoutStep3Title = (TextView) findViewById(R.id.tvCheckoutStep3Title);
-		this.tvCheckout4FacebookTitle = (TextView) findViewById(R.id.tvCheckout4FacebookTitle);
-		this.tvCheckout4StoreTitle = (TextView) findViewById(R.id.tvCheckout4StoreTitle);
-		this.tvCheckout4HomeTitle = (TextView) findViewById(R.id.tvCheckout4HomeTitle);
+		tvCheckoutStep1Title = (TextView) findViewById(R.id.tvCheckoutStep1Title);
+		tvCheckoutStep2Title = (TextView) findViewById(R.id.tvCheckoutStep2Title);
+		tvCheckoutStep3Title = (TextView) findViewById(R.id.tvCheckoutStep3Title);
+		tvCheckoutStep4Title = (TextView) findViewById(R.id.tvCheckoutStep4Title);
+		tvCheckoutStep4MainTitle = (TextView) findViewById(R.id.tvCheckoutStep4MainTitle);
+		tvCheckoutStep4Detail = (TextView) findViewById(R.id.tvCheckoutStep4Detail);
+		tvCheckoutStep3Title = (TextView) findViewById(R.id.tvCheckoutStep3Title);
+		tvCheckout4FacebookTitle = (TextView) findViewById(R.id.tvCheckout4FacebookTitle);
+		tvCheckout4StoreTitle = (TextView) findViewById(R.id.tvCheckout4StoreTitle);
+		tvCheckout4HomeTitle = (TextView) findViewById(R.id.tvCheckout4HomeTitle);
 
-		Typeface tf = Typeface.createFromAsset(getAssets(),
-				"fonts/noteworthy.ttc");
-
-		this.tvCheckoutStep1Title.setTypeface(tf);
-		this.tvCheckoutStep2Title.setTypeface(tf);
-		this.tvCheckoutStep3Title.setTypeface(tf);
-		this.tvCheckoutStep4Title.setTypeface(tf);
-		this.tvCheckoutStep4MainTitle.setTypeface(tf);
-		this.tvCheckoutStep4Detail.setTypeface(tf);
-		this.tvCheckoutStep3Title.setTypeface(tf);
-		this.tvCheckout4FacebookTitle.setTypeface(tf);
-		this.tvCheckout4StoreTitle.setTypeface(tf);
-		this.tvCheckout4HomeTitle.setTypeface(tf);
+		tvCheckoutStep1Title.setTypeface(Utils.tf);
+		tvCheckoutStep2Title.setTypeface(Utils.tf);
+		tvCheckoutStep3Title.setTypeface(Utils.tf);
+		tvCheckoutStep4Title.setTypeface(Utils.tf);
+		tvCheckoutStep4MainTitle.setTypeface(Utils.tf);
+		tvCheckoutStep4Detail.setTypeface(Utils.tf);
+		tvCheckoutStep3Title.setTypeface(Utils.tf);
+		tvCheckout4FacebookTitle.setTypeface(Utils.tf);
+		tvCheckout4StoreTitle.setTypeface(Utils.tf);
+		tvCheckout4HomeTitle.setTypeface(Utils.tf);
 	}
 
 	public void btnCheckout4FacebookClick(View view) {
 
 	}
-	
+
 	public void btnCheckout4StoreClick(View view) {
 		Intent intent = new Intent(this, StoreMainActivity.class);
+		intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 		startActivity(intent);
+		finish();
 	}
-	
+
 	public void btnCheckout4HomeClick(View view) {
 		Intent intent = new Intent(this, HomeScreenActivity.class);
+		intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 		startActivity(intent);
+		finish();
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		Utils.unbindDrawables(findViewById(R.id.container));
+		System.gc();
 	}
 }

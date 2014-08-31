@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
@@ -100,9 +101,9 @@
             android:layout_width="match_parent"
             android:layout_height="170sp"
             android:layout_marginTop="130sp"
-            android:listSelector="@android:color/transparent" 
-            android:cacheColorHint="#00000000"/>
-        
+            android:cacheColorHint="#00000000"
+            android:listSelector="@android:color/transparent" />
+
         <ImageView
             android:id="@+id/btnCartCheckout"
             android:layout_width="140dp"
@@ -112,7 +113,7 @@
             android:contentDescription="@string/welcomebg"
             android:onClick="btnCartCheckoutClick"
             android:src="@drawable/checkoutbutton" />
-        
+
         <TextView
             android:id="@+id/tvCartTotalText"
             android:layout_width="wrap_content"
@@ -124,7 +125,7 @@
             android:textColor="@color/red_dark"
             android:textSize="8pt"
             android:textStyle="bold" />
-        
+
         <TextView
             android:id="@+id/tvCartTotal"
             android:layout_width="wrap_content"
@@ -136,7 +137,6 @@
             android:textColor="@color/red_dark"
             android:textSize="8pt"
             android:textStyle="bold" />
-        
     </FrameLayout>
 
 </LinearLayout>

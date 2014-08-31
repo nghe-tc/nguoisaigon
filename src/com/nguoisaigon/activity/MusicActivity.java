@@ -5,7 +5,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
@@ -38,49 +37,14 @@ public class MusicActivity extends Activity {
 	public static final String PREFIX_DOWNLOAD = "/.nguoisaigon/";
 	private String path = Environment.getExternalStorageDirectory() + PREFIX_DOWNLOAD;
 
-	private Typeface tf;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.music_layout);
 
-		tf = Typeface.createFromAsset(getAssets(), "fonts/noteworthy.ttc");
-
 		stop = (View) findViewById(R.id.btnMusicStop);
 		play = (View) findViewById(R.id.btnMusicPlay);
 		lvSongList = (ListView) findViewById(R.id.lvSongList);
-
-		String musicData = MusicManager.getDataFromSharedPreference(getApplicationContext(), MusicManager.MUSIC_DATA);
-		if (!TextUtils.isEmpty(musicData)) {
-			try {
-				JSONArray jsonArray = new JSONArray(musicData);
-				for (int i = 0; i < jsonArray.length(); i++) {
-					JSONObject musicJSON = jsonArray.getJSONObject(i);
-					MusicInfo musicInfo = new MusicInfo();
-					musicInfo.setOwnerInfo(musicJSON.getString("ownerInfo"));
-					musicInfo.setPlayListId(musicJSON.getString("playListId"));
-					musicInfo.setPlayUrl(musicJSON.getString("playUrl"));
-					musicInfo.setSinger(musicJSON.getString("singer"));
-					musicInfo.setTitle(musicJSON.getString("title"));
-					songList.add(musicInfo);
-				}
-			} catch (Exception e) {
-				Log.i("MusicActivity", e.getMessage());
-			}
-			Log.i("MusicActivity - total song", songList.size() + "");
-		}
-		updateData();
-		player = new MediaPlayer();
-		int size = songList.size();
-		if (size > 0) {
-			MusicInfo musicInfo = songList.get(currentSong);
-			try {
-				player.setDataSource(path + musicInfo.getPlayListId());
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
 	}
 
 	/**
@@ -98,7 +62,7 @@ public class MusicActivity extends Activity {
 	 * @param view
 	 */
 	public void btnFacebookClick(View view) {
-
+		Utils.isUnbindDrawables = false;
 	}
 
 	/**
@@ -107,6 +71,7 @@ public class MusicActivity extends Activity {
 	 * @param view
 	 */
 	public void btnEmailClick(View view) {
+		Utils.isUnbindDrawables = false;
 		Emailplugin.SendEmailFromMusicView(this, songList.get(currentSong));
 	}
 
@@ -237,7 +202,7 @@ public class MusicActivity extends Activity {
 
 				holder = new ViewHolder();
 				holder.musicTextView = (TextView) view.findViewById(R.id.songName);
-				holder.musicTextView.setTypeface(tf);
+				holder.musicTextView.setTypeface(Utils.tf);
 				view.setTag(holder);
 			} else {
 				holder = (ViewHolder) view.getTag();
@@ -296,6 +261,43 @@ public class MusicActivity extends Activity {
 	}
 
 	@Override
+	protected void onResume() {
+		super.onResume();
+		Utils.isUnbindDrawables = true;
+		String musicData = MusicManager.getDataFromSharedPreference(getApplicationContext(), MusicManager.MUSIC_DATA);
+		if (!TextUtils.isEmpty(musicData)) {
+			try {
+				songList.clear();
+				JSONArray jsonArray = new JSONArray(musicData);
+				for (int i = 0; i < jsonArray.length(); i++) {
+					JSONObject musicJSON = jsonArray.getJSONObject(i);
+					MusicInfo musicInfo = new MusicInfo();
+					musicInfo.setOwnerInfo(musicJSON.getString("ownerInfo"));
+					musicInfo.setPlayListId(musicJSON.getString("playListId"));
+					musicInfo.setPlayUrl(musicJSON.getString("playUrl"));
+					musicInfo.setSinger(musicJSON.getString("singer"));
+					musicInfo.setTitle(musicJSON.getString("title"));
+					songList.add(musicInfo);
+				}
+			} catch (Exception e) {
+				Log.i("MusicActivity", e.getMessage());
+			}
+			Log.i("MusicActivity - total song", songList.size() + "");
+		}
+		updateData();
+		player = new MediaPlayer();
+		int size = songList.size();
+		if (size > 0) {
+			MusicInfo musicInfo = songList.get(currentSong);
+			try {
+				player.setDataSource(path + musicInfo.getPlayListId());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	@Override
 	protected void onPause() {
 		super.onPause();
 		if (player.isPlaying()) {
@@ -303,7 +305,9 @@ public class MusicActivity extends Activity {
 			player.release();
 		}
 		player = null;
-		Utils.unbindDrawables(findViewById(R.id.container));
+		if (Utils.isUnbindDrawables) {
+			Utils.unbindDrawables(findViewById(R.id.container));
+		}
 		System.gc();
 	}
 }

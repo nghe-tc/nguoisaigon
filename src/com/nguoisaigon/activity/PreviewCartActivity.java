@@ -3,22 +3,20 @@ package com.nguoisaigon.activity;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import com.nguoisaigon.R;
 import com.nguoisaigon.db.TransactionDetailDB;
 import com.nguoisaigon.entity.TransactionDetailInfo;
 import com.nguoisaigon.util.CartTransactionAdapter;
+import com.nguoisaigon.util.Utils;
 
 public class PreviewCartActivity extends Activity {
 	private TextView tvCartProductTitle;
@@ -30,7 +28,7 @@ public class PreviewCartActivity extends Activity {
 	private TextView tvCartTotal;
 	private TransactionDetailDB db;
 
-	private ArrayList<TransactionDetailInfo> listTransaction;
+	private ArrayList<TransactionDetailInfo> listTransaction = new ArrayList<TransactionDetailInfo>();;
 	private CartTransactionAdapter adapter;
 
 	@Override
@@ -38,61 +36,43 @@ public class PreviewCartActivity extends Activity {
 		Log.i("PreviewCartActivity - onCreate", "Start");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.preview_cart_layout);
-		this.tvCartProductTitle = (TextView) findViewById(R.id.tvCartProductTitle);
-		this.tvCartQuantityTitle = (TextView) findViewById(R.id.tvCartQuantityTitle);
-		this.tvCartPriceTitle = (TextView) findViewById(R.id.tvCartPriceTitle);
-		this.tvCartTotalTitle = (TextView) findViewById(R.id.tvCartTotalTitle);
-		this.cartListTransaction = (ListView) findViewById(R.id.cartListTransaction);
-		this.tvCartTotalText = (TextView) findViewById(R.id.tvCartTotalText);
-		this.tvCartTotal = (TextView) findViewById(R.id.tvCartTotal);
+		tvCartProductTitle = (TextView) findViewById(R.id.tvCartProductTitle);
+		tvCartQuantityTitle = (TextView) findViewById(R.id.tvCartQuantityTitle);
+		tvCartPriceTitle = (TextView) findViewById(R.id.tvCartPriceTitle);
+		tvCartTotalTitle = (TextView) findViewById(R.id.tvCartTotalTitle);
+		cartListTransaction = (ListView) findViewById(R.id.cartListTransaction);
+		tvCartTotalText = (TextView) findViewById(R.id.tvCartTotalText);
+		tvCartTotal = (TextView) findViewById(R.id.tvCartTotal);
 
-		Typeface tf = Typeface.createFromAsset(getAssets(),
-				"fonts/noteworthy.ttc");
+		tvCartProductTitle.setTypeface(Utils.tf);
+		tvCartQuantityTitle.setTypeface(Utils.tf);
+		tvCartPriceTitle.setTypeface(Utils.tf);
+		tvCartTotalTitle.setTypeface(Utils.tf);
+		tvCartTotalText.setTypeface(Utils.tf);
+		tvCartTotal.setTypeface(Utils.tf);
 
-		this.tvCartProductTitle.setTypeface(tf);
-		this.tvCartQuantityTitle.setTypeface(tf);
-		this.tvCartPriceTitle.setTypeface(tf);
-		this.tvCartTotalTitle.setTypeface(tf);
-		this.tvCartTotalText.setTypeface(tf);
-		this.tvCartTotal.setTypeface(tf);
-
-		this.listTransaction = new ArrayList<TransactionDetailInfo>();
-		this.db = new TransactionDetailDB(this);
-		for (int i = 1; i < 5; i++) {
-			TransactionDetailInfo info = new TransactionDetailInfo();
-			info.setAddedDate(Calendar.getInstance().getTime());
-			info.setCategoryId(i);
-			info.setProductId("anghghhghgh1242314532");
-			info.setProductName("Sản phẩm thứ 00" + (i + 1));
-			info.setQuantity(i);
-			info.setSizeType(i);
-			info.setStockQuantity(i);
-			info.setUnitPrice(1000000.0 * i);
-			//this.db.insert(info);
-		}
-		this.loadData();
+		db = new TransactionDetailDB(this);
+		loadData();
 	}
 
 	private void loadData() {
 		Log.i("PreviewCartActivity - loadData", "Start");
-		this.listTransaction.clear();
+		listTransaction.clear();
 		try {
-			this.listTransaction = this.db.getTransactions();
-			Log.i("PreviewCartActivity - loadData", "num of transaction: "
-					+ this.listTransaction.size());
-			this.adapter = new CartTransactionAdapter(this,
-					this.listTransaction);
-			this.cartListTransaction.setAdapter(adapter);
-			this.cartListTransaction.setDivider(null);
-			this.cartListTransaction.invalidate();
-			((BaseAdapter) this.cartListTransaction.getAdapter()).notifyDataSetChanged();
+			listTransaction = db.getTransactions();
+			Log.i("PreviewCartActivity - loadData", "num of transaction: " + listTransaction.size());
+			adapter = new CartTransactionAdapter(this, listTransaction);
+			cartListTransaction.setAdapter(adapter);
+			cartListTransaction.setDivider(null);
+			cartListTransaction.invalidate();
+			((BaseAdapter) cartListTransaction.getAdapter()).notifyDataSetChanged();
 
 			Double total = 0.0;
-			for (TransactionDetailInfo transaction : this.listTransaction) {
+			for (TransactionDetailInfo transaction : listTransaction) {
 				total += transaction.getQuantity() * transaction.getUnitPrice();
 			}
 			NumberFormat formatter = new DecimalFormat("#,###,###");
-			this.tvCartTotal.setText(formatter.format(total) + "đ");
+			tvCartTotal.setText(formatter.format(total) + "đ");
 
 		} catch (Exception ex) {
 			Log.e("PreviewCartActivity - loadData", ex.getMessage());
@@ -101,56 +81,72 @@ public class PreviewCartActivity extends Activity {
 
 	public void cartTransactionDeleteClick(View view) {
 		Log.i("PreviewCartActivity - cartTransactionDeleteClick", "Start");
-		TextView tvCartTransactionDeleteIndex = (TextView) view
-				.findViewById(R.id.tvCartTransactionDeleteIndex);
-		Integer index = Integer.parseInt(tvCartTransactionDeleteIndex.getText()
-				.toString());
-		this.db.delete(this.listTransaction.get(index).getId());
-		this.loadData();
+		TextView tvCartTransactionDeleteIndex = (TextView) view.findViewById(R.id.tvCartTransactionDeleteIndex);
+		Integer index = Integer.parseInt(tvCartTransactionDeleteIndex.getText().toString());
+		db.delete(listTransaction.get(index).getId());
+		if (listTransaction.size() == 1) {
+			ImageView cartCheckout = (ImageView) findViewById(R.id.btnCartCheckout);
+			cartCheckout.setImageAlpha(70);
+		}
+		loadData();
 	}
 
 	public void cartTransactionPlusClick(View view) {
 		Log.i("PreviewCartActivity - cartTransactionPlusClick", "Start");
-		TextView tvCartTransactionPlusIndex = (TextView) view
-				.findViewById(R.id.tvCartTransactionPlusIndex);
-		Integer index = Integer.parseInt(tvCartTransactionPlusIndex.getText()
-				.toString());
+		TextView tvCartTransactionPlusIndex = (TextView) view.findViewById(R.id.tvCartTransactionPlusIndex);
+		Integer index = Integer.parseInt(tvCartTransactionPlusIndex.getText().toString());
 		Log.i("PreviewCartActivity - cartTransactionPlusClick", "index: " + index);
-		TransactionDetailInfo transaction = this.listTransaction.get(index);
+		TransactionDetailInfo transaction = listTransaction.get(index);
 		Log.i("PreviewCartActivity - cartTransactionPlusClick", "Quantity: " + transaction.getQuantity());
 		transaction.setQuantity(transaction.getQuantity() + 1);
 		Log.i("PreviewCartActivity - cartTransactionPlusClick", "Quantity plus: " + transaction.getQuantity());
-		this.db.update(transaction);
-		this.loadData();
+		db.update(transaction);
+		loadData();
 	}
 
 	public void cartTransactionMunisClick(View view) {
 		Log.i("PreviewCartActivity - cartTransactionMunisClick", "Start");
-		TextView tvCartTransactionMunisIndex = (TextView) view
-				.findViewById(R.id.tvCartTransactionMunisIndex);
-		Integer index = Integer.parseInt(tvCartTransactionMunisIndex.getText()
-				.toString());
+		TextView tvCartTransactionMunisIndex = (TextView) view.findViewById(R.id.tvCartTransactionMunisIndex);
+		Integer index = Integer.parseInt(tvCartTransactionMunisIndex.getText().toString());
 		Log.i("PreviewCartActivity - cartTransactionMunisClick", "index: " + index);
-		TransactionDetailInfo transaction = this.listTransaction.get(index);
+		TransactionDetailInfo transaction = listTransaction.get(index);
 		if (transaction.getQuantity() > 1) {
 			Log.i("PreviewCartActivity - cartTransactionMunisClick", "Quantity: " + transaction.getQuantity());
 			transaction.setQuantity(transaction.getQuantity() - 1);
 			Log.i("PreviewCartActivity - cartTransactionMunisClick", "Quantity munis: " + transaction.getQuantity());
-			this.db.update(transaction);
-			this.loadData();
+			db.update(transaction);
+			loadData();
 		}
 	}
 
 	public void btnBackClick(View view) {
-		onBackPressed();
+		finish();
 	}
 
 	public void btnCloseClick(View view) {
-		this.finish();
+		finish();
 	}
 
 	public void btnCartCheckoutClick(View view) {
-		Intent intent = new Intent(this, Checkout1Activity.class);
-		startActivity(intent);
+		if (listTransaction.size() > 0) {
+			Utils.isUnbindDrawables = false;
+			Intent intent = new Intent(this, Checkout1Activity.class);
+			startActivity(intent);
+		}
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		Utils.isUnbindDrawables = true;
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		if (Utils.isUnbindDrawables) {
+			Utils.unbindDrawables(findViewById(R.id.container));
+		}
+		System.gc();
 	}
 }
