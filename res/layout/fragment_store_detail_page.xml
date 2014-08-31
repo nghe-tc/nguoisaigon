@@ -94,11 +94,10 @@
                 android:layout_height="30sp"
                 android:layout_marginLeft="50sp"
                 android:clickable="false"
-                android:contentDescription="@string/welcomebg"
+                android:contentDescription="0"
                 android:focusableInTouchMode="false"
-                android:onClick="storeDetailProductSizeClick"
                 android:scaleType="fitEnd"
-                android:src="@drawable/size_xxs_selector" />
+                android:src="@drawable/productsizexxs_normal" />
 
             <ImageView
                 android:id="@+id/storeDetailProductSizeXS"
@@ -106,11 +105,10 @@
                 android:layout_height="30sp"
                 android:layout_marginLeft="110sp"
                 android:clickable="false"
-                android:contentDescription="@string/welcomebg"
+                android:contentDescription="1"
                 android:focusableInTouchMode="false"
-                android:onClick="storeDetailProductSizeClick"
                 android:scaleType="fitEnd"
-                android:src="@drawable/size_xs_selector" />
+                android:src="@drawable/productsizexs_normal" />
 
             <ImageView
                 android:id="@+id/storeDetailProductSizeS"
@@ -118,11 +116,10 @@
                 android:layout_height="30sp"
                 android:layout_marginLeft="160sp"
                 android:clickable="false"
-                android:contentDescription="@string/welcomebg"
+                android:contentDescription="2"
                 android:focusableInTouchMode="false"
-                android:onClick="storeDetailProductSizeClick"
                 android:scaleType="fitEnd"
-                android:src="@drawable/size_s_selector" />
+                android:src="@drawable/productsizes_normal" />
 
             <ImageView
                 android:id="@+id/storeDetailProductSizeM"
@@ -130,11 +127,10 @@
                 android:layout_height="30sp"
                 android:layout_marginLeft="210sp"
                 android:clickable="false"
-                android:contentDescription="@string/welcomebg"
+                android:contentDescription="3"
                 android:focusableInTouchMode="false"
-                android:onClick="storeDetailProductSizeClick"
                 android:scaleType="fitEnd"
-                android:src="@drawable/size_m_selector" />
+                android:src="@drawable/productsizem_normal" />
 
             <ImageView
                 android:id="@+id/storeDetailProductSizeL"
@@ -142,11 +138,11 @@
                 android:layout_height="30sp"
                 android:layout_marginLeft="260sp"
                 android:clickable="false"
-                android:contentDescription="@string/welcomebg"
+                android:contentDescription="4"
                 android:focusableInTouchMode="false"
                 android:onClick="storeDetailProductSizeClick"
                 android:scaleType="fitEnd"
-                android:src="@drawable/size_l_selector" />
+                android:src="@drawable/productsizel_normal" />
 
             <ImageView
                 android:id="@+id/storeDetailProductSizeXL"
@@ -154,11 +150,10 @@
                 android:layout_height="30sp"
                 android:layout_marginLeft="310sp"
                 android:clickable="false"
-                android:contentDescription="@string/welcomebg"
+                android:contentDescription="5"
                 android:focusableInTouchMode="false"
-                android:onClick="storeDetailProductSizeClick"
                 android:scaleType="fitEnd"
-                android:src="@drawable/size_xl_selector" />
+                android:src="@drawable/productsizexl_normal" />
         </FrameLayout>
 
         <FrameLayout
@@ -209,7 +204,7 @@
                 android:contentDescription="@string/welcomebg"
                 android:scaleType="fitXY"
                 android:src="@drawable/plusbutton" />
-            
+
             <TextView
                 android:id="@+id/tvStoreDetailProductStockQuantity"
                 android:layout_width="wrap_content"

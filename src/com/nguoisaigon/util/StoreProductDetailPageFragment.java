@@ -20,10 +20,17 @@ import com.nguoisaigon.activity.StoreMainActivity;
 import com.nguoisaigon.dialog.ImageViewDialog;
 import com.nguoisaigon.entity.ImageInfo;
 import com.nguoisaigon.entity.ProductInfo;
+import com.nguoisaigon.entity.SizeInfo;
 import com.nguoisaigon.entity.TransactionDetailInfo;
 
 @SuppressLint({ "SimpleDateFormat", "ValidFragment" })
 public class StoreProductDetailPageFragment extends Fragment {
+
+	private int[] size = { R.id.storeDetailProductSizeXXS, R.id.storeDetailProductSizeXS, R.id.storeDetailProductSizeS,
+			R.id.storeDetailProductSizeM, R.id.storeDetailProductSizeL, R.id.storeDetailProductSizeXL };
+
+	private int[] drawable = { R.drawable.size_xxs_selector, R.drawable.size_xs_selector, R.drawable.size_s_selector,
+			R.drawable.size_m_selector, R.drawable.size_l_selector, R.drawable.size_xl_selector };
 
 	private ProductInfo product;
 	private Context context;
@@ -103,41 +110,48 @@ public class StoreProductDetailPageFragment extends Fragment {
 			sizeLayout.setVisibility(FrameLayout.VISIBLE);
 			quantityLayout.setVisibility(FrameLayout.GONE);
 
-			int[] size = { R.id.storeDetailProductSizeXXS, R.id.storeDetailProductSizeXS, R.id.storeDetailProductSizeS,
-					R.id.storeDetailProductSizeM, R.id.storeDetailProductSizeL, R.id.storeDetailProductSizeXL };
 			for (int i = 0; i < product.getSizeQtyList().size(); i++) {
-				ImageView imageSize = (ImageView) rootView.findViewById(size[product.getSizeQtyList().get(i)
-						.getSizeType()]);
+				ImageView imageSize = (ImageView) rootView.findViewById(size[i]);
+				imageSize.setImageAlpha(70);
+			}
+			for (int i = 0; i < product.getSizeQtyList().size(); i++) {
+				SizeInfo sizeInfo = product.getSizeQtyList().get(i);
+				ImageView imageSize = (ImageView) rootView.findViewById(size[sizeInfo.getSizeType()]);
 				imageSize.setClickable(true);
 				imageSize.setFocusableInTouchMode(true);
-				imageSize.setImageAlpha(255);
-				imageSize.setContentDescription(product.getSizeQtyList().get(i).getSizeType().toString());
-				final int sizeSelected = i;
-				imageSize.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-					public void onFocusChange(View v, boolean hasFocus) {
-						if (hasFocus) {
-							TransactionDetailInfo transaction = new TransactionDetailInfo();
-							transaction.setCategoryId(product.getCategoryId());
-							transaction.setProductId(product.getProductId());
-							transaction.setProductName(product.getName());
-							transaction.setQuantity(1);
-							if (product.getSizeQtyList().size() > 0) {
-								transaction.setSizeType(sizeSelected);
-							}
-							transaction.setUnitPrice(product.getUnitPrice());
-							if (transaction.getQuantity() > 0) {
+				if (sizeInfo.getQuantity() > 0) {
+					imageSize.setImageAlpha(255);
+					imageSize.setContentDescription(sizeInfo.getSizeType().toString());
+					imageSize.setBackgroundResource(drawable[sizeInfo.getSizeType()]);
+					final int sizeSelected = i;
+					imageSize.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+						public void onFocusChange(View v, boolean hasFocus) {
+							if (hasFocus) {
+								StoreMainActivity.setProductTransactionDetailInfo(null);
+								TransactionDetailInfo transaction = new TransactionDetailInfo();
+								transaction.setCategoryId(product.getCategoryId());
+								transaction.setProductId(product.getProductId());
+								transaction.setProductName(product.getName());
+								transaction.setQuantity(1);
+								if (product.getSizeQtyList().size() > 0) {
+									transaction.setSizeType(sizeSelected);
+								}
+								transaction.setUnitPrice(product.getUnitPrice());
 								StoreMainActivity.setProductTransactionDetailInfo(transaction);
+
+								System.out.println("-----------------------------");
+								System.out.println(transaction.getProductId());
+								System.out.println(transaction.getProductName());
+								System.out.println(transaction.getCategoryId());
+								System.out.println(transaction.getQuantity());
+								System.out.println(transaction.getSizeType());
+								System.out.println("-----------------------------");
+							} else {
+								StoreMainActivity.setProductTransactionDetailInfo(null);
 							}
-							System.out.println("-----------------------------");
-							System.out.println(transaction.getProductId());
-							System.out.println(transaction.getProductName());
-							System.out.println(transaction.getCategoryId());
-							System.out.println(transaction.getQuantity());
-							System.out.println(transaction.getSizeType());
-							System.out.println("-----------------------------");
 						}
-					}
-				});
+					});
+				}
 			}
 		} else {
 			sizeLayout.setVisibility(FrameLayout.GONE);

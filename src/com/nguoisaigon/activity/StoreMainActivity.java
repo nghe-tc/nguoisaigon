@@ -321,7 +321,7 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 		Log.i("StoreMainActivity - btnAddToCartClick", "Start");
 		try {
 			TransactionDetailInfo transaction = StoreMainActivity.productTransactionDetailInfo;
-			if (transaction.getCategoryId() < 5 && transaction.getSizeType() == null) {
+			if (transaction == null || (transaction.getCategoryId() < 5 && transaction.getSizeType() == null)) {
 				Toast.makeText(this, "Xin vui lòng chọn size sản phẩm", Toast.LENGTH_SHORT).show();
 				return;
 			}
@@ -345,7 +345,7 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 			StoreMainActivity.productTransactionDetailInfo = null;
 
 		} catch (Exception e) {
-			Log.e("StoreMainActivity - btnAddToCartClick", e.getMessage());
+			Log.e("StoreMainActivity - btnAddToCartClick", "StoreMainActivity - btnAddToCartClick", e);
 		}
 	}
 
@@ -405,11 +405,6 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 		Integer index = this.hsProduct.get(view.getText());
 		Log.i("StoreMainActivity - storeProductClick", "index: " + index);
 		this.updateDataDetail(index);
-		ProductInfo product = listProduct.get(index);
-		StoreMainActivity.productTransactionDetailInfo.setCategoryId(product.getCategoryId());
-		StoreMainActivity.productTransactionDetailInfo.setProductId(product.getProductId());
-		StoreMainActivity.productTransactionDetailInfo.setProductName(product.getName());
-		StoreMainActivity.productTransactionDetailInfo.setUnitPrice(product.getUnitPrice());
 	}
 
 	private void updateDataDetail(Integer index) {
@@ -460,12 +455,6 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 					btnPageNext.setImageAlpha(70);
 					btnPagePrevious.setImageAlpha(70);
 				}
-
-				ProductInfo product = listProduct.get(mPager.getCurrentItem());
-				StoreMainActivity.productTransactionDetailInfo.setCategoryId(product.getCategoryId());
-				StoreMainActivity.productTransactionDetailInfo.setProductId(product.getProductId());
-				StoreMainActivity.productTransactionDetailInfo.setProductName(product.getName());
-				StoreMainActivity.productTransactionDetailInfo.setUnitPrice(product.getUnitPrice());
 			}
 
 		});
@@ -479,14 +468,6 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 			fList.add(new StoreProductDetailPageFragment(this, product));
 		}
 		return fList;
-	}
-
-	public void storeDetailProductSizeClick(View view) {
-		Log.i("StoreMainActivity - storeDetailProductSizeClick", "Start");
-		ImageView sizeImage = (ImageView) view;
-		Integer sizeType = Integer.parseInt(sizeImage.getContentDescription().toString());
-		Log.i("StoreMainActivity - storeDetailProductSizeClick", "size type: " + sizeType.toString());
-		sizeImage.setImageAlpha(255);
 	}
 
 	public void btnStoreDetailPreviousClick(View view) {
