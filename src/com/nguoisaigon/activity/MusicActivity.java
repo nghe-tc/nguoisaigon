@@ -29,11 +29,11 @@ import com.nguoisaigon.util.Utils;
 public class MusicActivity extends Activity {
 
 	private ArrayList<MusicInfo> songList = new ArrayList<MusicInfo>();
-	private MediaPlayer player;
+	private static MediaPlayer player;
 	private View stop, play;
 	private ListView lvSongList;
 
-	private int currentSong = 0;
+	private static int currentSong = 0;
 	public static final String PREFIX_DOWNLOAD = "/.nguoisaigon/";
 	private String path = Environment.getExternalStorageDirectory() + PREFIX_DOWNLOAD;
 
@@ -152,9 +152,14 @@ public class MusicActivity extends Activity {
 	 */
 	public void updateData() {
 		ProgressBar indicator = (ProgressBar) findViewById(R.id.musicIndicator);
-		indicator.setVisibility(ProgressBar.GONE);
+		if (indicator != null) {
+			indicator.setVisibility(ProgressBar.GONE);
+		}
+
 		TextView tvLoading = (TextView) findViewById(R.id.tvMusicLoading);
-		tvLoading.setVisibility(TextView.GONE);
+		if (tvLoading != null) {
+			tvLoading.setVisibility(ProgressBar.GONE);
+		}
 
 		// Assign adapter to ListView
 		lvSongList.setAdapter(new MusicListAdapter(this));
@@ -285,12 +290,19 @@ public class MusicActivity extends Activity {
 			Log.i("MusicActivity - total song", songList.size() + "");
 		}
 		updateData();
-		player = new MediaPlayer();
+		if (player == null) {
+			player = new MediaPlayer();
+		}
 		int size = songList.size();
 		if (size > 0) {
 			MusicInfo musicInfo = songList.get(currentSong);
 			try {
-				player.setDataSource(path + musicInfo.getPlayListId());
+				if (!player.isPlaying()) {
+					player.setDataSource(path + musicInfo.getPlayListId());
+				} else {
+					stop.setVisibility(View.VISIBLE);
+					play.setVisibility(View.GONE);
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -300,11 +312,11 @@ public class MusicActivity extends Activity {
 	@Override
 	protected void onPause() {
 		super.onPause();
-		if (player.isPlaying()) {
-			player.stop();
+		if (!player.isPlaying()) {
 			player.release();
+			player = null;
 		}
-		player = null;
+
 		if (Utils.isUnbindDrawables) {
 			Utils.unbindDrawables(findViewById(R.id.container));
 		}
