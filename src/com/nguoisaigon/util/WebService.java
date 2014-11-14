@@ -100,7 +100,7 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 		}
 	}
 
-	private final String SERVER_URL = "http://rest.itsleek.vn";
+	private final String SERVER_URL = "http://rest.cafenguoisaigon.com/";
 	private final String STR_MAIN_USER_AGENT = "Fiddler";
 	private final String STR_MAIN_HOST_INFO = "rest.itsleek.vn";
 	private String url;
