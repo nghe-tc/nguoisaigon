@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import com.facebook.UiLifecycleHelper;
+import com.facebook.widget.LoginButton;
 import com.nguoisaigon.R;
 import com.nguoisaigon.util.Utils;
 
@@ -19,9 +21,15 @@ public class Checkout4Activity extends Activity {
 	private TextView tvCheckout4StoreTitle;
 	private TextView tvCheckout4HomeTitle;
 
+	private UiLifecycleHelper uiHelper;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		uiHelper = new UiLifecycleHelper(this, Utils.statusCallback);
+		uiHelper.onCreate(savedInstanceState);
+
 		setContentView(R.layout.checkout4_layout);
 
 		tvCheckoutStep1Title = (TextView) findViewById(R.id.tvCheckoutStep1Title);
@@ -47,8 +55,21 @@ public class Checkout4Activity extends Activity {
 		tvCheckout4HomeTitle.setTypeface(Utils.tf);
 	}
 
-	public void btnCheckout4FacebookClick(View view) {
+	@Override
+	protected void onResume() {
+		super.onResume();
+		uiHelper.onResume();
+	}
 
+	public void btnCheckout4FacebookClick(View view) {
+		if (Utils.isFacebookLogin()) {
+			StringBuilder message = new StringBuilder("Tôi đã sử dụng Người Sài Gòn App để mua hàng.\n");
+			message.append(getString(R.string.app_url));
+
+			Utils.postFacebookMessage(this, message.toString());
+		} else {
+			new LoginButton(this).performClick();
+		}
 	}
 
 	public void btnCheckout4StoreClick(View view) {
@@ -68,7 +89,28 @@ public class Checkout4Activity extends Activity {
 	@Override
 	protected void onPause() {
 		super.onPause();
+		uiHelper.onPause();
+
+	}
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		uiHelper.onActivityResult(requestCode, resultCode, data);
+	}
+
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		uiHelper.onDestroy();
+
 		Utils.unbindDrawables(findViewById(R.id.container));
 		System.gc();
+	}
+
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		uiHelper.onSaveInstanceState(outState);
 	}
 }

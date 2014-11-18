@@ -33,25 +33,8 @@ public class PreviewCartActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		Log.i("PreviewCartActivity - onCreate", "Start");
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.preview_cart_layout);
-		tvCartProductTitle = (TextView) findViewById(R.id.tvCartProductTitle);
-		tvCartQuantityTitle = (TextView) findViewById(R.id.tvCartQuantityTitle);
-		tvCartPriceTitle = (TextView) findViewById(R.id.tvCartPriceTitle);
-		tvCartTotalTitle = (TextView) findViewById(R.id.tvCartTotalTitle);
-		cartListTransaction = (ListView) findViewById(R.id.cartListTransaction);
-		tvCartTotalText = (TextView) findViewById(R.id.tvCartTotalText);
-		tvCartTotal = (TextView) findViewById(R.id.tvCartTotal);
 
-		tvCartProductTitle.setTypeface(Utils.tf);
-		tvCartQuantityTitle.setTypeface(Utils.tf);
-		tvCartPriceTitle.setTypeface(Utils.tf);
-		tvCartTotalTitle.setTypeface(Utils.tf);
-		tvCartTotalText.setTypeface(Utils.tf);
-		tvCartTotal.setTypeface(Utils.tf);
-
-		loadData();
 	}
 
 	private void loadData() {
@@ -129,7 +112,6 @@ public class PreviewCartActivity extends Activity {
 
 	public void btnCartCheckoutClick(View view) {
 		if (listTransaction.size() > 0) {
-			Utils.isUnbindDrawables = false;
 			Intent intent = new Intent(this, Checkout1Activity.class);
 			startActivity(intent);
 		}
@@ -138,15 +120,30 @@ public class PreviewCartActivity extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		Utils.isUnbindDrawables = true;
+
+		setContentView(R.layout.preview_cart_layout);
+		tvCartProductTitle = (TextView) findViewById(R.id.tvCartProductTitle);
+		tvCartQuantityTitle = (TextView) findViewById(R.id.tvCartQuantityTitle);
+		tvCartPriceTitle = (TextView) findViewById(R.id.tvCartPriceTitle);
+		tvCartTotalTitle = (TextView) findViewById(R.id.tvCartTotalTitle);
+		cartListTransaction = (ListView) findViewById(R.id.cartListTransaction);
+		tvCartTotalText = (TextView) findViewById(R.id.tvCartTotalText);
+		tvCartTotal = (TextView) findViewById(R.id.tvCartTotal);
+
+		tvCartProductTitle.setTypeface(Utils.tf);
+		tvCartQuantityTitle.setTypeface(Utils.tf);
+		tvCartPriceTitle.setTypeface(Utils.tf);
+		tvCartTotalTitle.setTypeface(Utils.tf);
+		tvCartTotalText.setTypeface(Utils.tf);
+		tvCartTotal.setTypeface(Utils.tf);
+
+		loadData();
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
-		if (Utils.isUnbindDrawables) {
-			Utils.unbindDrawables(findViewById(R.id.container));
-		}
+		Utils.unbindDrawables(findViewById(R.id.container));
 		System.gc();
 	}
 }

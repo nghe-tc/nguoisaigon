@@ -4,12 +4,8 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
-    <meta-data
-        android:name="com.facebook.sdk.ApplicationId"
-        android:value="@string/applicationId" />
-
     <uses-sdk
-        android:minSdkVersion="17"
+        android:minSdkVersion="11"
         android:targetSdkVersion="19" />
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -24,6 +20,14 @@
         android:label="@string/app_name"
         android:largeHeap="true"
         android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.facebook.LoginActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/applicationId" />
+
         <activity
             android:name="com.nguoisaigon.activity.MainActivity"
             android:label="@string/app_name"

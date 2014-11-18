@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -127,8 +126,7 @@ public class StoreProductPageAdapter extends BaseAdapter {
 				}
 
 				if (product.getImageList().size() > 0) {
-					new ImageLoadTask(product.getImageList().get(0), mainPic, downloading, loading)
-							.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+					new ImageLoadTask(product.getImageList().get(0), mainPic, downloading, loading).execute();
 				}
 			}
 		}

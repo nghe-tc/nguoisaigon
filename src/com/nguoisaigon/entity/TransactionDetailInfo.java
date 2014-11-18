@@ -14,10 +14,10 @@ public class TransactionDetailInfo {
 	private Integer stockQuantity;
 	private Double unitPrice;
 
-	public TransactionDetailInfo () {
+	public TransactionDetailInfo() {
 		quantity = 1;
 	}
-	
+
 	public void clear() {
 		this.id = null;
 		this.addedDate = null;

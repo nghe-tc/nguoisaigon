@@ -45,40 +45,6 @@ public class Checkout1Activity extends Activity implements WebServiceDelegate {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.checkout1_layout);
-		String mainTitle = "Bước 1 Thông tin liên hệ & giao hàng";
-
-		tvCheckoutStep1Title = (TextView) findViewById(R.id.tvCheckoutStep1Title);
-		tvCheckoutStep2Title = (TextView) findViewById(R.id.tvCheckoutStep2Title);
-		tvCheckoutStep3Title = (TextView) findViewById(R.id.tvCheckoutStep3Title);
-		tvCheckoutStep4Title = (TextView) findViewById(R.id.tvCheckoutStep4Title);
-		tvCheckoutStep1MainTitle = (TextView) findViewById(R.id.tvCheckoutStep1MainTitle);
-		tvCheckoutNameTitle = (TextView) findViewById(R.id.tvCheckoutNameTitle);
-		tvCheckoutEmailTitle = (TextView) findViewById(R.id.tvCheckoutEmailTitle);
-		tvCheckoutPhoneTitle = (TextView) findViewById(R.id.tvCheckoutPhoneTitle);
-		tvCheckoutAddressTitle = (TextView) findViewById(R.id.tvCheckoutAddressTitle);
-		tvCheckoutNoteTitle = (TextView) findViewById(R.id.tvCheckoutNoteTitle);
-		tvCheckoutDetailTitle = (TextView) findViewById(R.id.tvCheckoutDetailTitle);
-		txtCheckoutName = (EditText) findViewById(R.id.txtCheckoutName);
-		txtCheckoutEmail = (EditText) findViewById(R.id.txtCheckoutEmail);
-		txtCheckoutPhone = (EditText) findViewById(R.id.txtCheckoutPhone);
-		txtCheckoutAddress = (EditText) findViewById(R.id.txtCheckoutAddress);
-		txtCheckoutNote = (EditText) findViewById(R.id.txtCheckoutNote);
-
-		tvCheckoutStep1Title.setTypeface(Utils.tf);
-		tvCheckoutStep2Title.setTypeface(Utils.tf);
-		tvCheckoutStep3Title.setTypeface(Utils.tf);
-		tvCheckoutStep4Title.setTypeface(Utils.tf);
-		tvCheckoutStep1MainTitle.setTypeface(Utils.tf);
-		tvCheckoutNameTitle.setTypeface(Utils.tf);
-		tvCheckoutEmailTitle.setTypeface(Utils.tf);
-		tvCheckoutPhoneTitle.setTypeface(Utils.tf);
-		tvCheckoutAddressTitle.setTypeface(Utils.tf);
-		tvCheckoutNoteTitle.setTypeface(Utils.tf);
-		tvCheckoutDetailTitle.setTypeface(Utils.tf);
-		tvCheckoutStep1MainTitle.setText(mainTitle);
-
-		loadData();
 	}
 
 	private void loadData() {
@@ -121,14 +87,12 @@ public class Checkout1Activity extends Activity implements WebServiceDelegate {
 
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-							Utils.isUnbindDrawables = false;
 							Intent intent = new Intent(context, Checkout2Activity.class);
 							startActivity(intent);
 						}
 					});
 					dlgAlert.create().show();
 				} else {
-					Utils.isUnbindDrawables = false;
 					Intent intent = new Intent(this, Checkout2Activity.class);
 					startActivity(intent);
 				}
@@ -204,7 +168,6 @@ public class Checkout1Activity extends Activity implements WebServiceDelegate {
 				Toast.makeText(this, "Thông tin người dùng đã được cập nhật mới", Toast.LENGTH_SHORT).show();
 			}
 
-			Utils.isUnbindDrawables = false;
 			Intent intent = new Intent(this, Checkout2Activity.class);
 			startActivity(intent);
 		} else {
@@ -215,15 +178,47 @@ public class Checkout1Activity extends Activity implements WebServiceDelegate {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		Utils.isUnbindDrawables = true;
+
+		setContentView(R.layout.checkout1_layout);
+		String mainTitle = "Bước 1 Thông tin liên hệ & giao hàng";
+
+		tvCheckoutStep1Title = (TextView) findViewById(R.id.tvCheckoutStep1Title);
+		tvCheckoutStep2Title = (TextView) findViewById(R.id.tvCheckoutStep2Title);
+		tvCheckoutStep3Title = (TextView) findViewById(R.id.tvCheckoutStep3Title);
+		tvCheckoutStep4Title = (TextView) findViewById(R.id.tvCheckoutStep4Title);
+		tvCheckoutStep1MainTitle = (TextView) findViewById(R.id.tvCheckoutStep1MainTitle);
+		tvCheckoutNameTitle = (TextView) findViewById(R.id.tvCheckoutNameTitle);
+		tvCheckoutEmailTitle = (TextView) findViewById(R.id.tvCheckoutEmailTitle);
+		tvCheckoutPhoneTitle = (TextView) findViewById(R.id.tvCheckoutPhoneTitle);
+		tvCheckoutAddressTitle = (TextView) findViewById(R.id.tvCheckoutAddressTitle);
+		tvCheckoutNoteTitle = (TextView) findViewById(R.id.tvCheckoutNoteTitle);
+		tvCheckoutDetailTitle = (TextView) findViewById(R.id.tvCheckoutDetailTitle);
+		txtCheckoutName = (EditText) findViewById(R.id.txtCheckoutName);
+		txtCheckoutEmail = (EditText) findViewById(R.id.txtCheckoutEmail);
+		txtCheckoutPhone = (EditText) findViewById(R.id.txtCheckoutPhone);
+		txtCheckoutAddress = (EditText) findViewById(R.id.txtCheckoutAddress);
+		txtCheckoutNote = (EditText) findViewById(R.id.txtCheckoutNote);
+
+		tvCheckoutStep1Title.setTypeface(Utils.tf);
+		tvCheckoutStep2Title.setTypeface(Utils.tf);
+		tvCheckoutStep3Title.setTypeface(Utils.tf);
+		tvCheckoutStep4Title.setTypeface(Utils.tf);
+		tvCheckoutStep1MainTitle.setTypeface(Utils.tf);
+		tvCheckoutNameTitle.setTypeface(Utils.tf);
+		tvCheckoutEmailTitle.setTypeface(Utils.tf);
+		tvCheckoutPhoneTitle.setTypeface(Utils.tf);
+		tvCheckoutAddressTitle.setTypeface(Utils.tf);
+		tvCheckoutNoteTitle.setTypeface(Utils.tf);
+		tvCheckoutDetailTitle.setTypeface(Utils.tf);
+		tvCheckoutStep1MainTitle.setText(mainTitle);
+
+		loadData();
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
-		if (Utils.isUnbindDrawables) {
-			Utils.unbindDrawables(findViewById(R.id.container));
-		}
+		Utils.unbindDrawables(findViewById(R.id.container));
 		System.gc();
 	}
 }

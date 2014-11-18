@@ -5,6 +5,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
@@ -20,11 +21,15 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import com.facebook.Session;
+import com.facebook.UiLifecycleHelper;
+import com.facebook.widget.LoginButton;
 import com.nguoisaigon.R;
 import com.nguoisaigon.entity.MusicInfo;
 import com.nguoisaigon.util.Emailplugin;
 import com.nguoisaigon.util.MusicManager;
 import com.nguoisaigon.util.Utils;
+import com.nguoisaigon.util.WebService;
 
 public class MusicActivity extends Activity {
 
@@ -37,14 +42,22 @@ public class MusicActivity extends Activity {
 	public static final String PREFIX_DOWNLOAD = "/.nguoisaigon/";
 	private String path = Environment.getExternalStorageDirectory() + PREFIX_DOWNLOAD;
 
+	private UiLifecycleHelper uiHelper;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		uiHelper = new UiLifecycleHelper(this, Utils.statusCallback);
+		uiHelper.onCreate(savedInstanceState);
+
 		setContentView(R.layout.music_layout);
 
 		stop = (View) findViewById(R.id.btnMusicStop);
 		play = (View) findViewById(R.id.btnMusicPlay);
 		lvSongList = (ListView) findViewById(R.id.lvSongList);
+
+		Log.i("", Session.getActiveSession().getAccessToken());
 	}
 
 	/**
@@ -53,7 +66,7 @@ public class MusicActivity extends Activity {
 	 * @param view
 	 */
 	public void btnCloseClick(View view) {
-		this.finish();
+		finish();
 	}
 
 	/**
@@ -62,7 +75,23 @@ public class MusicActivity extends Activity {
 	 * @param view
 	 */
 	public void btnFacebookClick(View view) {
-		Utils.isUnbindDrawables = false;
+		if (Utils.isFacebookLogin()) {
+			if (songList.size() > 0) {
+				MusicInfo music = songList.get(currentSong);
+				if (music != null) {
+					StringBuilder message = new StringBuilder();
+					message.append(music.getTitle() + " - " + music.getSinger() + "\n");
+					message.append(WebService.SERVER_URL + music.getPlayUrl() + "\n\n");
+					message.append(getString(R.string.line_break));
+					message.append(getString(R.string.title));
+					message.append(getString(R.string.app_url));
+
+					Utils.postFacebookMessage(this, message.toString());
+				}
+			}
+		} else {
+			new LoginButton(this).performClick();
+		}
 	}
 
 	/**
@@ -71,8 +100,9 @@ public class MusicActivity extends Activity {
 	 * @param view
 	 */
 	public void btnEmailClick(View view) {
-		Utils.isUnbindDrawables = false;
-		Emailplugin.SendEmailFromMusicView(this, songList.get(currentSong));
+		if (songList.size() > 0) {
+			Emailplugin.SendEmailFromMusicView(this, songList.get(currentSong));
+		}
 	}
 
 	/**
@@ -255,7 +285,6 @@ public class MusicActivity extends Activity {
 		isFirstStart = true;
 		MusicInfo musicInfo = songList.get(id);
 		try {
-			mp.stop();
 			mp.reset();
 			mp.setDataSource(path + musicInfo.getPlayListId());
 			mp.prepare();
@@ -268,7 +297,9 @@ public class MusicActivity extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		Utils.isUnbindDrawables = true;
+
+		uiHelper.onResume();
+
 		String musicData = MusicManager.getDataFromSharedPreference(getApplicationContext(), MusicManager.MUSIC_DATA);
 		if (!TextUtils.isEmpty(musicData)) {
 			try {
@@ -312,14 +343,35 @@ public class MusicActivity extends Activity {
 	@Override
 	protected void onPause() {
 		super.onPause();
+		uiHelper.onPause();
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		Log.i("Music Activity", "onDestroy");
+
+		uiHelper.onDestroy();
+
+		Utils.unbindDrawables(findViewById(R.id.container));
+
 		if (!player.isPlaying()) {
 			player.release();
 			player = null;
 		}
 
-		if (Utils.isUnbindDrawables) {
-			Utils.unbindDrawables(findViewById(R.id.container));
-		}
 		System.gc();
+	}
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		uiHelper.onActivityResult(requestCode, resultCode, data);
+	}
+
+	@Override
+	public void onSaveInstanceState(Bundle savedState) {
+		super.onSaveInstanceState(savedState);
+		uiHelper.onSaveInstanceState(savedState);
 	}
 }

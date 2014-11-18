@@ -5,6 +5,7 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -16,6 +17,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import com.facebook.UiLifecycleHelper;
+import com.facebook.widget.LoginButton;
 import com.google.gson.Gson;
 import com.nguoisaigon.R;
 import com.nguoisaigon.entity.EventsInfo;
@@ -42,9 +45,15 @@ public class EventsActivity extends FragmentActivity implements WebServiceDelega
 
 	private ArrayList<EventsInfo> listEvents = new ArrayList<EventsInfo>();
 
+	private UiLifecycleHelper uiHelper;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		uiHelper = new UiLifecycleHelper(this, Utils.statusCallback);
+		uiHelper.onCreate(savedInstanceState);
+
 		setContentView(R.layout.events_layout);
 
 		TextView tvPage = (TextView) findViewById(R.id.tvEventsPage);
@@ -69,9 +78,9 @@ public class EventsActivity extends FragmentActivity implements WebServiceDelega
 				for (int i = 0; i < result.length(); i++) {
 					JSONObject eventJSON = result.getJSONObject(i);
 					EventsInfo event = new Gson().fromJson(eventJSON.toString(), EventsInfo.class);
-					// event.setEventId(eventJSON.getString("eventId"));
-					// event.setEventContent(eventJSON.getString("eventContent"));
-					// event.setTitle(eventJSON.getString("title"));
+					event.setEventId(eventJSON.getString("eventId"));
+					event.setEventContent(eventJSON.getString("eventContent"));
+					event.setTitle(eventJSON.getString("title"));
 					listEvents.add(event);
 				}
 			} catch (Exception e) {
@@ -144,10 +153,13 @@ public class EventsActivity extends FragmentActivity implements WebServiceDelega
 		tvLoading.setVisibility(TextView.GONE);
 
 		ImageView email = (ImageView) findViewById(R.id.btnEventsEmail);
+		ImageView facebook = (ImageView) findViewById(R.id.btnEventsFaceBook);
 		if (listEvents.size() == 0) {
 			email.setImageAlpha(70);
+			facebook.setImageAlpha(70);
 		} else {
 			email.setImageAlpha(255);
+			facebook.setImageAlpha(255);
 		}
 	}
 
@@ -175,7 +187,23 @@ public class EventsActivity extends FragmentActivity implements WebServiceDelega
 	 * @param view
 	 */
 	public void btnFacebookClick(View view) {
-		Utils.isUnbindDrawables = false;
+		if (Utils.isFacebookLogin()) {
+			if (listEvents.size() > 0) {
+				EventsInfo event = listEvents.get(mPager.getCurrentItem());
+				if (event != null) {
+					StringBuilder message = new StringBuilder(event.getTitle() + "\n");
+					message.append("Thời gian: " + event.getEventDate() + "\n");
+					message.append(event.getEventContent() + "\n\n");
+					message.append(getString(R.string.line_break));
+					message.append(getString(R.string.title));
+					message.append(getString(R.string.app_url));
+
+					Utils.postFacebookMessage(this, message.toString());
+				}
+			}
+		} else {
+			new LoginButton(this).performClick();
+		}
 	}
 
 	/**
@@ -184,7 +212,6 @@ public class EventsActivity extends FragmentActivity implements WebServiceDelega
 	 * @param view
 	 */
 	public void btnEmailClick(View view) {
-		Utils.isUnbindDrawables = false;
 		if (listEvents.size() > 0) {
 			Emailplugin.SendEmailFromEventView(this, listEvents.get(mPager.getCurrentItem()));
 		}
@@ -262,15 +289,34 @@ public class EventsActivity extends FragmentActivity implements WebServiceDelega
 	@Override
 	protected void onResume() {
 		super.onResume();
-		Utils.isUnbindDrawables = true;
+
+		uiHelper.onResume();
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
-		if (Utils.isUnbindDrawables) {
-			Utils.unbindDrawables(findViewById(R.id.container));
-		}
+		uiHelper.onPause();
+	}
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		uiHelper.onActivityResult(requestCode, resultCode, data);
+	}
+
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		uiHelper.onDestroy();
+
+		Utils.unbindDrawables(findViewById(R.id.container));
 		System.gc();
+	}
+
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		uiHelper.onSaveInstanceState(outState);
 	}
 }

@@ -32,42 +32,11 @@ public class Checkout2Activity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.checkout2_layout);
-		tvCheckoutStep1Title = (TextView) findViewById(R.id.tvCheckoutStep1Title);
-		tvCheckoutStep2Title = (TextView) findViewById(R.id.tvCheckoutStep2Title);
-		tvCheckoutStep3Title = (TextView) findViewById(R.id.tvCheckoutStep3Title);
-		tvCheckoutStep4Title = (TextView) findViewById(R.id.tvCheckoutStep4Title);
-		tvCheckoutStep2MainTitle = (TextView) findViewById(R.id.tvCheckoutStep2MainTitle);
-		btnCheckout2Type1 = (ImageView) findViewById(R.id.btnCheckout2Type1);
-		tvCheckoutStep2Type1Title = (TextView) findViewById(R.id.tvCheckoutStep2Type1Title);
-		tvCheckoutStep2Type1Detail = (TextView) findViewById(R.id.tvCheckoutStep2Type1Detail);
-		btnCheckout2Type2 = (ImageView) findViewById(R.id.btnCheckout2Type2);
-		tvCheckoutStep2Type2Title = (TextView) findViewById(R.id.tvCheckoutStep2Type2Title);
-		tvCheckoutStep2Type2Detail = (TextView) findViewById(R.id.tvCheckoutStep2Type2Detail);
-		tvCheckoutStep2Type2AccountName = (TextView) findViewById(R.id.tvCheckoutStep2Type2AccountName);
-		tvCheckoutStep2Type2AccountNumber = (TextView) findViewById(R.id.tvCheckoutStep2Type2AccountNumber);
-		btnCheckout2Type3 = (ImageView) findViewById(R.id.btnCheckout2Type3);
-		tvCheckoutStep2Type3Title = (TextView) findViewById(R.id.tvCheckoutStep2Type3Title);
-		tvCheckoutStep2Type3Detail = (TextView) findViewById(R.id.tvCheckoutStep2Type3Detail);
 
-		tvCheckoutStep1Title.setTypeface(Utils.tf);
-		tvCheckoutStep2Title.setTypeface(Utils.tf);
-		tvCheckoutStep3Title.setTypeface(Utils.tf);
-		tvCheckoutStep4Title.setTypeface(Utils.tf);
-		tvCheckoutStep2MainTitle.setTypeface(Utils.tf);
-		tvCheckoutStep2Type1Title.setTypeface(Utils.tf);
-		tvCheckoutStep2Type1Detail.setTypeface(Utils.tf);
-		tvCheckoutStep2Type2Title.setTypeface(Utils.tf);
-		tvCheckoutStep2Type2Detail.setTypeface(Utils.tf);
-		tvCheckoutStep2Type2AccountName.setTypeface(Utils.tf);
-		tvCheckoutStep2Type2AccountNumber.setTypeface(Utils.tf);
-		tvCheckoutStep2Type3Title.setTypeface(Utils.tf);
-		tvCheckoutStep2Type3Detail.setTypeface(Utils.tf);
 	}
 
 	public void btnCheckout2NextClick(View view) {
 		if (paymentMethod > 0) {
-			Utils.isUnbindDrawables = false;
 			Intent intent = new Intent(this, Checkout3Activity.class);
 			intent.putExtra("PAYMENT_METHOD", paymentMethod);
 			startActivity(intent);
@@ -107,15 +76,44 @@ public class Checkout2Activity extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		Utils.isUnbindDrawables = true;
+
+		setContentView(R.layout.checkout2_layout);
+		tvCheckoutStep1Title = (TextView) findViewById(R.id.tvCheckoutStep1Title);
+		tvCheckoutStep2Title = (TextView) findViewById(R.id.tvCheckoutStep2Title);
+		tvCheckoutStep3Title = (TextView) findViewById(R.id.tvCheckoutStep3Title);
+		tvCheckoutStep4Title = (TextView) findViewById(R.id.tvCheckoutStep4Title);
+		tvCheckoutStep2MainTitle = (TextView) findViewById(R.id.tvCheckoutStep2MainTitle);
+		btnCheckout2Type1 = (ImageView) findViewById(R.id.btnCheckout2Type1);
+		tvCheckoutStep2Type1Title = (TextView) findViewById(R.id.tvCheckoutStep2Type1Title);
+		tvCheckoutStep2Type1Detail = (TextView) findViewById(R.id.tvCheckoutStep2Type1Detail);
+		btnCheckout2Type2 = (ImageView) findViewById(R.id.btnCheckout2Type2);
+		tvCheckoutStep2Type2Title = (TextView) findViewById(R.id.tvCheckoutStep2Type2Title);
+		tvCheckoutStep2Type2Detail = (TextView) findViewById(R.id.tvCheckoutStep2Type2Detail);
+		tvCheckoutStep2Type2AccountName = (TextView) findViewById(R.id.tvCheckoutStep2Type2AccountName);
+		tvCheckoutStep2Type2AccountNumber = (TextView) findViewById(R.id.tvCheckoutStep2Type2AccountNumber);
+		btnCheckout2Type3 = (ImageView) findViewById(R.id.btnCheckout2Type3);
+		tvCheckoutStep2Type3Title = (TextView) findViewById(R.id.tvCheckoutStep2Type3Title);
+		tvCheckoutStep2Type3Detail = (TextView) findViewById(R.id.tvCheckoutStep2Type3Detail);
+
+		tvCheckoutStep1Title.setTypeface(Utils.tf);
+		tvCheckoutStep2Title.setTypeface(Utils.tf);
+		tvCheckoutStep3Title.setTypeface(Utils.tf);
+		tvCheckoutStep4Title.setTypeface(Utils.tf);
+		tvCheckoutStep2MainTitle.setTypeface(Utils.tf);
+		tvCheckoutStep2Type1Title.setTypeface(Utils.tf);
+		tvCheckoutStep2Type1Detail.setTypeface(Utils.tf);
+		tvCheckoutStep2Type2Title.setTypeface(Utils.tf);
+		tvCheckoutStep2Type2Detail.setTypeface(Utils.tf);
+		tvCheckoutStep2Type2AccountName.setTypeface(Utils.tf);
+		tvCheckoutStep2Type2AccountNumber.setTypeface(Utils.tf);
+		tvCheckoutStep2Type3Title.setTypeface(Utils.tf);
+		tvCheckoutStep2Type3Detail.setTypeface(Utils.tf);
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
-		if (Utils.isUnbindDrawables) {
-			Utils.unbindDrawables(findViewById(R.id.container));
-		}
+		Utils.unbindDrawables(findViewById(R.id.container));
 		System.gc();
 	}
 }

@@ -3,6 +3,7 @@ package com.nguoisaigon.util;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -137,13 +138,13 @@ public class StoreProductDetailPageFragment extends Fragment {
 								transaction.setUnitPrice(product.getUnitPrice());
 								StoreMainActivity.setProductTransactionDetailInfo(transaction);
 
-								System.out.println("-----------------------------");
-								System.out.println(transaction.getProductId());
-								System.out.println(transaction.getProductName());
-								System.out.println(transaction.getCategoryId());
-								System.out.println(transaction.getQuantity());
-								System.out.println(transaction.getSizeType());
-								System.out.println("-----------------------------");
+								Log.d("", "-----------------------------");
+								Log.d("", transaction.getProductId());
+								Log.d("", transaction.getProductName());
+								Log.d("", transaction.getCategoryId() + "");
+								Log.d("", transaction.getQuantity() + "");
+								Log.d("", transaction.getSizeType() + "");
+								Log.d("", "-----------------------------");
 							} else {
 								StoreMainActivity.setProductTransactionDetailInfo(null);
 							}
@@ -169,13 +170,13 @@ public class StoreProductDetailPageFragment extends Fragment {
 							Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
 						}
 						StoreMainActivity.setProductTransactionDetailInfo(transaction);
-						System.out.println("-----------------------------");
-						System.out.println(transaction.getProductId());
-						System.out.println(transaction.getProductName());
-						System.out.println(transaction.getCategoryId());
-						System.out.println(transaction.getQuantity());
-						System.out.println(transaction.getSizeType());
-						System.out.println("-----------------------------");
+						Log.d("", "-----------------------------");
+						Log.d("", transaction.getProductId());
+						Log.d("", transaction.getProductName());
+						Log.d("", transaction.getCategoryId() + "");
+						Log.d("", transaction.getQuantity() + "");
+						Log.d("", transaction.getSizeType() + "");
+						Log.d("", "-----------------------------");
 						quantity.setText(transaction.getQuantity() + "");
 					}
 				}
@@ -194,13 +195,13 @@ public class StoreProductDetailPageFragment extends Fragment {
 						transaction.setProductName(product.getName());
 						transaction.setUnitPrice(product.getUnitPrice());
 						StoreMainActivity.setProductTransactionDetailInfo(transaction);
-						System.out.println("-----------------------------");
-						System.out.println(transaction.getProductId());
-						System.out.println(transaction.getProductName());
-						System.out.println(transaction.getCategoryId());
-						System.out.println(transaction.getQuantity());
-						System.out.println(transaction.getSizeType());
-						System.out.println("-----------------------------");
+						Log.d("", "-----------------------------");
+						Log.d("", transaction.getProductId());
+						Log.d("", transaction.getProductName());
+						Log.d("", transaction.getCategoryId() + "");
+						Log.d("", transaction.getQuantity() + "");
+						Log.d("", transaction.getSizeType() + "");
+						Log.d("", "-----------------------------");
 						quantity.setText(transaction.getQuantity() + "");
 					}
 				}

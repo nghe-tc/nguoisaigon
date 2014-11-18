@@ -14,6 +14,7 @@ import android.view.View.OnTouchListener;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.facebook.widget.LoginButton;
 import com.nguoisaigon.R;
 import com.nguoisaigon.db.DBHelper;
 import com.nguoisaigon.util.Emailplugin;
@@ -88,11 +89,9 @@ public class HomeScreenActivity extends Activity {
 
 		setupContactView();
 
-		// setDatahelper(new DBHelper(this));
+		showHelp();
 
-		this.showHelp();
-
-		this.setOntouchListener();
+		setOntouchListener();
 	}
 
 	private ImageView tvImage, tvLight, musicImage, phoneImage;
@@ -100,6 +99,7 @@ public class HomeScreenActivity extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
+
 		tvImage = (ImageView) findViewById(R.id.homeTVAnimation);
 		tvImage.setBackgroundResource(R.drawable.tvanimation);
 		AnimationDrawable tvAnimation = (AnimationDrawable) tvImage.getBackground();
@@ -193,6 +193,14 @@ public class HomeScreenActivity extends Activity {
 
 	public void btnfacebook_click(View view) {
 		btnhomefacebook.setImageResource(R.drawable.fbboard_normal);
+		if (Utils.isFacebookLogin()) {
+			StringBuilder message = new StringBuilder("Tôi đang sử dụng Người Sài Gòn app.\n");
+			message.append(getString(R.string.app_url));
+
+			Utils.postFacebookMessage(this, message.toString());
+		} else {
+			new LoginButton(this).performClick();
+		}
 	}
 
 	public void btnphone_click(View view) {

@@ -100,9 +100,8 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 		}
 	}
 
-	private final String SERVER_URL = "http://rest.cafenguoisaigon.com/";
+	public static final String SERVER_URL = "http://rest.cafenguoisaigon.com/";
 	private final String STR_MAIN_USER_AGENT = "Fiddler";
-	private final String STR_MAIN_HOST_INFO = "rest.itsleek.vn";
 	private String url;
 	private WeakReference<WebServiceDelegate> activityWeakRef;
 	private String musicId;
@@ -605,7 +604,6 @@ public class WebService extends AsyncTask<String, Void, JSONArray> {
 			return;
 		}
 
-		Log.i("onPostExecute", "onPostExecute" + result);
 		serviceDelegate.taskCompletionResult(result);
 	}
 

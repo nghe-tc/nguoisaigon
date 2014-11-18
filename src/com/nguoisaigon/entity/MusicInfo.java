@@ -1,7 +1,7 @@
 package com.nguoisaigon.entity;
 
 public class MusicInfo {
-	
+
 	private String title;
 	private String singer;
 	private String playUrl;

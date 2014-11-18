@@ -8,6 +8,7 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -19,6 +20,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import com.facebook.UiLifecycleHelper;
+import com.facebook.widget.LoginButton;
 import com.nguoisaigon.R;
 import com.nguoisaigon.entity.NewsInfo;
 import com.nguoisaigon.util.CustomPagerAdapter;
@@ -46,10 +49,16 @@ public class NewsActivity extends FragmentActivity implements WebServiceDelegate
 
 	private Calendar currentDate;
 
+	private UiLifecycleHelper uiHelper;
+
 	@SuppressLint("SimpleDateFormat")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		uiHelper = new UiLifecycleHelper(this, Utils.statusCallback);
+		uiHelper.onCreate(savedInstanceState);
+
 		setContentView(R.layout.news_layout);
 
 		currentDate = Calendar.getInstance();
@@ -165,10 +174,13 @@ public class NewsActivity extends FragmentActivity implements WebServiceDelegate
 		tvLoading.setVisibility(TextView.GONE);
 
 		ImageView email = (ImageView) findViewById(R.id.btnNewsEmail);
+		ImageView facebook = (ImageView) findViewById(R.id.btnNewsFaceBook);
 		if (listNews.size() == 0) {
 			email.setImageAlpha(70);
+			facebook.setImageAlpha(70);
 		} else {
 			email.setImageAlpha(255);
+			facebook.setImageAlpha(70);
 		}
 	}
 
@@ -196,7 +208,22 @@ public class NewsActivity extends FragmentActivity implements WebServiceDelegate
 	 * @param view
 	 */
 	public void btnFacebookClick(View view) {
-		Utils.isUnbindDrawables = false;
+		if (Utils.isFacebookLogin()) {
+			if (listNews.size() > 0) {
+				NewsInfo newInfo = listNews.get(mPager.getCurrentItem());
+				if (newInfo != null) {
+					StringBuilder message = new StringBuilder(newInfo.getTitle() + "\n");
+					message.append(newInfo.getNewsContent() + "\n\n");
+					message.append(getString(R.string.line_break));
+					message.append(getString(R.string.title));
+					message.append(getString(R.string.app_url));
+
+					Utils.postFacebookMessage(this, message.toString());
+				}
+			}
+		} else {
+			new LoginButton(this).performClick();
+		}
 	}
 
 	/**
@@ -205,7 +232,6 @@ public class NewsActivity extends FragmentActivity implements WebServiceDelegate
 	 * @param view
 	 */
 	public void btnEmailClick(View view) {
-		Utils.isUnbindDrawables = false;
 		if (listNews.size() > 0) {
 			Emailplugin.SendEmailFromNewsView(this, listNews.get(mPager.getCurrentItem()));
 		}
@@ -312,15 +338,34 @@ public class NewsActivity extends FragmentActivity implements WebServiceDelegate
 	@Override
 	protected void onResume() {
 		super.onResume();
-		Utils.isUnbindDrawables = true;
+
+		uiHelper.onResume();
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
-		if (Utils.isUnbindDrawables) {
-			Utils.unbindDrawables(findViewById(R.id.container));
-		}
+		uiHelper.onPause();
+	}
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		uiHelper.onActivityResult(requestCode, resultCode, data);
+	}
+
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		uiHelper.onDestroy();
+
+		Utils.unbindDrawables(findViewById(R.id.container));
 		System.gc();
+	}
+
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		uiHelper.onSaveInstanceState(outState);
 	}
 }

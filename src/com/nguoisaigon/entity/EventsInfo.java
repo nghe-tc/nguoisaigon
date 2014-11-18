@@ -3,7 +3,7 @@ package com.nguoisaigon.entity;
 import java.util.Date;
 
 public class EventsInfo {
-	
+
 	private String title;
 	private String ownerInfo;
 	private String eventId;

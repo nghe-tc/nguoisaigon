@@ -64,12 +64,12 @@ public class MainActivity extends Activity implements WebServiceDelegate {
 		// Set indicator color
 		indicator.getIndeterminateDrawable().setColorFilter(R.color.welcome_loading_color,
 				android.graphics.PorterDuff.Mode.MULTIPLY);
-
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
+
 		// Setup UI view
 		ImageView welcomeIcon = (ImageView) findViewById(R.id.welcomeicon);
 		if (welcomeIcon != null) {

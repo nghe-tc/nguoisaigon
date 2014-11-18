@@ -24,6 +24,8 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.facebook.UiLifecycleHelper;
+import com.facebook.widget.LoginButton;
 import com.google.gson.Gson;
 import com.nguoisaigon.R;
 import com.nguoisaigon.db.TransactionDetailDB;
@@ -101,10 +103,15 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 	private ProgressBar downloading;
 	private TextView textNoItem;
 
+	private UiLifecycleHelper uiHelper;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		Log.i("StoreMainActivity - onCreate", "Start");
 		super.onCreate(savedInstanceState);
+
+		uiHelper = new UiLifecycleHelper(this, Utils.statusCallback);
+		uiHelper.onCreate(savedInstanceState);
+
 		setContentView(R.layout.store_main_layout);
 
 		BitmapCache.createBitmapCache();
@@ -121,6 +128,31 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 		downloading = (ProgressBar) findViewById(R.id.downloadIndicator);
 		textNoItem = (TextView) findViewById(R.id.tvNoItem);
 		textNoItem.setTypeface(Utils.tf);
+
+		for (int i = 0; i < type.length; i++) {
+			final ImageView image = (ImageView) findViewById(type[i]);
+			if (i == 0) {
+				image.setImageResource(typeClick[i]);
+			}
+			final int resourceId = i;
+			image.setOnTouchListener(new View.OnTouchListener() {
+
+				@Override
+				public boolean onTouch(View v, MotionEvent arg1) {
+					Log.d("", "resourceId: " + resourceId);
+					image.setImageResource(typeClick[resourceId]);
+					for (int i = 0; i < type.length; i++) {
+						final ImageView image = (ImageView) findViewById(type[i]);
+						if (i != resourceId) {
+							image.setImageResource(typeNormal[i]);
+						}
+					}
+					return false;
+				}
+			});
+		}
+
+		menuStoreFashionManClick(null);
 	}
 
 	/**
@@ -161,7 +193,6 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 
 	@Override
 	public void taskCompletionResult(JSONArray result) {
-		Log.i("StoreMainActivity - taskCompletionResult", "Start");
 		Log.i("StoreMainActivity - taskCompletionResult",
 				"JSONArray result: " + ((result == null) ? "null" : result.toString()));
 		if (result != null) {
@@ -204,27 +235,20 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 	private ArrayList<StoreProductPageInfo> getProductFragments() {
 		Log.i("StoreMainActivity - getProductFragments", "Start");
 		ArrayList<StoreProductPageInfo> fList = new ArrayList<StoreProductPageInfo>();
-		StoreProductPageInfo pageInfo = new StoreProductPageInfo();
-		Integer index = 0;
-		if (listProduct.size() > 8) {
-			for (ProductInfo product : this.listProduct) {
-				index++;
-				pageInfo.addProduct(product);
-				if (index == 8) {
-					fList.add(pageInfo);
-					pageInfo = new StoreProductPageInfo();
-				} else if (index == this.listProduct.size()) {
-					fList.add(pageInfo);
-				}
+
+		int rows = listProduct.size() / 4;
+		if (listProduct.size() % 4 != 0) {
+			rows++;
+		}
+
+		for (int i = 0; i < rows; i++) {
+			StoreProductPageInfo pageInfo = new StoreProductPageInfo();
+			int start = i * 4;
+			int end = (start + 3) < listProduct.size() ? start + 3 : listProduct.size() - 1;
+			for (; start <= end; start++) {
+				pageInfo.addProduct(listProduct.get(start));
 			}
-		} else {
-			for (ProductInfo product : this.listProduct) {
-				index++;
-				pageInfo.addProduct(product);
-				if (index == this.listProduct.size()) {
-					fList.add(pageInfo);
-				}
-			}
+			fList.add(pageInfo);
 		}
 
 		Log.i("StoreMainActivity - getFragments", "size of list fragment: " + fList.size());
@@ -260,13 +284,13 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 	}
 
 	public void btnCloseClick(View view) {
+		finish();
 		Intent intent = new Intent(this, HomeScreenActivity.class);
 		intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 		startActivity(intent);
 	}
 
 	public void btnStoreCartClick(View view) {
-		Utils.isUnbindDrawables = false;
 		TransactionDetailDB db = new TransactionDetailDB(this);
 		try {
 			if (db.getTransactions().size() > 0) {
@@ -286,12 +310,33 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 	}
 
 	public void btnStoreDetailEmailClick(View view) {
-		Utils.isUnbindDrawables = false;
-		Emailplugin.SendEmailFromStoreView(this, listProduct.get(mPager.getCurrentItem()));
+		if (listProduct.size() > 0) {
+			Emailplugin.SendEmailFromStoreView(this, listProduct.get(mPager.getCurrentItem()));
+		}
 	}
 
 	public void btnStoreDetailFacebookClick(View view) {
-		Utils.isUnbindDrawables = false;
+		if (Utils.isFacebookLogin()) {
+			if (listProduct.size() > 0) {
+				ProductInfo product = listProduct.get(mPager.getCurrentItem());
+				if (product != null) {
+					StringBuilder message = new StringBuilder(product.getName() + "\n");
+					message.append(product.getDescription() + "\n");
+					message.append("Hình ảnh sản phẩm" + "\n");
+					for (ImageInfo image : product.getImageList()) {
+						message.append(WebService.SERVER_URL + image.getImageUrl() + "\n");
+					}
+					message.append("\n");
+					message.append(getString(R.string.line_break));
+					message.append(getString(R.string.title));
+					message.append(getString(R.string.app_url));
+
+					Utils.postFacebookMessage(this, message.toString());
+				}
+			}
+		} else {
+			new LoginButton(this).performClick();
+		}
 	}
 
 	public void btnAddToCartClick(View view) {
@@ -528,29 +573,35 @@ public class StoreMainActivity extends FragmentActivity implements WebServiceDel
 	@Override
 	protected void onResume() {
 		super.onResume();
-		menuStoreFashionManClick(null);
-		for (int i = 0; i < type.length; i++) {
-			final ImageView image = (ImageView) findViewById(type[i]);
-			if (i == 0) {
-				image.setImageResource(typeClick[i]);
-			}
-			final int resourceId = i;
-			image.setOnTouchListener(new View.OnTouchListener() {
 
-				@Override
-				public boolean onTouch(View v, MotionEvent arg1) {
-					System.out.println("========== " + resourceId);
-					image.setImageResource(typeClick[resourceId]);
-					for (int i = 0; i < type.length; i++) {
-						final ImageView image = (ImageView) findViewById(type[i]);
-						if (i != resourceId) {
-							image.setImageResource(typeNormal[i]);
-						}
-					}
-					return false;
-				}
-			});
-		}
+		uiHelper.onResume();
+
 		updateStoreCart();
+	}
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		uiHelper.onActivityResult(requestCode, resultCode, data);
+	}
+
+	@Override
+	public void onPause() {
+		super.onPause();
+		uiHelper.onPause();
+	}
+
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		uiHelper.onDestroy();
+
+		Utils.unbindDrawables(findViewById(R.id.container));
+	}
+
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		uiHelper.onSaveInstanceState(outState);
 	}
 }

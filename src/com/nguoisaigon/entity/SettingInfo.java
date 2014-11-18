@@ -1,7 +1,7 @@
 package com.nguoisaigon.entity;
 
 public class SettingInfo {
-	
+
 	private String appLink;
 	private String parseAppId;
 	private String settingId;

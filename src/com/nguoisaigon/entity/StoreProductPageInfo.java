@@ -3,7 +3,7 @@ package com.nguoisaigon.entity;
 import java.util.ArrayList;
 
 public class StoreProductPageInfo {
-	
+
 	public StoreProductPageInfo() {
 		this.listProducInfo = new ArrayList<ProductInfo>();
 	}

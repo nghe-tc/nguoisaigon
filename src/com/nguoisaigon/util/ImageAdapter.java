@@ -5,7 +5,6 @@ package com.nguoisaigon.util;
 
 import java.io.IOException;
 import java.net.URL;
-
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -53,15 +52,16 @@ public class ImageAdapter extends ArrayAdapter<String> {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
 		ViewHolder viewHolder = null;
-		if(convertView == null) {
-//			convertView = inflater.inflate(R.layout.imageitem, null);
+		if (convertView == null) {
+			// convertView = inflater.inflate(R.layout.imageitem, null);
 
 			viewHolder = new ViewHolder();
-//			viewHolder.imageView = (ImageView)convertView.findViewById(R.id.testImage);
+			// viewHolder.imageView =
+			// (ImageView)convertView.findViewById(R.id.testImage);
 			convertView.setTag(viewHolder);
 		}
 
-		viewHolder = (ViewHolder)convertView.getTag();
+		viewHolder = (ViewHolder) convertView.getTag();
 		viewHolder.imageURL = imageURLArray[position];
 		new DownloadAsyncTask().execute(viewHolder);
 		return convertView;
@@ -72,7 +72,7 @@ public class ImageAdapter extends ArrayAdapter<String> {
 		@Override
 		protected ViewHolder doInBackground(ViewHolder... params) {
 			// TODO Auto-generated method stub
-			//load image directly
+			// load image directly
 			ViewHolder viewHolder = params[0];
 			try {
 				URL imageURL = new URL(viewHolder.imageURL);
@@ -82,15 +82,15 @@ public class ImageAdapter extends ArrayAdapter<String> {
 				Log.e("error", "Downloading Image Failed");
 				viewHolder.bitmap = null;
 			}
-			
+
 			return viewHolder;
 		}
-		
+
 		@Override
 		protected void onPostExecute(ViewHolder result) {
 			// TODO Auto-generated method stub
 			if (result.bitmap == null) {
-//				result.imageView.setImageResource(R.drawable.postthumb_loading);
+				// result.imageView.setImageResource(R.drawable.postthumb_loading);
 			} else {
 				result.imageView.setImageBitmap(result.bitmap);
 			}

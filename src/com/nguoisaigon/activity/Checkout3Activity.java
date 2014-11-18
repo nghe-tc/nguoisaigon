@@ -58,52 +58,7 @@ public class Checkout3Activity extends Activity implements WebServiceDelegate {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.checkout3_layout);
 
-		Log.i("Checkout3Activity - onCreate", "PAYMENT_METHOD: " + getIntent().getIntExtra("PAYMENT_METHOD", 1));
-		paymentMethod = getIntent().getIntExtra("PAYMENT_METHOD", 1);
-
-		tvCheckoutStep1Title = (TextView) findViewById(R.id.tvCheckoutStep1Title);
-		tvCheckoutStep2Title = (TextView) findViewById(R.id.tvCheckoutStep2Title);
-		tvCheckoutStep3Title = (TextView) findViewById(R.id.tvCheckoutStep3Title);
-		tvCheckoutStep4Title = (TextView) findViewById(R.id.tvCheckoutStep4Title);
-
-		tvCheckoutStep3MainTitle = (TextView) findViewById(R.id.tvCheckoutStep3MainTitle);
-		tvCheckoutStep3NameTitle = (TextView) findViewById(R.id.tvCheckoutStep3NameTitle);
-		tvCheckoutStep3Name = (TextView) findViewById(R.id.tvCheckoutStep3Name);
-		tvCheckoutStep3AddressTitle = (TextView) findViewById(R.id.tvCheckoutStep3AddressTitle);
-		tvCheckoutStep3Address = (TextView) findViewById(R.id.tvCheckoutStep3Address);
-		tvCheckoutStep3PhoneTitle = (TextView) findViewById(R.id.tvCheckoutStep3PhoneTitle);
-		tvCheckoutStep3Phone = (TextView) findViewById(R.id.tvCheckoutStep3Phone);
-		tvCheckoutStep3NoteTitle = (TextView) findViewById(R.id.tvCheckoutStep3NoteTitle);
-		tvCheckoutStep3Note = (TextView) findViewById(R.id.tvCheckoutStep3Note);
-		tvCheckoutStep3ProductNameTitle = (TextView) findViewById(R.id.tvCheckoutStep3ProductNameTitle);
-		tvCheckoutStep3ProductQuantityTitle = (TextView) findViewById(R.id.tvCheckoutStep3ProductQuantityTitle);
-		tvCheckoutStep3ProductPriceTitle = (TextView) findViewById(R.id.tvCheckoutStep3ProductPriceTitle);
-		tvCheckoutStep3ProductTotalTitle = (TextView) findViewById(R.id.tvCheckoutStep3ProductTotalTitle);
-		checkout3ListTransaction = (ListView) findViewById(R.id.checkout3ListTransaction);
-		tvCheckoutStep3PaymentMethod = (TextView) findViewById(R.id.tvCheckoutStep3PaymentMethod);
-		tvCheckoutStep3PaymentTotalTitle = (TextView) findViewById(R.id.tvCheckoutStep3PaymentTotalTitle);
-		tvCheckoutStep3PaymentTotal = (TextView) findViewById(R.id.tvCheckoutStep3PaymentTotal);
-
-		tvCheckoutStep1Title.setTypeface(Utils.tf);
-		tvCheckoutStep2Title.setTypeface(Utils.tf);
-		tvCheckoutStep3Title.setTypeface(Utils.tf);
-		tvCheckoutStep4Title.setTypeface(Utils.tf);
-		tvCheckoutStep3MainTitle.setTypeface(Utils.tf);
-		tvCheckoutStep3NameTitle.setTypeface(Utils.tf);
-		tvCheckoutStep3AddressTitle.setTypeface(Utils.tf);
-		tvCheckoutStep3PhoneTitle.setTypeface(Utils.tf);
-		tvCheckoutStep3NoteTitle.setTypeface(Utils.tf);
-		tvCheckoutStep3ProductNameTitle.setTypeface(Utils.tf);
-		tvCheckoutStep3ProductQuantityTitle.setTypeface(Utils.tf);
-		tvCheckoutStep3ProductPriceTitle.setTypeface(Utils.tf);
-		tvCheckoutStep3ProductTotalTitle.setTypeface(Utils.tf);
-		tvCheckoutStep3PaymentMethod.setTypeface(Utils.tf);
-		tvCheckoutStep3PaymentTotalTitle.setTypeface(Utils.tf);
-		tvCheckoutStep3PaymentTotal.setTypeface(Utils.tf);
-
-		loadData();
 	}
 
 	private void loadData() {
@@ -157,8 +112,7 @@ public class Checkout3Activity extends Activity implements WebServiceDelegate {
 	}
 
 	public void btnCheckout3PaymentClick(View view) {
-		TransactionPost transactionPost = new TransactionPost(listTransaction, userInfo, paymentMethod,
-				totalAmount);
+		TransactionPost transactionPost = new TransactionPost(listTransaction, userInfo, paymentMethod, totalAmount);
 		if (WebService.isNetworkAvailable(this)) {
 			WebService ws = new WebService(this);
 			ws.setTransactionDetailRequest(transactionPost);
@@ -178,7 +132,6 @@ public class Checkout3Activity extends Activity implements WebServiceDelegate {
 			if (json.getInt("returnCode") == 0) {
 				TransactionDetailDB db = new TransactionDetailDB(this);
 				db.deleteAll();
-				Utils.isUnbindDrawables = false;
 				Intent intent = new Intent(this, Checkout4Activity.class);
 				startActivity(intent);
 			} else {
@@ -193,15 +146,59 @@ public class Checkout3Activity extends Activity implements WebServiceDelegate {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		Utils.isUnbindDrawables = true;
+
+		setContentView(R.layout.checkout3_layout);
+
+		Log.i("Checkout3Activity - onCreate", "PAYMENT_METHOD: " + getIntent().getIntExtra("PAYMENT_METHOD", 1));
+		paymentMethod = getIntent().getIntExtra("PAYMENT_METHOD", 1);
+
+		tvCheckoutStep1Title = (TextView) findViewById(R.id.tvCheckoutStep1Title);
+		tvCheckoutStep2Title = (TextView) findViewById(R.id.tvCheckoutStep2Title);
+		tvCheckoutStep3Title = (TextView) findViewById(R.id.tvCheckoutStep3Title);
+		tvCheckoutStep4Title = (TextView) findViewById(R.id.tvCheckoutStep4Title);
+
+		tvCheckoutStep3MainTitle = (TextView) findViewById(R.id.tvCheckoutStep3MainTitle);
+		tvCheckoutStep3NameTitle = (TextView) findViewById(R.id.tvCheckoutStep3NameTitle);
+		tvCheckoutStep3Name = (TextView) findViewById(R.id.tvCheckoutStep3Name);
+		tvCheckoutStep3AddressTitle = (TextView) findViewById(R.id.tvCheckoutStep3AddressTitle);
+		tvCheckoutStep3Address = (TextView) findViewById(R.id.tvCheckoutStep3Address);
+		tvCheckoutStep3PhoneTitle = (TextView) findViewById(R.id.tvCheckoutStep3PhoneTitle);
+		tvCheckoutStep3Phone = (TextView) findViewById(R.id.tvCheckoutStep3Phone);
+		tvCheckoutStep3NoteTitle = (TextView) findViewById(R.id.tvCheckoutStep3NoteTitle);
+		tvCheckoutStep3Note = (TextView) findViewById(R.id.tvCheckoutStep3Note);
+		tvCheckoutStep3ProductNameTitle = (TextView) findViewById(R.id.tvCheckoutStep3ProductNameTitle);
+		tvCheckoutStep3ProductQuantityTitle = (TextView) findViewById(R.id.tvCheckoutStep3ProductQuantityTitle);
+		tvCheckoutStep3ProductPriceTitle = (TextView) findViewById(R.id.tvCheckoutStep3ProductPriceTitle);
+		tvCheckoutStep3ProductTotalTitle = (TextView) findViewById(R.id.tvCheckoutStep3ProductTotalTitle);
+		checkout3ListTransaction = (ListView) findViewById(R.id.checkout3ListTransaction);
+		tvCheckoutStep3PaymentMethod = (TextView) findViewById(R.id.tvCheckoutStep3PaymentMethod);
+		tvCheckoutStep3PaymentTotalTitle = (TextView) findViewById(R.id.tvCheckoutStep3PaymentTotalTitle);
+		tvCheckoutStep3PaymentTotal = (TextView) findViewById(R.id.tvCheckoutStep3PaymentTotal);
+
+		tvCheckoutStep1Title.setTypeface(Utils.tf);
+		tvCheckoutStep2Title.setTypeface(Utils.tf);
+		tvCheckoutStep3Title.setTypeface(Utils.tf);
+		tvCheckoutStep4Title.setTypeface(Utils.tf);
+		tvCheckoutStep3MainTitle.setTypeface(Utils.tf);
+		tvCheckoutStep3NameTitle.setTypeface(Utils.tf);
+		tvCheckoutStep3AddressTitle.setTypeface(Utils.tf);
+		tvCheckoutStep3PhoneTitle.setTypeface(Utils.tf);
+		tvCheckoutStep3NoteTitle.setTypeface(Utils.tf);
+		tvCheckoutStep3ProductNameTitle.setTypeface(Utils.tf);
+		tvCheckoutStep3ProductQuantityTitle.setTypeface(Utils.tf);
+		tvCheckoutStep3ProductPriceTitle.setTypeface(Utils.tf);
+		tvCheckoutStep3ProductTotalTitle.setTypeface(Utils.tf);
+		tvCheckoutStep3PaymentMethod.setTypeface(Utils.tf);
+		tvCheckoutStep3PaymentTotalTitle.setTypeface(Utils.tf);
+		tvCheckoutStep3PaymentTotal.setTypeface(Utils.tf);
+
+		loadData();
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
-		if (Utils.isUnbindDrawables) {
-			Utils.unbindDrawables(findViewById(R.id.container));
-		}
+		Utils.unbindDrawables(findViewById(R.id.container));
 		System.gc();
 	}
 }

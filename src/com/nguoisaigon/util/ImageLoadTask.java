@@ -21,7 +21,6 @@ public class ImageLoadTask extends AsyncTask<Void, Void, Bitmap> {
 	 */
 	private static final String TAG = ImageLoadTask.class.getSimpleName();
 
-	public static final String SERVER_URL = "http://rest.itsleek.vn";
 	private String imageUrl, id;
 
 	private ImageView imageView;
@@ -37,12 +36,12 @@ public class ImageLoadTask extends AsyncTask<Void, Void, Bitmap> {
 	 *            the image info
 	 */
 	public ImageLoadTask(ImageInfo imageInfo) {
-		this.imageUrl = SERVER_URL + imageInfo.getImageUrl();
+		this.imageUrl = WebService.SERVER_URL + imageInfo.getImageUrl();
 		this.id = imageInfo.getImageId();
 	}
 
 	public ImageLoadTask(ImageInfo imageInfo, ImageView imageView, ProgressBar downloading, TextView loading) {
-		this.imageUrl = SERVER_URL + imageInfo.getImageUrl();
+		this.imageUrl = WebService.SERVER_URL + imageInfo.getImageUrl();
 		this.id = imageInfo.getImageId();
 		this.imageView = imageView;
 		this.downloading = downloading;

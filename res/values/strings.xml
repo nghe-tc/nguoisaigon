@@ -119,5 +119,8 @@
     <string name="checkout_step3_payment_total_title">Tổng cộng:</string>
     <string name="checkout_step3_payment_total_default">0 đ</string>
     <string name="no_item">Không có sản phẩm trong ngày hôm nay</string>
+    <string name="line_break">-------------------\n</string>
+    <string name="title">Thông tin được chia sẻ từ Người Sài Gòn App.\n</string>
+    <string name="app_url">http://play.google.com/store/apps/details?id=com.nguoisaigon</string>
     
 </resources>
